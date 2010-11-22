@@ -269,7 +269,7 @@
 						break;
 						case 'pagination':
 							// get next from pagination item clicked, convert to number
-							next = parseInt(clicked);
+							next = parseInt(clicked,10);
 							// get previous from pagination item with class of current
 							prev = $('.' + option.paginationClass + ' li.current a', elem).attr('rel');
 							// if next is greater then previous set position of next slide to right of previous
