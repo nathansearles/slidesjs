@@ -63,7 +63,9 @@
 			
 			// make sure overflow is hidden
 			$('.' + option.container, elem).css({
-				overflow: 'hidden'
+				overflow: 'hidden',
+				// fix for ie
+				position: 'relative'
 			});
 			
 			control.css({
