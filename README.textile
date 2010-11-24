@@ -6,17 +6,17 @@ My favorite feature of Slides and main reason for its development is you never s
 
 Give a try and if you have a question or find a bug <a href="http://github.com/nathansearles/slides/issues" target="_blank">hit me up</a> at GitHub or <a href="mailto:nsearles@gmail.com">shoot me an email</a>.
 
-*Full instructions and examples coming very, very soon. Sit tight.*
-
 h2. Info
 
 Developed by "Nathan Searles":mailto:nsearles@gmail.com, "http://nathansearles.com":http://nathansearles.com
 
 For updates, follow Nathan Searles on "Twitter":http://twitter.com/nathansearles
 
-h2. Examples
+Slides is licensed under the "Apache license":http://www.apache.org/licenses/LICENSE-2.0.
 
-* "Example site":http://slidesjs.com/
+h2. Examples and Instructions
+
+* Check out "http://slidesjs.com/":http://slidesjs.com/ for full instructions and examples.
 
 h2. Changelog
 * 1.0 - Initial release
