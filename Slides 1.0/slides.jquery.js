@@ -404,26 +404,26 @@
 	
 	// default options
 	$.fn.slides.option = {
-		preload: false, // boolean, set true to preload image based slideshow
-		preloadImage: '/img/loading.gif', // string, name and locaiton of loading image
-		container: 'slides_container', // string, class name for slides container
-		next: 'next', // string, class name for next button
-		prev: 'prev', // string, class name for previous button
-		pagination: true, // boolean, if you're using pagination
-		generatePagination: true, // boolean, have Slides create the pagination for you
-		paginationClass: 'pagination', // string, class name for pagination
-		fadeSpeed: 350, // number, speed of fading 
-		slideSpeed: 350, // number, speed of sliding
-		start: 1, // number, set which slide you'd like to start with
-		effect: 'slide', // string [next/prev], [pagination], e.g. 'slide, fade' or simply 'fade' for both
-		crossfade: false, // boolean, crossfade works best with images
-		randomize: false, // boolean, set to true to randomize slides
-		play: 0, // number, autoplay slideshow, number will be time on slide
-		pause: 0, // number, pause slideshow, number will be time paused
-		hoverPause: false, // boolean, set to true and hovering over slide show will pause it
-		autoHeight: false, // boolean, auto adjust height
-		autoHeightSpeed: 500, // number, set the speed of auto height animation
-		bigTarget: false // boolean, set to true and the whole slide will link to next slide
+		preload: false, // boolean, Set true to preload images in an image based slideshow
+		preloadImage: '/img/loading.gif', // string, Name and location of loading image for preloader. Default is "/img/loading.gif"
+		container: 'slides_container', // string, Class name for slides container. Default is "slides_container"
+		next: 'next', // string, Class name for next button
+		prev: 'prev', // string, Class name for previous button
+		pagination: true, // boolean, If you're not using pagination you can set to false, but don't have to
+		generatePagination: true, // boolean, Auto generate pagination
+		paginationClass: 'pagination', // string, Class name for pagination
+		fadeSpeed: 350, // number, Set the speed of the fading animation in milliseconds
+		slideSpeed: 350, // number, Set the speed of the sliding animation in milliseconds
+		start: 1, // number, Set the speed of the sliding animation in milliseconds
+		effect: 'slide', // string, '[next/prev], [pagination]', e.g. 'slide, fade' or simply 'fade' for both
+		crossfade: false, // boolean, Crossfade images in a image based slideshow
+		randomize: false, // boolean, Set to true to randomize slides
+		play: 0, // number, Autoplay slideshow, a positive number will set to true and be the time between slide animation in milliseconds
+		pause: 0, // number, Pause slideshow on click of next/prev or pagination. A positive number will set to true and be the time of pause in milliseconds
+		hoverPause: false, // boolean, Set to true and hovering over slideshow will pause it
+		autoHeight: false, // boolean, Set to true to auto adjust height
+		autoHeightSpeed: 350, // number, Set auto height animation time in milliseconds
+		bigTarget: false // boolean, Set to true and the whole slide will link to next slide on click
 	};
 	
 	// Randomize slide order on load
