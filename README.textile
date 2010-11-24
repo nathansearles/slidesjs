@@ -4,7 +4,7 @@ Slides is a crazy simple slideshow plugin for jQuery. It's easy to implement, cu
 
 My favorite feature of Slides and main reason for its development is you never see multiple slides fly by. You get to the end and it loops. You click from slide 1 to 5 and slide 5 just slides in from the right. Awesome.
 
-Give a try and if you have a question or find a bug <a href="http://github.com/nathansearles/slides/issues" target="_blank">hit me up</a> at GitHub or <a href="mailto:nsearles@gmail.com">shoot me an email</a>.
+Give it a try and if you have a question or find a bug <a href="http://github.com/nathansearles/slides/issues" target="_blank">hit me up</a> at GitHub or <a href="mailto:nsearles@gmail.com">shoot me an email</a>.
 
 h2. Info
 
