@@ -2,7 +2,7 @@
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
-* Version: 1.0
+* Version: 1.0.1
 * Updated: November 21st, 2010
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -55,11 +55,6 @@
 			if (option.randomize) {
 				control.randomize();
 			}
-			
-			// set width based on slide width
-			elem.css({ 
-				width: width
-			});
 			
 			// make sure overflow is hidden
 			$('.' + option.container, elem).css({
@@ -151,6 +146,21 @@
 					// on mouse leave start pause timeout
 					pause();
 				});
+			}
+			
+			// generate next/prev buttons
+			if (option.generateNextPrev) {
+				$("<a/>", {
+					href: '#',
+				    className: option.prev,
+					text: 'Prev'
+				}).insertAfter('.' + option.container);	
+						
+				$("<a/>", {
+					href: '#',
+				    className: option.next,
+					text: 'Next'
+				}).insertAfter('.' + option.prev);
 			}
 			
 			// next button
@@ -407,6 +417,7 @@
 		preload: false, // boolean, Set true to preload images in an image based slideshow
 		preloadImage: '/img/loading.gif', // string, Name and location of loading image for preloader. Default is "/img/loading.gif"
 		container: 'slides_container', // string, Class name for slides container. Default is "slides_container"
+		generateNextPrev: false, // boolean, Auto generate next/prev buttons
 		next: 'next', // string, Class name for next button
 		prev: 'prev', // string, Class name for previous button
 		pagination: true, // boolean, If you're not using pagination you can set to false, but don't have to

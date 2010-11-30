@@ -19,4 +19,10 @@ h2. Examples and Instructions
 * Check out "http://slidesjs.com/":http://slidesjs.com/ for full instructions and examples.
 
 h2. Changelog
-* 1.0 - Initial release
+* 1.0.1
+** Added boolean to auto generated Next/Prev buttons
+** Width attribute is no longer set for main element
+** Fixed pagination bug, it was set to false, should be true by default
+
+* 1.0
+** Initial release
