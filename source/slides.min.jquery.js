@@ -3,7 +3,7 @@
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
 * Version: 1.0.1
-* Updated: November 21st, 2010
+* Updated: November 30th, 2010
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
