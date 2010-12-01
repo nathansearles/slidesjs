@@ -19,7 +19,7 @@ Slides is licensed under the "Apache license":http://www.apache.org/licenses/LIC
 h2. Examples and Instructions
 
 * Check out "http://slidesjs.com/":http://slidesjs.com/ for full instructions and examples.
-* The GitHub "http://github.com/nathansearles/slides/zipball/master":download also includes useful examples.
+* The GitHub download also includes useful examples.
 
 h2. Changelog
 * 1.0.2
