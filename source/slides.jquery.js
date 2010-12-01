@@ -2,7 +2,7 @@
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
-* Version: 1.0.1
+* Version: 1.0.2
 * Updated: November 30th, 2010
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -188,6 +188,12 @@
 				// for each slide create a list item and link
 				control.children().each(function(){
 					$('.' + option.paginationClass, elem).append('<li><a rel='+ number +' href="#">'+ (number+1) +'</a></li>');
+					number++;
+				});
+			} else {
+				// if pagination exists, add rel w/ value of item number to links
+				$('.' + option.paginationClass + ' li a').each(function(){
+					$(this).attr('rel', number);
 					number++;
 				});
 			}

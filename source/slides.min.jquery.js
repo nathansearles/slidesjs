@@ -2,7 +2,7 @@
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
-* Version: 1.0.1
+* Version: 1.0.2
 * Updated: November 30th, 2010
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +17,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
+
 (function($){$.fn.slides=function(option){option=$.extend({},$.fn.slides.option,option);return this.each(function(){$('.'+option.container,$(this)).children().wrapAll('<div class="slides_control"/>').children().css({display:'block'});var elem=$(this),control=$('.slides_control',elem),total=control.children().size(),width=control.children().outerWidth(),height=control.children().outerHeight(),start=option.start-1,effect=option.effect.indexOf(',')<0?option.effect:option.effect.replace(' ','').split(',')[0],paginationEffect=option.effect.indexOf(',')<0?effect:option.effect.replace(' ','').split(',')[1],next=0,prev=0,number=0,current=0,loaded,active,clicked,position,direction;if(total<2){return;}
 if(option.start){current=start;};if(option.randomize){control.randomize();}
 $('.'+option.container,elem).css({overflow:'hidden',position:'relative'});control.css({position:'relative',width:(width*3),height:height,left:-width});control.children().css({position:'absolute',top:0,left:width,zIndex:0,display:'none'});if(option.autoHeight){control.animate({height:control.children(':eq('+start+')').outerHeight()},o.autoHeightSpeed);}
@@ -24,7 +25,7 @@ if(option.preload&&control.children()[0].tagName=='IMG'){elem.css({background:'u
 if(option.bigTarget){control.children().css({cursor:'pointer'});control.children().click(function(){animate('next',effect);return false;});}
 if(option.hoverPause&&option.play){control.children().bind('mouseover',function(){stop();});control.children().bind('mouseleave',function(){pause();});}
 if(option.generateNextPrev){$("<a/>",{href:'#',className:option.prev,text:'Prev'}).insertAfter('.'+option.container);$("<a/>",{href:'#',className:option.next,text:'Next'}).insertAfter('.'+option.prev);}
-$('.'+option.next,elem).click(function(e){e.preventDefault();if(option.play){pause();};animate('next',effect);});$('.'+option.prev,elem).click(function(e){e.preventDefault();if(option.play){pause();};animate('prev',effect);});if(option.generatePagination){elem.append('<ul class='+option.paginationClass+'></ul>');control.children().each(function(){$('.'+option.paginationClass,elem).append('<li><a rel='+number+' href="#">'+(number+1)+'</a></li>');number++;});}
+$('.'+option.next,elem).click(function(e){e.preventDefault();if(option.play){pause();};animate('next',effect);});$('.'+option.prev,elem).click(function(e){e.preventDefault();if(option.play){pause();};animate('prev',effect);});if(option.generatePagination){elem.append('<ul class='+option.paginationClass+'></ul>');control.children().each(function(){$('.'+option.paginationClass,elem).append('<li><a rel='+number+' href="#">'+(number+1)+'</a></li>');number++;});}else{$('.'+option.paginationClass+' li a').each(function(){$(this).attr('rel',number);number++;});}
 $('.'+option.paginationClass+' li a:eq('+start+')',elem).parent().addClass('current');$('.'+option.paginationClass+' li a',elem).click(function(){if(option.play){pause();};clicked=$(this).attr('rel');if(current!=clicked){animate('pagination',paginationEffect,clicked);}
 return false;});if(option.play){playInterval=setInterval(function(){animate('next',effect);},option.play);elem.data('interval',playInterval);};function stop(){clearInterval(elem.data('interval'));};function pause(){if(option.pause){clearTimeout(elem.data('pause'));clearInterval(elem.data('interval'));pauseTimeout=setTimeout(function(){clearTimeout(elem.data('pause'));playInterval=setInterval(function(){animate("next",effect);},option.play);elem.data('interval',playInterval);},option.pause);elem.data('pause',pauseTimeout);}else{stop();}};function animate(direction,effect,clicked){if(!active&&loaded){active=true;switch(direction){case'next':prev=current;next=current+1;next=total===next?0:next;position=width*2;direction=-width*2;current=next;break;case'prev':prev=current;next=current-1;next=next===-1?total-1:next;position=0;direction=0;current=next;break;case'pagination':next=parseInt(clicked,10);prev=$('.'+option.paginationClass+' li.current a',elem).attr('rel');if(next>prev){position=width*2;direction=-width*2;}else{position=0;direction=0;}
 current=next;break;}
