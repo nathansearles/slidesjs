@@ -2,6 +2,8 @@ h1. Slides, A Slideshow Plugin for jQuery
 
 Slides is a crazy simple slideshow plugin for jQuery. It's easy to implement, customize and style. What could be better? With features like looping, auto play, fade or slide transition effects, crossfading, image preloading, auto generated pagination, the list goes on.
 
+Check out "http://slidesjs.com/":http://slidesjs.com/ for full instructions and examples.
+
 My favorite feature of Slides and main reason for its development is you never see multiple slides fly by. You get to the end and it loops. You click from slide 1 to 5 and slide 5 just slides in from the right. Awesome.
 
 Give it a try and if you have a question or find a bug <a href="http://github.com/nathansearles/slides/issues" target="_blank">hit me up</a> at GitHub or <a href="mailto:nsearles@gmail.com">shoot me an email</a>.
@@ -17,6 +19,7 @@ Slides is licensed under the "Apache license":http://www.apache.org/licenses/LIC
 h2. Examples and Instructions
 
 * Check out "http://slidesjs.com/":http://slidesjs.com/ for full instructions and examples.
+* The GitHub "http://github.com/nathansearles/slides/zipball/master":download also includes useful examples.
 
 h2. Changelog
 * 1.0.2

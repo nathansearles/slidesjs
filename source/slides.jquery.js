@@ -150,17 +150,8 @@
 			
 			// generate next/prev buttons
 			if (option.generateNextPrev) {
-				$("<a/>", {
-					href: '#',
-				    className: option.prev,
-					text: 'Prev'
-				}).insertAfter('.' + option.container);	
-						
-				$("<a/>", {
-					href: '#',
-				    className: option.next,
-					text: 'Next'
-				}).insertAfter('.' + option.prev);
+				$('.' + option.container, elem).after('<a href="#" class="'+ option.prev +'">Prev</a>');
+				$('.' + option.prev, elem).after('<a href="#" class="'+ option.next +'">Next</a>');
 			}
 			
 			// next button
@@ -192,7 +183,7 @@
 				});
 			} else {
 				// if pagination exists, add rel w/ value of item number to links
-				$('.' + option.paginationClass + ' li a').each(function(){
+				$('.' + option.paginationClass + ' li a', elem).each(function(){
 					$(this).attr('rel', number);
 					number++;
 				});
