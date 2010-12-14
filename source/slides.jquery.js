@@ -27,9 +27,7 @@
 		return this.each(function(){
 			
 			// wrap slides in control container, make sure slides are block level
-			$('.' + option.container, $(this)).children().wrapAll('<div class="slides_control"/>').children().css({
-				display:'block'
-			});
+			$('.' + option.container, $(this)).children().wrapAll('<div class="slides_control"/>');
 			
 			var elem = $(this),
 				control = $('.slides_control',elem),
