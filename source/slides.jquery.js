@@ -84,7 +84,7 @@
 			if (option.autoHeight) {
 				control.animate({
 					height: control.children(':eq('+ start +')').outerHeight()
-				},o.autoHeightSpeed);
+				},option.autoHeightSpeed);
 			}
 			
 			// checks if image is loaded
