@@ -325,7 +325,7 @@
 									}, option.autoHeightSpeed,
 									// fade in next slide
 									function(){
-										control.children(':eq('+ next +')', elem).fadeIn(elem.data('slides').fadeSpeed);
+										control.children(':eq('+ next +')', elem).fadeIn(option.fadeSpeed);
 									});
 								} else {
 								// if fixed height
