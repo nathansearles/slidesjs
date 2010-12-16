@@ -2,8 +2,8 @@
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
-* Version: 1.0.2
-* Updated: November 30th, 2010
+* Version: 1.0.3
+* Updated: December 16th, 2010
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -295,6 +295,7 @@
 					
 					// fade animation
 					if (effect === 'fade') {
+						option.animationStart();
 						// fade animation with crossfade
 						if (option.crossfade) {
 							// put hidden next above current
@@ -312,9 +313,11 @@
 									zIndex: 0
 								});
 								// end of animation
+								option.animationComplete();
 								active = false;
 							});
 						} else {
+							option.animationStart();
 							// fade animation with no crossfade
 							control.children(':eq('+ prev +')', elem).fadeOut(option.fadeSpeed,function(){
 								// animate to new height
@@ -337,6 +340,7 @@
 									});
 								}									
 								// end of animation
+								option.animationComplete();
 								active = false;
 							});
 						}
@@ -349,6 +353,7 @@
 						});
 						// animate to new height
 						if (option.autoHeight) {
+							option.animationStart();
 							control.animate({
 								left: direction,
 								height: control.children(':eq('+ next +')').outerHeight()
@@ -367,34 +372,37 @@
 									zIndex: 0
 								});
 								// end of animation
+								option.animationComplete();
 								active = false;
 							});
-						// if fixed height
-						} else {
-							// animate control
-							control.animate({
-								left: direction
-							},option.slideSpeed,function(){
-								// after animation reset control position
-								control.css({
-									left: -width
+							// if fixed height
+							} else {
+								option.animationStart();
+								// animate control
+								control.animate({
+									left: direction
+								},option.slideSpeed,function(){
+									// after animation reset control position
+									control.css({
+										left: -width
+									});
+									// reset and show next
+									control.children(':eq('+ next +')').css({
+										left: width,
+										zIndex: 5
+									});
+									// reset previous slide
+									control.children(':eq('+ prev +')').css({
+										left: width,
+										display: 'none',
+										zIndex: 0
+									});
+									// end of animation
+									option.animationComplete();
+									active = false;
 								});
-								// reset and show next
-								control.children(':eq('+ next +')').css({
-									left: width,
-									zIndex: 5
-								});
-								// reset previous slide
-								control.children(':eq('+ prev +')').css({
-									left: width,
-									display: 'none',
-									zIndex: 0
-								});
-								// end of animation
-								active = false;
-							});
+							}
 						}
-					}
 					// set current state for pagination
 					if (option.pagination) {
 						// remove current class from all
@@ -429,7 +437,9 @@
 		hoverPause: false, // boolean, Set to true and hovering over slideshow will pause it
 		autoHeight: false, // boolean, Set to true to auto adjust height
 		autoHeightSpeed: 350, // number, Set auto height animation time in milliseconds
-		bigTarget: false // boolean, Set to true and the whole slide will link to next slide on click
+		bigTarget: false, // boolean, Set to true and the whole slide will link to next slide on click
+		animationStart: function(){}, // Function called at the start of slide animation
+		animationComplete: function(){} // Function called at the completion of slide animation
 	};
 	
 	// Randomize slide order on load
