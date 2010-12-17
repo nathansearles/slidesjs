@@ -438,8 +438,8 @@
 		autoHeight: false, // boolean, Set to true to auto adjust height
 		autoHeightSpeed: 350, // number, Set auto height animation time in milliseconds
 		bigTarget: false, // boolean, Set to true and the whole slide will link to next slide on click
-		animationStart: function(){}, // Function called at the start of slide animation
-		animationComplete: function(){} // Function called at the completion of slide animation
+		animationStart: function(){}, // Function called at the start of animation
+		animationComplete: function(){} // Function called at the completion of animation
 	};
 	
 	// Randomize slide order on load
