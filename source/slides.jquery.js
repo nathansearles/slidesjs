@@ -2,8 +2,8 @@
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
-* Version: 1.0.3
-* Updated: December 16th, 2010
+* Version: 1.0.4
+* Updated: December 20th, 2010
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -43,6 +43,15 @@
 			if (total < 2) {
 				return;
 			}
+			
+			// error corection for start slide
+			if (start < 0) {
+				start = 0;
+			};
+			
+			if (start > total) {
+				start = total - 1;
+			};
 					
 			// change current based on start option number
 			if (option.start) {
@@ -114,7 +123,7 @@
 				});
 			} else {
 				// if no preloader fade in start slide
-				control.find(':eq(' + start + ')').fadeIn(option.fadeSpeed,function(){
+				control.children(':eq(' + start + ')').fadeIn(option.fadeSpeed,function(){
 					// let the script know everything is loaded
 					loaded = true;
 				});
