@@ -22,9 +22,12 @@ h2. Examples and Instructions
 * The GitHub download also includes useful examples.
 
 h2. Changelog
+* 1.0.5
+** New: Current slide number passed to animationComplete()
+
 * 1.0.4
 ** Fixed: start option bug
-** Added: error correction for start option
+** New: error correction for start option
 
 * 1.0.3
 ** Fixed: bugs related to auto height
@@ -34,7 +37,7 @@ h2. Changelog
 ** Fixed: bug with static pagination
 
 * 1.0.1
-** Added: boolean to auto generated Next/Prev buttons
+** New: boolean to auto generated Next/Prev buttons
 ** Width attribute is no longer set for main element
 ** Fixed: pagination bug, it was set to false, should be true by default
 
