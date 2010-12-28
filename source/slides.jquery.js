@@ -2,8 +2,8 @@
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
-* Version: 1.0.5
-* Updated: December 26th, 2010
+* Version: 1.0.6
+* Updated: December 28th, 2010
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -196,7 +196,7 @@
 				});
 			}
 			// add current class to start slide pagination
-			$('.' + option.paginationClass + ' li a:eq('+ start +')', elem).parent().addClass('current');
+			$('.' + option.paginationClass + ' li a[rel='+ next +']', elem).parent().addClass('current');
 			// click handling 
 			$('.' + option.paginationClass + ' li a', elem ).click(function(){
 				// pause slideshow
@@ -417,7 +417,7 @@
 						// remove current class from all
 						$('.'+ option.paginationClass +' li.current', elem).removeClass('current');
 						// add current class to next
-						$('.'+ option.paginationClass +' li a:eq('+ next +')', elem).parent().addClass('current');
+						$('.'+ option.paginationClass +' li a[rel='+ next +']', elem).parent().addClass('current');
 					}
 				}
 			}; // end animate function
