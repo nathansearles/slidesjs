@@ -22,6 +22,11 @@ h2. Examples and Instructions
 * The GitHub download also includes useful examples.
 
 h2. Changelog
+* 1.0.7
+** New: Link to a slide from a slide. Check out /examples/Linking/ in the download
+** New: Deeplinking example added. Check out /examples/Linking/ in the download
+** Changed: Pagination no longer uses rel attribute, it now just uses href with hash
+
 * 1.0.6
 ** Changed: Pagination now targets the rel attribute versus using :eq()
 

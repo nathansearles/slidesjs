@@ -2,7 +2,7 @@
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
-* Version: 1.0.6
+* Version: 1.0.7
 * Updated: December 29th, 2010
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -185,18 +185,20 @@
 				elem.append('<ul class='+ option.paginationClass +'></ul>');
 				// for each slide create a list item and link
 				control.children().each(function(){
-					$('.' + option.paginationClass, elem).append('<li><a rel='+ number +' href="#">'+ (number+1) +'</a></li>');
+					$('.' + option.paginationClass, elem).append('<li><a href="#'+ number +'">'+ (number+1) +'</a></li>');
 					number++;
 				});
 			} else {
-				// if pagination exists, add rel w/ value of item number to links
+				// if pagination exists, add href w/ value of item number to links
 				$('.' + option.paginationClass + ' li a', elem).each(function(){
-					$(this).attr('rel', number);
+					$(this).attr('href', '#' + number);
 					number++;
 				});
 			}
+			
 			// add current class to start slide pagination
-			$('.' + option.paginationClass + ' li a[rel='+ start +']', elem).parent().addClass('current');
+			$('.' + option.paginationClass + ' li a[href=#'+ start +']', elem).parent().addClass('current');
+			
 			// click handling 
 			$('.' + option.paginationClass + ' li a', elem ).click(function(){
 				// pause slideshow
@@ -204,7 +206,22 @@
 					 pause();
 				};
 				// get clicked, pass to animate function					
-				clicked = $(this).attr('rel');
+				clicked = $(this).attr('href').replace('#','');
+				// if current slide equals clicked, don't do anything
+				if (current != clicked) {
+					animate('pagination', paginationEffect, clicked);
+				}
+				return false;
+			});
+			
+			// click handling 
+			$('a.link', elem).click(function(){
+				// pause slideshow
+				if (option.play) {
+					 pause();
+				};
+				// get clicked, pass to animate function					
+				clicked = $(this).attr('href').replace('#','') - 1;
 				// if current slide equals clicked, don't do anything
 				if (current != clicked) {
 					animate('pagination', paginationEffect, clicked);
@@ -287,7 +304,7 @@
 							// get next from pagination item clicked, convert to number
 							next = parseInt(clicked,10);
 							// get previous from pagination item with class of current
-							prev = $('.' + option.paginationClass + ' li.current a', elem).attr('rel');
+							prev = $('.' + option.paginationClass + ' li.current a', elem).attr('href').replace('#','');
 							// if next is greater then previous set position of next slide to right of previous
 							if (next > prev) {
 								position = width*2;
@@ -417,7 +434,7 @@
 						// remove current class from all
 						$('.'+ option.paginationClass +' li.current', elem).removeClass('current');
 						// add current class to next
-						$('.'+ option.paginationClass +' li a[rel='+ next +']', elem).parent().addClass('current');
+						$('.'+ option.paginationClass +' li a[href=#'+ next +']', elem).parent().addClass('current');
 					}
 				}
 			}; // end animate function
