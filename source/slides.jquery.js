@@ -3,7 +3,7 @@
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
 * Version: 1.0.6
-* Updated: December 28th, 2010
+* Updated: December 29th, 2010
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -196,7 +196,7 @@
 				});
 			}
 			// add current class to start slide pagination
-			$('.' + option.paginationClass + ' li a[rel='+ next +']', elem).parent().addClass('current');
+			$('.' + option.paginationClass + ' li a[rel='+ start +']', elem).parent().addClass('current');
 			// click handling 
 			$('.' + option.paginationClass + ' li a', elem ).click(function(){
 				// pause slideshow
