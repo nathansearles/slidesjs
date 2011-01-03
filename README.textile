@@ -22,6 +22,9 @@ h2. Examples and Instructions
 * The GitHub download also includes useful examples.
 
 h2. Changelog
+* 1.0.8
+** Fixed: IE6/7 JavaScript error related to the pagination
+
 * 1.0.7
 ** New: Link to a slide from a slide. Check out /examples/Linking/ in the download
 ** New: Deeplinking example added. Check out /examples/Linking/ in the download

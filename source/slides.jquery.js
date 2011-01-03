@@ -2,8 +2,8 @@
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
-* Version: 1.0.7
-* Updated: December 29th, 2010
+* Version: 1.0.8
+* Updated: January 2nd, 2011
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -197,7 +197,7 @@
 			}
 			
 			// add current class to start slide pagination
-			$('.' + option.paginationClass + ' li a[href=#'+ start +']', elem).parent().addClass('current');
+			$('.' + option.paginationClass + ' li:eq('+ start +')', elem).addClass('current');
 			
 			// click handling 
 			$('.' + option.paginationClass + ' li a', elem ).click(function(){
@@ -206,7 +206,7 @@
 					 pause();
 				};
 				// get clicked, pass to animate function					
-				clicked = $(this).attr('href').replace('#','');
+				clicked = $(this).attr('href').match('[^#/]+$');
 				// if current slide equals clicked, don't do anything
 				if (current != clicked) {
 					animate('pagination', paginationEffect, clicked);
@@ -221,7 +221,7 @@
 					 pause();
 				};
 				// get clicked, pass to animate function					
-				clicked = $(this).attr('href').replace('#','') - 1;
+				clicked = $(this).attr('href').match('[^#/]+$') - 1;
 				// if current slide equals clicked, don't do anything
 				if (current != clicked) {
 					animate('pagination', paginationEffect, clicked);
@@ -304,7 +304,7 @@
 							// get next from pagination item clicked, convert to number
 							next = parseInt(clicked,10);
 							// get previous from pagination item with class of current
-							prev = $('.' + option.paginationClass + ' li.current a', elem).attr('href').replace('#','');
+							prev = $('.' + option.paginationClass + ' li.current a', elem).attr('href').match('[^#/]+$');
 							// if next is greater then previous set position of next slide to right of previous
 							if (next > prev) {
 								position = width*2;
@@ -434,7 +434,7 @@
 						// remove current class from all
 						$('.'+ option.paginationClass +' li.current', elem).removeClass('current');
 						// add current class to next
-						$('.'+ option.paginationClass +' li a[href=#'+ next +']', elem).parent().addClass('current');
+						$('.' + option.paginationClass + ' li:eq('+ next +')', elem).addClass('current');
 					}
 				}
 			}; // end animate function
