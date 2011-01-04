@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	
+	<title>Slides, A Slideshow Plugin for jQuery</title>
+	
+	<script src="js/jquery-1.4.4.min.js"></script>
+	<script src="js/slides.min.jquery.js"></script>
+	
+	<script>
+		$(function(){
+			$('#slides').slides({
+				preload: true,
+				generateNextPrev: true
+			});
+		});
+	</script>
+	
+	<style type="text/css" media="screen">
+		.slides_container {
+			width:570px;
+			height:270px;
+		}
+		
+		.slides_container div {
+			width:570px;
+		}
+		
+		/* the following is just for example */
+		.pagination .current a {
+			color:red;
+		}
+	</style>
+</head>
+<body>
+	<div id="slides">
+		<div class="slides_container">
+			<div>
+				<h1>Slide 1</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			</div>
+			<div>
+				<h1>Slide 2</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			</div>
+			<div>
+				<h1>Slide 3</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			</div>
+			<div>
+				<h1>Slide 4</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
