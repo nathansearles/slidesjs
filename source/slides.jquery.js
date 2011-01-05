@@ -2,8 +2,8 @@
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
-* Version: 1.0.8
-* Updated: January 2nd, 2011
+* Version: 1.0.9
+* Updated: January 4th, 2011
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -70,6 +70,7 @@
 				position: 'relative'
 			});
 			
+			// set css for control div
 			control.css({
 				position: 'relative',
 				// size of control 3 x slide width
@@ -80,7 +81,7 @@
 				left: -width
 			});
 			
-			// set css for slides	
+			// set css for slides
 			control.children().css({
 				position: 'absolute',
 				top: 0, 
@@ -329,18 +330,38 @@
 								zIndex: 10
 							// fade in next
 							}).fadeIn(option.fadeSpeed, function(){
-								// hide previous
-								control.children(':eq('+ prev +')', elem).css({
-									display: 'none',
-									zIndex: 0
-								});
-								// reset z index
-								$(this).css({
-									zIndex: 0
-								});
-								// end of animation
-								option.animationComplete(next + 1);
-								active = false;
+								if (option.autoHeight) {
+									// animate container to height of next
+									control.animate({
+										height: control.children(':eq('+ next +')', elem).outerHeight()
+									}, option.autoHeightSpeed, function(){
+										// hide previous
+										control.children(':eq('+ prev +')', elem).css({
+											display: 'none',
+											zIndex: 0
+										});								
+										// reset z index
+										control.children(':eq('+ next +')', elem).css({
+											zIndex: 0
+										});									
+										// end of animation
+										option.animationComplete(next + 1);
+										active = false;
+									});
+								} else {
+									// hide previous
+									control.children(':eq('+ prev +')', elem).css({
+										display: 'none',
+										zIndex: 0
+									});									
+									// reset zindex
+									control.children(':eq('+ next +')', elem).css({
+										zIndex: 0
+									});									
+									// end of animation
+									option.animationComplete(next + 1);
+									active = false;
+								}
 							});
 						} else {
 							option.animationStart();

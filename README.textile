@@ -22,6 +22,9 @@ h2. Examples and Instructions
 * The GitHub download also includes useful examples.
 
 h2. Changelog
+* 1.0.9
+** Fixed: Using fade effect, crossfade and autoheight now works properly
+
 * 1.0.8
 ** Fixed: IE6/7 JavaScript error related to the pagination
 
