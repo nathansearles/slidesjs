@@ -23,12 +23,12 @@ h2. Examples and Instructions
 These examples are also included in the download.
 
 * "http://slidesjs.com/":http://slidesjs.com/
-* "http://slidesjs.com/examples/images-with-captions/":Images with captions
-* "http://slidesjs.com/examples/linking/":Linking
-* "http://slidesjs.com/examples/product/":Product
-* "http://slidesjs.com/examples/multiple/":Multiple slideshows
-* "http://slidesjs.com/examples/simple/":Simple (unstyled)
-* "http://slidesjs.com/examples/standard/":Standard
+* "Images with captions":http://slidesjs.com/examples/images-with-captions/
+* "Linking":http://slidesjs.com/examples/linking/
+* "Product":http://slidesjs.com/examples/product/
+* "Multiple slideshows":http://slidesjs.com/examples/multiple/
+* "Simple (unstyled)":http://slidesjs.com/examples/simple/
+* "Standard":http://slidesjs.com/examples/standard/
 
 h2. Upcoming
 Here's a list of soon to be added features. If you have a feature request let me know by either submitting an <a href="http://github.com/nathansearles/slides/issues">issue</a> or <a href="mailto:nsearles@gmail.com">by email</a>.
