@@ -36,7 +36,7 @@ Here's a list of soon to be added features. If you have a feature request let me
 
 * New: Play/pause button
 * New: Auto centered pagination
-* Fix: Fix for IE flicker issue
+* Fix: IE flicker issue
 * New: Tutorial on how to create a custom slideshow using Slides
 
 h2. Changelog
