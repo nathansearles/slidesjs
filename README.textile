@@ -31,6 +31,7 @@ These examples are also included in the download.
 * "Standard":http://slidesjs.com/examples/standard/
 
 h2. Upcoming
+
 Here's a list of soon to be added features. If you have a feature request let me know by either submitting an <a href="http://github.com/nathansearles/slides/issues">issue</a> or <a href="mailto:nsearles@gmail.com">by email</a>.
 
 * New: Play/pause button
@@ -39,6 +40,7 @@ Here's a list of soon to be added features. If you have a feature request let me
 * New: Tutorial on how to create a custom slideshow using Slides
 
 h2. Changelog
+
 * 1.1.0
 ** Fixed: Issue with images and captions example in IE6/7
 
