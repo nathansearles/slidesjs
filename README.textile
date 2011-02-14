@@ -36,11 +36,17 @@ Here's a list of soon to be added features. If you have a feature request let me
 
 * New: Play/pause button
 * New: Auto centered pagination
-* Fix: IE flicker issue
 * New: Tutorial on how to create a custom slideshow using Slides
-* Fix: autoHeight refresh bug
+* New: Easing support
 
 h2. Changelog
+* 1.1.1
+** New: Width and height is now a required attribute
+*** This fixes numerous issues with blank slides and height
+** New: Rewrote image loading
+*** Now supports multiple parent elements
+*** Fixed other minor bugs
+** Fixed: Images should no longer flicker in IE
 
 * 1.1.0
 ** Fixed: Issue with images and captions example in IE6/7

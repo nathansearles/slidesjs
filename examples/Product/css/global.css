@@ -12,6 +12,9 @@ caption,th,td { text-align:left; font-weight:normal; }
 blockquote:before,blockquote:after,q:before,q:after { content:""; }
 blockquote,q { quotes:"" ""; }
 
+/*
+	Page style
+*/
 body { 
 	font:normal 62.5%/1.5 Helvetica, Arial, sans-serif;
 	letter-spacing:0;
@@ -37,9 +40,26 @@ body {
 	position:relative;
 }
 
+/*
+	Slideshow
+*/
+
 #products {
 	margin-left:26px;
 }
+
+#products .slides_container {
+	width:366px;
+	height:274px;
+	overflow:hidden;
+	float:left;
+	position:relative;
+	border:1px solid #dfdfdf;
+}
+
+/*
+	Next/prev buttons
+*/
 
 #products .next,#products .prev {
 	position:absolute;
@@ -52,6 +72,7 @@ body {
 	display:block;
 	z-index:101;
 }
+
 #products .prev {
 	background:url(../img/arrow-prev.png);
 }
@@ -61,14 +82,9 @@ body {
 	background:url(../img/arrow-next.png);
 }
 
-#products .slides_container {
-	width:366px;
-	height:274px;
-	overflow:hidden;
-	float:left;
-	position:relative;
-	border:1px solid #dfdfdf;
-}
+/*
+	Pagination
+*/
 
 #products .pagination {
 	background:#dfdfdf;
@@ -84,6 +100,7 @@ body {
 #products .pagination li {
 	float:left;
 	margin:2px 4px;
+	list-style:none;
 }
 
 #products .pagination li a {
@@ -100,6 +117,10 @@ body {
 	margin:0;
 }
 
+/*
+	Footer
+*/
+
 #footer {
 	clear:both;
 	text-align:center;
@@ -113,6 +134,10 @@ body {
 	margin:4.5px 0;
 	font-size:1.0em;
 }
+
+/*
+	Anchors
+*/
 
 a:link,a:visited {
 	color:#599100;

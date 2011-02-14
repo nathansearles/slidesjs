@@ -5,7 +5,7 @@
 	
 	<title>Slides, A Slideshow Plugin for jQuery</title>
 	
-	<script src="js/jquery-1.4.4.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
 	<script src="js/slides.min.jquery.js"></script>
 	<script>
 		$(function(){
@@ -17,6 +17,8 @@
 			}
 			// Initialize Slides
 			$('#slides').slides({
+				width: 570,
+				height: 270,
 				preload: true,
 				preloadImage: 'img/loading.gif',
 				generatePagination: true,

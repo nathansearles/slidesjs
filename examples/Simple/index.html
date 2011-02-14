@@ -5,12 +5,14 @@
 	
 	<title>Slides, A Slideshow Plugin for jQuery</title>
 	
-	<script src="js/jquery-1.4.4.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
 	<script src="js/slides.min.jquery.js"></script>
 	
 	<script>
 		$(function(){
 			$('#slides').slides({
+				width: 470,
+				height: 170,
 				preload: true,
 				generateNextPrev: true
 			});
@@ -18,16 +20,6 @@
 	</script>
 	
 	<style type="text/css" media="screen">
-		.slides_container {
-			width:570px;
-			height:270px;
-		}
-		
-		.slides_container div {
-			width:570px;
-		}
-		
-		/* the following is just for example */
 		.pagination .current a {
 			color:red;
 		}

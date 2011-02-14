@@ -2,8 +2,8 @@
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
-* Version: 1.0.9
-* Updated: January 4th, 2011
+* Version: 1.1.1
+* Updated: February 13th, 2011
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -20,25 +20,23 @@
 
 (function($){
 	$.fn.slides = function( option ) {
-
 		// override defaults with specified option
 		option = $.extend( {}, $.fn.slides.option, option );
 
 		return this.each(function(){
-			
 			// wrap slides in control container, make sure slides are block level
 			$('.' + option.container, $(this)).children().wrapAll('<div class="slides_control"/>');
 			
 			var elem = $(this),
 				control = $('.slides_control',elem),
 				total = control.children().size(),
-				width = control.children().outerWidth(),
-				height = control.children().outerHeight(),
+				width = option.width,
+				height = option.height,
 				start = option.start - 1,
 				effect = option.effect.indexOf(',') < 0 ? option.effect : option.effect.replace(' ', '').split(',')[0],
 				paginationEffect = option.effect.indexOf(',') < 0 ? effect : option.effect.replace(' ', '').split(',')[1],
-				next = 0, prev = 0, number = 0, current = 0, loaded, active, clicked, position, direction;	
-				
+				next = 0, prev = 0, number = 0, current = 0, loaded, active, clicked, position, direction, imageParent;
+
 			// 2 or more slides required
 			if (total < 2) {
 				return;
@@ -63,9 +61,10 @@
 				control.randomize();
 			}
 			
-			// make sure overflow is hidden
+			// make sure overflow is hidden, width is set
 			$('.' + option.container, elem).css({
 				overflow: 'hidden',
+				width: width,
 				// fix for ie
 				position: 'relative'
 			});
@@ -83,13 +82,14 @@
 			
 			// set css for slides
 			control.children().css({
+				width: width,
 				position: 'absolute',
 				top: 0, 
 				left: width,
 				zIndex: 0,
 				display: 'none'
 			 });
-			
+
 			// if autoHeight true, get and set height of first slide
 			if (option.autoHeight) {
 				control.animate({
@@ -98,19 +98,28 @@
 			}
 			
 			// checks if image is loaded
-			if (option.preload && control.children()[0].tagName=='IMG') {
+			if (option.preload && control.find('img').length) {
 				// adds preload image
-				elem.css({
+				$('.' + option.container, elem).css({
 					background: 'url(' + option.preloadImage + ') no-repeat 50% 50%'
 				});
 				
 				// gets image src, with cache buster
-				var img = $('img:eq(' + start + ')', elem).attr('src') + '?' + (new Date()).getTime();
+				var img = control.find('img:eq(' + start + ')').attr('src') + '?' + (new Date()).getTime();
 				
+				// check if the image has a parent
+				if ($('img', elem).parent().attr('class') != 'slides_control') {
+					// If image has parent, get tag name
+					imageParent = control.children(':eq(0)')[0].tagName.toLowerCase();
+				} else {
+					// Image doesn't have parent, use image tag name
+					imageParent = control.find('img:eq(' + start + ')');
+				}
+
 				// checks if image is loaded
-				$('img:eq(' + start + ')', elem).attr('src', img).load(function() {
+				control.find('img:eq(' + start + ')').attr('src', img).load(function() {
 					// once image is fully loaded, fade in
-					$(this).fadeIn(option.fadeSpeed,function(){
+					control.find(imageParent + ':eq(' + start + ')').fadeIn(option.fadeSpeed,function(){
 						$(this).css({
 							zIndex: 5
 						});
@@ -464,6 +473,8 @@
 	
 	// default options
 	$.fn.slides.option = {
+		width: 570, // number, width of slideshow
+		height: 270, // number, starting hight of slideshow
 		preload: false, // boolean, Set true to preload images in an image based slideshow
 		preloadImage: '/img/loading.gif', // string, Name and location of loading image for preloader. Default is "/img/loading.gif"
 		container: 'slides_container', // string, Class name for slides container. Default is "slides_container"

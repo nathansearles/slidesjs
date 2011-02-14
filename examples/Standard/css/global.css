@@ -12,6 +12,10 @@ caption,th,td { text-align:left; font-weight:normal; }
 blockquote:before,blockquote:after,q:before,q:after { content:""; }
 blockquote,q { quotes:"" ""; }
 
+/*
+	Page style
+*/
+
 body { 
 	font:normal 62.5%/1.5 Helvetica, Arial, sans-serif;
 	letter-spacing:0;
@@ -53,12 +57,27 @@ body {
 	left:-80px;
 }
 
+/*
+	Slideshow
+*/
+
 #slides {
 	position:absolute;
 	top:15px;
 	left:4px;
 	z-index:100;
 }
+
+.slides_container {
+	width:570px;
+	height:270px;
+	overflow:hidden;
+	position:relative;
+}
+
+/*
+	Next/prev buttons
+*/
 
 #slides .next,#slides .prev {
 	position:absolute;
@@ -70,16 +89,13 @@ body {
 	z-index:101;
 }
 
-.slides_container {
-	width:570px;
-	height:270px;
-	overflow:hidden;
-	position:relative;
-}
-
 #slides .next {
 	left:585px;
 }
+
+/*
+	Pagination
+*/
 
 .pagination {
 	margin:26px auto 0;
@@ -89,6 +105,7 @@ body {
 .pagination li {
 	float:left;
 	margin:0 1px;
+	list-style:none;
 }
 
 .pagination li a {
@@ -106,6 +123,10 @@ body {
 	background-position:0 -12px;
 }
 
+/*
+	Footer
+*/
+
 #footer {
 	text-align:center;
 	width:580px;
@@ -118,6 +139,10 @@ body {
 	margin:4.5px 0;
 	font-size:1.0em;
 }
+
+/*
+	Anchors
+*/
 
 a:link,a:visited {
 	color:#599100;
