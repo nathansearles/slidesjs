@@ -68,11 +68,32 @@ body {
 	z-index:100;
 }
 
+/*
+	Slides container
+	Important:
+	Set the width of your slides container
+	Set to display none, prevents content flash
+*/
+
 .slides_container {
 	width:570px;
-	height:270px;
 	overflow:hidden;
 	position:relative;
+	display:none;
+}
+
+/*
+	Each slide
+	Important:
+	Set the width of your slides
+	If height not specified height will be set by the slide content
+	Set to display block
+*/
+
+.slides_container a {
+	width:570px;
+	height:270px;
+	display:block;
 }
 
 /*

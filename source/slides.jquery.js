@@ -2,8 +2,8 @@
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
-* Version: 1.1.1
-* Updated: February 13th, 2011
+* Version: 1.1.2
+* Updated: February 14th, 2011
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -30,8 +30,8 @@
 			var elem = $(this),
 				control = $('.slides_control',elem),
 				total = control.children().size(),
-				width = option.width,
-				height = option.height,
+				width = control.children().outerWidth(),
+				height = control.children().outerHeight(),
 				start = option.start - 1,
 				effect = option.effect.indexOf(',') < 0 ? option.effect : option.effect.replace(' ', '').split(',')[0],
 				paginationEffect = option.effect.indexOf(',') < 0 ? effect : option.effect.replace(' ', '').split(',')[1],
@@ -64,10 +64,18 @@
 			// make sure overflow is hidden, width is set
 			$('.' + option.container, elem).css({
 				overflow: 'hidden',
-				width: width,
 				// fix for ie
 				position: 'relative'
 			});
+			
+			// set css for slides
+			control.children().css({
+				position: 'absolute',
+				top: 0, 
+				left: control.children().outerWidth(),
+				zIndex: 0,
+				display: 'none'
+			 });
 			
 			// set css for control div
 			control.css({
@@ -80,18 +88,16 @@
 				left: -width
 			});
 			
-			// set css for slides
-			control.children().css({
-				width: width,
-				position: 'absolute',
-				top: 0, 
-				left: width,
-				zIndex: 0,
-				display: 'none'
-			 });
+			// show slides
+			$('.' + option.container, elem).css({
+				display: 'block'
+			});
 
 			// if autoHeight true, get and set height of first slide
 			if (option.autoHeight) {
+				control.children().css({
+					height: 'auto'
+				});
 				control.animate({
 					height: control.children(':eq('+ start +')').outerHeight()
 				},option.autoHeightSpeed);
@@ -473,8 +479,6 @@
 	
 	// default options
 	$.fn.slides.option = {
-		width: 570, // number, width of slideshow
-		height: 270, // number, starting hight of slideshow
 		preload: false, // boolean, Set true to preload images in an image based slideshow
 		preloadImage: '/img/loading.gif', // string, Name and location of loading image for preloader. Default is "/img/loading.gif"
 		container: 'slides_container', // string, Class name for slides container. Default is "slides_container"

@@ -60,13 +60,36 @@ body {
 	z-index:100;
 }
 
+/*
+	Slides container
+	Important:
+	Set the width of your slides container
+	If height not specified height will be set by the slide content
+	Set to display none, prevents content flash
+*/
+
 .slides_container {
+	width:570px;
+	height:270px;
 	overflow:hidden;
 	position:relative;
+	display:none;
 }
 
+/*
+	Each slide
+	Important:
+	Set the width of your slides
+	Offeset for the 20px of padding
+	If height not specified height will be set by the slide content
+	Set to display block
+*/
+
 #slides .slide {
-	padding:20px;	
+	padding:20px;
+	width:530px;
+	height:230px;
+	display:block;
 }
 
 /*

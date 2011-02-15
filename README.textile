@@ -40,6 +40,12 @@ Here's a list of soon to be added features. If you have a feature request let me
 * New: Easing support
 
 h2. Changelog
+* 1.1.2
+** Changed: Width and Height is set in the CSS rather then the JavaScript
+** New: Added some helpful comments to example CSS
+** Fixed: Flash of slide content in IE
+** Updated: Better loading structure
+
 * 1.1.1
 ** New: Width and height is now a required attribute
 *** This fixes numerous issues with blank slides and height

@@ -11,20 +11,14 @@
 	<script>
 		$(function(){
 			$('#slides').slides({
-				width: 570,
-				height: 270,
 				generateNextPrev: true,
 				play: 2500
 			});
 			$('#slides_two').slides({
-				width: 250,
-				height: 250,
 				generateNextPrev: true,
 				play: 4500
 			});
 			$('#slides_three').slides({
-				width: 200,
-				height: 100,
 				generateNextPrev: true,
 				play: 6500,
 				autoHeight: true
@@ -54,7 +48,85 @@
 	</script>
 	
 	<style type="text/css" media="screen">
-		/* the following is just for example */
+		/*
+			Slides container
+			Important:
+			Set the width of your slides container
+			Set to display none, prevents content flash
+		*/
+		#slides .slides_container {
+			width:570px;
+			height:170px;
+			display:none;
+		}
+
+		/*
+			Each slide
+			Important:
+			Set the width of your slides
+			If height not specified height will be set by the slide content
+			Set to display block
+		*/
+		
+		#slides .slides_container div {
+			width:570px;
+			height:170px;
+			display:block;
+		}
+		
+		/*
+			Slides container
+			Important:
+			Set the width of your slides container
+			Set to display none, prevents content flash
+		*/
+		#slides_two .slides_container {
+			width:250px;
+			display:none;
+		}
+
+		/*
+			Each slide
+			Important:
+			Set the width of your slides
+			If height not specified height will be set by the slide content
+			Set to display block
+		*/
+		
+		#slides_two .slides_container div {
+			width:250px;
+			height:250px;
+			display:block;
+		}
+		
+		/*
+			Slides container
+			Important:
+			Set the width of your slides container
+			Set to display none, prevents content flash
+		*/
+		#slides_three .slides_container {
+			width:200px;
+			display:none;
+		}
+
+		/*
+			Each slide
+			Important:
+			Set the width of your slides
+			If height not specified height will be set by the slide content
+			Set to display block
+		*/
+		
+		#slides_three .slides_container div {
+			width:200px;
+			height:100px;
+			display:block;
+		}
+		
+		/* 
+			Example only
+		*/
 		.pagination .current a {
 			color:red;
 		}
