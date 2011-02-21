@@ -38,9 +38,14 @@ Here's a list of soon to be added features. If you have a feature request let me
 * New: Play/pause button
 * New: Auto centered pagination
 * New: Tutorial on how to create a custom slideshow using Slides
-* New: Easing support
 
 h2. Changelog
+
+*1.1.3
+** New: Support for jQuery's easing plugin
+*** Added: fadeEasing and slideEasing defaults
+** Cleaned up JavaScript using http://jshint.com
+** Fixed: Minor bug with hoverPause
 
 * 1.1.2
 ** Changed: Width and Height is set in the CSS rather then the JavaScript

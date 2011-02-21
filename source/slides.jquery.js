@@ -2,8 +2,8 @@
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
-* Version: 1.1.2
-* Updated: February 14th, 2011
+* Version: 1.1.3
+* Updated: February 21th, 2011
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-
 (function($){
 	$.fn.slides = function( option ) {
 		// override defaults with specified option
@@ -35,8 +34,229 @@
 				start = option.start - 1,
 				effect = option.effect.indexOf(',') < 0 ? option.effect : option.effect.replace(' ', '').split(',')[0],
 				paginationEffect = option.effect.indexOf(',') < 0 ? effect : option.effect.replace(' ', '').split(',')[1],
-				next = 0, prev = 0, number = 0, current = 0, loaded, active, clicked, position, direction, imageParent;
+				next = 0, prev = 0, number = 0, current = 0, loaded, active, clicked, position, direction, imageParent, pauseTimeout, playInterval;
+			
+			// animate slides
+			function animate(direction, effect, clicked) {
+				if (!active && loaded) {
+					active = true;
+					switch(direction) {
+						case 'next':
+							// change current slide to previous
+							prev = current;
+							// get next from current + 1
+							next = current + 1;
+							// if last slide, set next to first slide
+							next = total === next ? 0 : next;
+							// set position of next slide to right of previous
+							position = width*2;
+							// distance to slide based on width of slides
+							direction = -width*2;
+							// store new current slide
+							current = next;
+						break;
+						case 'prev':
+							// change current slide to previous
+							prev = current;
+							// get next from current - 1
+							next = current - 1;
+							// if first slide, set next to last slide
+							next = next === -1 ? total-1 : next;								
+							// set position of next slide to left of previous
+							position = 0;								
+							// distance to slide based on width of slides
+							direction = 0;		
+							// store new current slide
+							current = next;
+						break;
+						case 'pagination':
+							// get next from pagination item clicked, convert to number
+							next = parseInt(clicked,10);
+							// get previous from pagination item with class of current
+							prev = $('.' + option.paginationClass + ' li.current a', elem).attr('href').match('[^#/]+$');
+							// if next is greater then previous set position of next slide to right of previous
+							if (next > prev) {
+								position = width*2;
+								direction = -width*2;
+							} else {
+							// if next is less then previous set position of next slide to left of previous
+								position = 0;
+								direction = 0;
+							}
+							// store new current slide
+							current = next;
+						break;
+					}
 
+					// fade animation
+					if (effect === 'fade') {
+						option.animationStart();
+						// fade animation with crossfade
+						if (option.crossfade) {
+							// put hidden next above current
+							control.children(':eq('+ next +')', elem).css({
+								zIndex: 10
+							// fade in next
+							}).fadeIn(option.fadeSpeed, option.fadeEasing, function(){
+								if (option.autoHeight) {
+									// animate container to height of next
+									control.animate({
+										height: control.children(':eq('+ next +')', elem).outerHeight()
+									}, option.autoHeightSpeed, function(){
+										// hide previous
+										control.children(':eq('+ prev +')', elem).css({
+											display: 'none',
+											zIndex: 0
+										});								
+										// reset z index
+										control.children(':eq('+ next +')', elem).css({
+											zIndex: 0
+										});									
+										// end of animation
+										option.animationComplete(next + 1);
+										active = false;
+									});
+								} else {
+									// hide previous
+									control.children(':eq('+ prev +')', elem).css({
+										display: 'none',
+										zIndex: 0
+									});									
+									// reset zindex
+									control.children(':eq('+ next +')', elem).css({
+										zIndex: 0
+									});									
+									// end of animation
+									option.animationComplete(next + 1);
+									active = false;
+								}
+							});
+						} else {
+							option.animationStart();
+							// fade animation with no crossfade
+							control.children(':eq('+ prev +')', elem).fadeOut(option.fadeSpeed,  option.fadeEasing, function(){
+								// animate to new height
+								if (option.autoHeight) {
+									control.animate({
+										// animate container to height of next
+										height: control.children(':eq('+ next +')', elem).outerHeight()
+									}, option.autoHeightSpeed,
+									// fade in next slide
+									function(){
+										control.children(':eq('+ next +')', elem).fadeIn(option.fadeSpeed, option.fadeEasing);
+									});
+								} else {
+								// if fixed height
+									control.children(':eq('+ next +')', elem).fadeIn(option.fadeSpeed, option.fadeEasing, function(){
+										// fix font rendering in ie, lame
+										if($.browser.msie) {
+											$(this).get(0).style.removeAttribute('filter');
+										}
+									});
+								}									
+								// end of animation
+								option.animationComplete(next + 1);
+								active = false;
+							});
+						}
+					// slide animation
+					} else {
+						// move next slide to right of previous
+						control.children(':eq('+ next +')').css({
+							left: position,
+							display: 'block'
+						});
+						// animate to new height
+						if (option.autoHeight) {
+							option.animationStart();
+							control.animate({
+								left: direction,
+								height: control.children(':eq('+ next +')').outerHeight()
+							},option.slideSpeed, option.slideEasing, function(){
+								control.css({
+									left: -width
+								});
+								control.children(':eq('+ next +')').css({
+									left: width,
+									zIndex: 5
+								});
+								// reset previous slide
+								control.children(':eq('+ prev +')').css({
+									left: width,
+									display: 'none',
+									zIndex: 0
+								});
+								// end of animation
+								option.animationComplete(next + 1);
+								active = false;
+							});
+							// if fixed height
+							} else {
+								option.animationStart();
+								// animate control
+								control.animate({
+									left: direction
+								},option.slideSpeed, option.slideEasing, function(){
+									// after animation reset control position
+									control.css({
+										left: -width
+									});
+									// reset and show next
+									control.children(':eq('+ next +')').css({
+										left: width,
+										zIndex: 5
+									});
+									// reset previous slide
+									control.children(':eq('+ prev +')').css({
+										left: width,
+										display: 'none',
+										zIndex: 0
+									});
+									// end of animation
+									option.animationComplete(next + 1);
+									active = false;
+								});
+							}
+						}
+					// set current state for pagination
+					if (option.pagination) {
+						// remove current class from all
+						$('.'+ option.paginationClass +' li.current', elem).removeClass('current');
+						// add current class to next
+						$('.' + option.paginationClass + ' li:eq('+ next +')', elem).addClass('current');
+					}
+				}
+			} // end animate function
+			
+			function stop() {
+				// clear interval from stored id
+				clearInterval(elem.data('interval'));
+			}
+
+			function pause() {
+				if (option.pause) {
+					// clear timeout and interval
+					clearTimeout(elem.data('pause'));
+					clearInterval(elem.data('interval'));
+					// pause slide show for option.pause amount
+					pauseTimeout = setTimeout(function() {
+						// clear pause timeout
+						clearTimeout(elem.data('pause'));
+						// start play interval after pause
+						playInterval = setInterval(	function(){
+							animate("next", effect);
+						},option.play);
+						// store play interval
+						elem.data('interval',playInterval);
+					},option.pause);
+					// store pause interval
+					elem.data('pause',pauseTimeout);
+				} else {
+					// if no pause, just stop
+					stop();
+				}
+			}
+				
 			// 2 or more slides required
 			if (total < 2) {
 				return;
@@ -45,16 +265,16 @@
 			// error corection for start slide
 			if (start < 0) {
 				start = 0;
-			};
+			}
 			
 			if (start > total) {
 				start = total - 1;
-			};
+			}
 					
 			// change current based on start option number
 			if (option.start) {
 				current = start;
-			};
+			}
 			
 			// randomizes slide order
 			if (option.randomize) {
@@ -125,7 +345,7 @@
 				// checks if image is loaded
 				control.find('img:eq(' + start + ')').attr('src', img).load(function() {
 					// once image is fully loaded, fade in
-					control.find(imageParent + ':eq(' + start + ')').fadeIn(option.fadeSpeed,function(){
+					control.find(imageParent + ':eq(' + start + ')').fadeIn(option.fadeSpeed, option.fadeEasing, function(){
 						$(this).css({
 							zIndex: 5
 						});
@@ -139,7 +359,7 @@
 				});
 			} else {
 				// if no preloader fade in start slide
-				control.children(':eq(' + start + ')').fadeIn(option.fadeSpeed,function(){
+				control.children(':eq(' + start + ')').fadeIn(option.fadeSpeed, option.fadeEasing, function(){
 					// let the script know everything is loaded
 					loaded = true;
 				});
@@ -161,11 +381,11 @@
 			
 			// pause on mouseover
 			if (option.hoverPause && option.play) {
-				control.children().bind('mouseover',function(){
+				control.bind('mouseover',function(){
 					// on mouse over stop
 					stop();
 				});
-				control.children().bind('mouseleave',function(){
+				control.bind('mouseleave',function(){
 					// on mouse leave start pause timeout
 					pause();
 				});
@@ -182,7 +402,7 @@
 				e.preventDefault();
 				if (option.play) {
 					pause();
-				};
+				}
 				animate('next', effect);
 			});
 			
@@ -191,7 +411,7 @@
 				e.preventDefault();
 				if (option.play) {
 					 pause();
-				};
+				}
 				animate('prev', effect);
 			});
 			
@@ -220,7 +440,7 @@
 				// pause slideshow
 				if (option.play) {
 					 pause();
-				};
+				}
 				// get clicked, pass to animate function					
 				clicked = $(this).attr('href').match('[^#/]+$');
 				// if current slide equals clicked, don't do anything
@@ -235,7 +455,7 @@
 				// pause slideshow
 				if (option.play) {
 					 pause();
-				};
+				}
 				// get clicked, pass to animate function					
 				clicked = $(this).attr('href').match('[^#/]+$') - 1;
 				// if current slide equals clicked, don't do anything
@@ -252,228 +472,7 @@
 				}, option.play);
 				// store interval id
 				elem.data('interval',playInterval);
-			};
-				
-			function stop() {
-				// clear interval from stored id
-				clearInterval(elem.data('interval'));
-			};
-
-			function pause() {
-				if (option.pause) {
-					// clear timeout and interval
-					clearTimeout(elem.data('pause'));
-					clearInterval(elem.data('interval'));
-					// pause slide show for option.pause amount
-					pauseTimeout = setTimeout(function() {
-						// clear pause timeout
-						clearTimeout(elem.data('pause'));
-						// start play interval after pause
-						playInterval = setInterval(	function(){
-							animate("next", effect);
-						},option.play);
-						// store play interval
-						elem.data('interval',playInterval);
-					},option.pause);
-					// store pause interval
-					elem.data('pause',pauseTimeout);
-				} else {
-					// if no pause, just stop
-					stop();
-				}
-			};
-			
-			// animate slides
-			function animate(direction, effect, clicked) {
-				if (!active && loaded) {
-					active = true;
-					switch(direction) {
-						case 'next':
-							// change current slide to previous
-							prev = current;
-							// get next from current + 1
-							next = current + 1;
-							// if last slide, set next to first slide
-							next = total === next ? 0 : next;
-							// set position of next slide to right of previous
-							position = width*2;
-							// distance to slide based on width of slides
-							direction = -width*2;
-							// store new current slide
-							current = next;
-						break;
-						case 'prev':
-							// change current slide to previous
-							prev = current;
-							// get next from current - 1
-							next = current - 1;
-							// if first slide, set next to last slide
-							next = next === -1 ? total-1 : next;								
-							// set position of next slide to left of previous
-							position = 0;								
-							// distance to slide based on width of slides
-							direction = 0;		
-							// store new current slide
-							current = next;
-						break;
-						case 'pagination':
-							// get next from pagination item clicked, convert to number
-							next = parseInt(clicked,10);
-							// get previous from pagination item with class of current
-							prev = $('.' + option.paginationClass + ' li.current a', elem).attr('href').match('[^#/]+$');
-							// if next is greater then previous set position of next slide to right of previous
-							if (next > prev) {
-								position = width*2;
-								direction = -width*2;
-							} else {
-							// if next is less then previous set position of next slide to left of previous
-								position = 0;
-								direction = 0;
-							}
-							// store new current slide
-							current = next;
-						break;
-					}
-					
-					// fade animation
-					if (effect === 'fade') {
-						option.animationStart();
-						// fade animation with crossfade
-						if (option.crossfade) {
-							// put hidden next above current
-							control.children(':eq('+ next +')', elem).css({
-								zIndex: 10
-							// fade in next
-							}).fadeIn(option.fadeSpeed, function(){
-								if (option.autoHeight) {
-									// animate container to height of next
-									control.animate({
-										height: control.children(':eq('+ next +')', elem).outerHeight()
-									}, option.autoHeightSpeed, function(){
-										// hide previous
-										control.children(':eq('+ prev +')', elem).css({
-											display: 'none',
-											zIndex: 0
-										});								
-										// reset z index
-										control.children(':eq('+ next +')', elem).css({
-											zIndex: 0
-										});									
-										// end of animation
-										option.animationComplete(next + 1);
-										active = false;
-									});
-								} else {
-									// hide previous
-									control.children(':eq('+ prev +')', elem).css({
-										display: 'none',
-										zIndex: 0
-									});									
-									// reset zindex
-									control.children(':eq('+ next +')', elem).css({
-										zIndex: 0
-									});									
-									// end of animation
-									option.animationComplete(next + 1);
-									active = false;
-								}
-							});
-						} else {
-							option.animationStart();
-							// fade animation with no crossfade
-							control.children(':eq('+ prev +')', elem).fadeOut(option.fadeSpeed,function(){
-								// animate to new height
-								if (option.autoHeight) {
-									control.animate({
-										// animate container to height of next
-										height: control.children(':eq('+ next +')', elem).outerHeight()
-									}, option.autoHeightSpeed,
-									// fade in next slide
-									function(){
-										control.children(':eq('+ next +')', elem).fadeIn(option.fadeSpeed);
-									});
-								} else {
-								// if fixed height
-									control.children(':eq('+ next +')', elem).fadeIn(option.fadeSpeed,function(){
-										// fix font rendering in ie, lame
-										if($.browser.msie) {
-											$(this).get(0).style.removeAttribute('filter');
-										}
-									});
-								}									
-								// end of animation
-								option.animationComplete(next + 1);
-								active = false;
-							});
-						}
-					// slide animation
-					} else {
-						// move next slide to right of previous
-						control.children(':eq('+ next +')').css({
-							left: position,
-							display: 'block'
-						});
-						// animate to new height
-						if (option.autoHeight) {
-							option.animationStart();
-							control.animate({
-								left: direction,
-								height: control.children(':eq('+ next +')').outerHeight()
-							},option.slideSpeed,function(){
-								control.css({
-									left: -width
-								});
-								control.children(':eq('+ next +')').css({
-									left: width,
-									zIndex: 5
-								});
-								// reset previous slide
-								control.children(':eq('+ prev +')').css({
-									left: width,
-									display: 'none',
-									zIndex: 0
-								});
-								// end of animation
-								option.animationComplete(next + 1);
-								active = false;
-							});
-							// if fixed height
-							} else {
-								option.animationStart();
-								// animate control
-								control.animate({
-									left: direction
-								},option.slideSpeed,function(){
-									// after animation reset control position
-									control.css({
-										left: -width
-									});
-									// reset and show next
-									control.children(':eq('+ next +')').css({
-										left: width,
-										zIndex: 5
-									});
-									// reset previous slide
-									control.children(':eq('+ prev +')').css({
-										left: width,
-										display: 'none',
-										zIndex: 0
-									});
-									// end of animation
-									option.animationComplete(next + 1);
-									active = false;
-								});
-							}
-						}
-					// set current state for pagination
-					if (option.pagination) {
-						// remove current class from all
-						$('.'+ option.paginationClass +' li.current', elem).removeClass('current');
-						// add current class to next
-						$('.' + option.paginationClass + ' li:eq('+ next +')', elem).addClass('current');
-					}
-				}
-			}; // end animate function
+			}
 		});
 	};
 	
@@ -489,7 +488,9 @@
 		generatePagination: true, // boolean, Auto generate pagination
 		paginationClass: 'pagination', // string, Class name for pagination
 		fadeSpeed: 350, // number, Set the speed of the fading animation in milliseconds
+		fadeEasing: '', // string, must load jQuery's easing plugin before http://gsgd.co.uk/sandbox/jquery/easing/
 		slideSpeed: 350, // number, Set the speed of the sliding animation in milliseconds
+		slideEasing: '', // string, must load jQuery's easing plugin before http://gsgd.co.uk/sandbox/jquery/easing/
 		start: 1, // number, Set the speed of the sliding animation in milliseconds
 		effect: 'slide', // string, '[next/prev], [pagination]', e.g. 'slide, fade' or simply 'fade' for both
 		crossfade: false, // boolean, Crossfade images in a image based slideshow
