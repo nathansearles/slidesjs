@@ -2,8 +2,8 @@
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
-* Version: 1.1.3
-* Updated: February 21th, 2011
+* Version: 1.1.4
+* Updated: February 25th, 2011
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -40,6 +40,8 @@
 			function animate(direction, effect, clicked) {
 				if (!active && loaded) {
 					active = true;
+					// start of animation
+					option.animationStart(current + 1);
 					switch(direction) {
 						case 'next':
 							// change current slide to previous
@@ -90,7 +92,6 @@
 
 					// fade animation
 					if (effect === 'fade') {
-						option.animationStart();
 						// fade animation with crossfade
 						if (option.crossfade) {
 							// put hidden next above current
@@ -132,7 +133,6 @@
 								}
 							});
 						} else {
-							option.animationStart();
 							// fade animation with no crossfade
 							control.children(':eq('+ prev +')', elem).fadeOut(option.fadeSpeed,  option.fadeEasing, function(){
 								// animate to new height
@@ -168,7 +168,6 @@
 						});
 						// animate to new height
 						if (option.autoHeight) {
-							option.animationStart();
 							control.animate({
 								left: direction,
 								height: control.children(':eq('+ next +')').outerHeight()
@@ -192,7 +191,6 @@
 							});
 							// if fixed height
 							} else {
-								option.animationStart();
 								// animate control
 								control.animate({
 									left: direction
@@ -350,7 +348,7 @@
 							zIndex: 5
 						});
 						// removes preload image
-						elem.css({
+						$('.' + option.container, elem).css({
 							background: ''
 						});
 						// let the script know everything is loaded

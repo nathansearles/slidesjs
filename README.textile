@@ -38,8 +38,14 @@ Here's a list of soon to be added features. If you have a feature request let me
 * New: Play/pause button
 * New: Auto centered pagination
 * New: Tutorial on how to create a custom slideshow using Slides
+* Fix: Bug when slideshow only has one slide
+** Need to hide pagination, next/pre buttons and show slide
 
 h2. Changelog
+*1.1.4
+** Fixed: Minor bug with loading image not being removed
+** Added: animationStart() now gets passed the current slide number
+** Updated: Examples now use jQuery 1.5.1
 
 *1.1.3
 ** New: Support for jQuery's easing plugin

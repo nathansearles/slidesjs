@@ -5,7 +5,7 @@
 	
 	<title>Slides, A Slideshow Plugin for jQuery</title>
 	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
 	<script src="js/slides.min.jquery.js"></script>
 	<script>
 		$(function(){
@@ -15,10 +15,14 @@
 				play: 5000,
 				pause: 2500,
 				hoverPause: true,
-				animationStart: function(){
+				animationStart: function(current){
 					$('.caption').animate({
 						bottom:-35
 					},100);
+					if (window.console && console.log) {
+						// example return of current slide number
+						console.log('animationStart on slide: ', current);
+					};
 				},
 				animationComplete: function(current){
 					$('.caption').animate({
@@ -26,7 +30,7 @@
 					},200);
 					if (window.console && console.log) {
 						// example return of current slide number
-						console.log(current);
+						console.log('animationComplete on slide: ', current);
 					};
 				}
 			});
