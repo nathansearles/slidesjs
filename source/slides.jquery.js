@@ -24,10 +24,10 @@
 
 		return this.each(function(){
 			// wrap slides in control container, make sure slides are block level
-			$('.' + option.container, $(this)).children().wrapAll('<div class="slides_control"/>');
+			$('.' + option.container, $(this)).children().wrapAll('<div class="'+option.controlClass+'"/>');
 			
 			var elem = $(this),
-				control = $('.slides_control',elem),
+				control = $('.'+option.controlClass,elem),
 				total = control.children().size(),
 				width = control.children().outerWidth(),
 				height = control.children().outerHeight(),
@@ -114,7 +114,7 @@
 											zIndex: 0
 										});									
 										// end of animation
-										option.animationComplete(next + 1);
+										option.animationComplete(next + 1, elem);
 										active = false;
 									});
 								} else {
@@ -128,7 +128,7 @@
 										zIndex: 0
 									});									
 									// end of animation
-									option.animationComplete(next + 1);
+									option.animationComplete(next + 1, elem);
 									active = false;
 								}
 							});
@@ -155,7 +155,7 @@
 									});
 								}									
 								// end of animation
-								option.animationComplete(next + 1);
+								option.animationComplete(next + 1, elem);
 								active = false;
 							});
 						}
@@ -186,7 +186,7 @@
 									zIndex: 0
 								});
 								// end of animation
-								option.animationComplete(next + 1);
+								option.animationComplete(next + 1, elem);
 								active = false;
 							});
 							// if fixed height
@@ -211,7 +211,7 @@
 										zIndex: 0
 									});
 									// end of animation
-									option.animationComplete(next + 1);
+									option.animationComplete(next + 1, elem);
 									active = false;
 								});
 							}
@@ -479,6 +479,7 @@
 		preload: false, // boolean, Set true to preload images in an image based slideshow
 		preloadImage: '/img/loading.gif', // string, Name and location of loading image for preloader. Default is "/img/loading.gif"
 		container: 'slides_container', // string, Class name for slides container. Default is "slides_container"
+		controlClass: 'slides_control', // string, Class name of control element. Default is "slides_control"
 		generateNextPrev: false, // boolean, Auto generate next/prev buttons
 		next: 'next', // string, Class name for next button
 		prev: 'prev', // string, Class name for previous button
