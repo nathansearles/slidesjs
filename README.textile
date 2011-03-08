@@ -1,4 +1,3 @@
-
 h1. Slides, A Slideshow Plugin for jQuery
 
 Slides is a crazy simple slideshow plugin for jQuery. With features like looping, auto play, fade or slide transition effects, crossfading, image preloading, and auto generated pagination.
@@ -40,6 +39,7 @@ Here's a list of soon to be added features. If you have a feature request let me
 * New: Tutorial on how to create a custom slideshow using Slides
 * Fix: Bug when slideshow only has one slide
 ** Need to hide pagination, next/pre buttons and show slide
+* Possible: Non-gif loader? http://neteye.github.com/activity-indicator.html
 
 h2. Changelog
 
