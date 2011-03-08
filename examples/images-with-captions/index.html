@@ -32,6 +32,11 @@
 						// example return of current slide number
 						console.log('animationComplete on slide: ', current);
 					};
+				},
+				slidesLoaded: function() {
+					$('.caption').animate({
+						bottom:0
+					},200);
 				}
 			});
 		});

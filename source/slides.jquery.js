@@ -2,8 +2,8 @@
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
-* Version: 1.1.4
-* Updated: February 25th, 2011
+* Version: 1.1.5
+* Updated: March 7th, 2011
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -353,6 +353,8 @@
 						});
 						// let the script know everything is loaded
 						loaded = true;
+						// call the loaded funciton
+						slidesLoaded();
 					});
 				});
 			} else {
@@ -360,6 +362,8 @@
 				control.children(':eq(' + start + ')').fadeIn(option.fadeSpeed, option.fadeEasing, function(){
 					// let the script know everything is loaded
 					loaded = true;
+					// call the loaded funciton
+					slidesLoaded();
 				});
 			}
 			
@@ -500,7 +504,8 @@
 		autoHeightSpeed: 350, // number, Set auto height animation time in milliseconds
 		bigTarget: false, // boolean, Set to true and the whole slide will link to next slide on click
 		animationStart: function(){}, // Function called at the start of animation
-		animationComplete: function(){} // Function called at the completion of animation
+		animationComplete: function(){}, // Function called at the completion of animation
+		slidesLoaded: function() {} // Function is called when slides is fully loaded
 	};
 	
 	// Randomize slide order on load
