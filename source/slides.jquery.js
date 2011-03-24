@@ -2,8 +2,8 @@
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
-* Version: 1.1.5
-* Updated: March 7th, 2011
+* Version: 1.1.6
+* Updated: March 23th, 2011
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -354,7 +354,7 @@
 						// let the script know everything is loaded
 						loaded = true;
 						// call the loaded funciton
-						slidesLoaded();
+						option.slidesLoaded();
 					});
 				});
 			} else {
@@ -363,7 +363,7 @@
 					// let the script know everything is loaded
 					loaded = true;
 					// call the loaded funciton
-					slidesLoaded();
+					option.slidesLoaded();
 				});
 			}
 			
