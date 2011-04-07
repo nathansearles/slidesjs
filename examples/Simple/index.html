@@ -5,19 +5,11 @@
 	
 	<title>Slides, A Slideshow Plugin for jQuery</title>
 	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-	<script src="js/slides.min.jquery.js"></script>
-	
-	<script>
-		$(function(){
-			$('#slides').slides({
-				preload: true,
-				generateNextPrev: true
-			});
-		});
-	</script>
-	
 	<style type="text/css" media="screen">
+		/*
+			Load CSS before JavaScript
+		*/
+		
 		/*
 			Slides container
 			Important:
@@ -60,6 +52,18 @@
 			color:red;
 		}
 	</style>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+	<script src="js/slides.min.jquery.js"></script>
+	
+	<script>
+		$(function(){
+			$('#slides').slides({
+				preload: true,
+				generateNextPrev: true
+			});
+		});
+	</script>
 </head>
 <body>
 	<div id="slides">

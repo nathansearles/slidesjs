@@ -5,49 +5,11 @@
 	
 	<title>Slides, A Slideshow Plugin for jQuery</title>
 	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-	<script src="js/slides.min.jquery.js"></script>
-	
-	<script>
-		$(function(){
-			$('#slides').slides({
-				generateNextPrev: true,
-				play: 2500
-			});
-			$('#slides_two').slides({
-				generateNextPrev: true,
-				play: 4500
-			});
-			$('#slides_three').slides({
-				generateNextPrev: true,
-				play: 6500,
-				autoHeight: true
-			});
-			
-			/*
-				You could also combin them all
-				But you can't customize each this way
-				
-				$('#slides,#slides_two,#slides_three').slides({
-					preload: true,
-					generateNextPrev: true
-				});
-			*/
-
-			/*	
-				Or use a class for all three
-				If all three had class="slides"
-				Same here can't customize each this way
-				
-				$('.slides').slides({
-					preload: true,
-					generateNextPrev: true
-				});
-			*/
-		});
-	</script>
-	
 	<style type="text/css" media="screen">
+		/*
+			Load CSS before JavaScript
+		*/
+		
 		/*
 			Slides container
 			Important:
@@ -134,6 +96,48 @@
 			background:#efefef;
 		}
 	</style>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+	<script src="js/slides.min.jquery.js"></script>
+	
+	<script>
+		$(function(){
+			$('#slides').slides({
+				generateNextPrev: true,
+				play: 2500
+			});
+			$('#slides_two').slides({
+				generateNextPrev: true,
+				play: 4500
+			});
+			$('#slides_three').slides({
+				generateNextPrev: true,
+				play: 6500,
+				autoHeight: true
+			});
+			
+			/*
+				You could also combin them all
+				But you can't customize each this way
+				
+				$('#slides,#slides_two,#slides_three').slides({
+					preload: true,
+					generateNextPrev: true
+				});
+			*/
+
+			/*	
+				Or use a class for all three
+				If all three had class="slides"
+				Same here can't customize each this way
+				
+				$('.slides').slides({
+					preload: true,
+					generateNextPrev: true
+				});
+			*/
+		});
+	</script>
 </head>
 <body>
 	<div id="slides">

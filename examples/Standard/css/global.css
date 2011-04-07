@@ -96,6 +96,10 @@ body {
 	display:block;
 }
 
+.slides_container a img {
+	display:block;
+}
+
 /*
 	Next/prev buttons
 */
