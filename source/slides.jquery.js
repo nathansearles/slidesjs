@@ -420,7 +420,11 @@
 			// generate pagination
 			if (option.generatePagination) {
 				// create unordered list
-				elem.append('<ul class='+ option.paginationClass +'></ul>');
+				if (option.prependPagination) {
+					elem.prepend('<ul class='+ option.paginationClass +'></ul>');
+				} else {
+					elem.append('<ul class='+ option.paginationClass +'></ul>');
+				}
 				// for each slide create a list item and link
 				control.children().each(function(){
 					$('.' + option.paginationClass, elem).append('<li><a href="#'+ number +'">'+ (number+1) +'</a></li>');
@@ -488,6 +492,7 @@
 		prev: 'prev', // string, Class name for previous button
 		pagination: true, // boolean, If you're not using pagination you can set to false, but don't have to
 		generatePagination: true, // boolean, Auto generate pagination
+		prependPagination: false, // boolean, prepend pagination
 		paginationClass: 'pagination', // string, Class name for pagination
 		currentClass: 'current', // string, Class name for current class
 		fadeSpeed: 350, // number, Set the speed of the fading animation in milliseconds
