@@ -35,11 +35,8 @@ h2. Todo
 Here's a list of soon to be added features. If you have a feature request let me know by either submitting an <a href="http://github.com/nathansearles/slides/issues">issue</a> or <a href="mailto:nsearles@gmail.com">by email</a>.
 
 * New: Play/pause button
-* New: Auto centered pagination
 * New: Tutorial on how to create a custom slideshow using Slides
 * Fix: Bug when slideshow only has one slide
-** Need to hide pagination, next/pre buttons and show slide
-* Possible: Non-gif loader? http://neteye.github.com/activity-indicator.html
 
 h2. Changelog
 * 1.1.6 
