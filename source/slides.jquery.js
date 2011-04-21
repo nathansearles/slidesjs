@@ -1,4 +1,7 @@
 /*
+*
+*===========!!!!!!!!!---- MODIFIED: my fork is at https://github.com/arronmabrey/Slides ----!!!!!!!!!===========
+*
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
