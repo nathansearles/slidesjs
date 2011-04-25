@@ -1,4 +1,7 @@
 /*
+*
+*===========!!!!!!!!!---- MODIFIED: my fork is at https://github.com/arronmabrey/Slides ----!!!!!!!!!===========
+*
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
@@ -75,7 +78,7 @@
 							// get next from pagination item clicked, convert to number
 							next = parseInt(clicked,10);
 							// get previous from pagination item with class of current
-							prev = $('.' + option.paginationClass + ' li.current a', elem).attr('href').match('[^#/]+$');
+							prev = $('.' + option.paginationClass + ' li.'+ option.currentClass +' a', elem).attr('href').match('[^#/]+$');
 							// if next is greater then previous set position of next slide to right of previous
 							if (next > prev) {
 								position = width*2;
@@ -219,9 +222,9 @@
 					// set current state for pagination
 					if (option.pagination) {
 						// remove current class from all
-						$('.'+ option.paginationClass +' li.current', elem).removeClass('current');
+						$('.'+ option.paginationClass +' li.' + option.currentClass, elem).removeClass(option.currentClass);
 						// add current class to next
-						$('.' + option.paginationClass + ' li:eq('+ next +')', elem).addClass('current');
+						$('.' + option.paginationClass + ' li:eq('+ next +')', elem).addClass(option.currentClass);
 					}
 				}
 			} // end animate function
@@ -420,7 +423,11 @@
 			// generate pagination
 			if (option.generatePagination) {
 				// create unordered list
-				elem.append('<ul class='+ option.paginationClass +'></ul>');
+				if (option.prependPagination) {
+					elem.prepend('<ul class='+ option.paginationClass +'></ul>');
+				} else {
+					elem.append('<ul class='+ option.paginationClass +'></ul>');
+				}
 				// for each slide create a list item and link
 				control.children().each(function(){
 					$('.' + option.paginationClass, elem).append('<li><a href="#'+ number +'">'+ (number+1) +'</a></li>');
@@ -435,7 +442,7 @@
 			}
 			
 			// add current class to start slide pagination
-			$('.' + option.paginationClass + ' li:eq('+ start +')', elem).addClass('current');
+			$('.' + option.paginationClass + ' li:eq('+ start +')', elem).addClass(option.currentClass);
 			
 			// click handling 
 			$('.' + option.paginationClass + ' li a', elem ).click(function(){
@@ -488,7 +495,9 @@
 		prev: 'prev', // string, Class name for previous button
 		pagination: true, // boolean, If you're not using pagination you can set to false, but don't have to
 		generatePagination: true, // boolean, Auto generate pagination
+		prependPagination: false, // boolean, prepend pagination
 		paginationClass: 'pagination', // string, Class name for pagination
+		currentClass: 'current', // string, Class name for current class
 		fadeSpeed: 350, // number, Set the speed of the fading animation in milliseconds
 		fadeEasing: '', // string, must load jQuery's easing plugin before http://gsgd.co.uk/sandbox/jquery/easing/
 		slideSpeed: 350, // number, Set the speed of the sliding animation in milliseconds
