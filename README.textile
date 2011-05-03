@@ -39,6 +39,9 @@ Here's a list of soon to be added features. If you have a feature request let me
 * Fix: Bug when slideshow only has one slide
 
 h2. Changelog
+* 1.1.7 
+** Added currentClass default, thanks arronmabrey!
+
 * 1.1.6 
 ** Fixed: bug with slidesLoaded function
 
