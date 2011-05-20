@@ -91,7 +91,7 @@ h2. Changelog
 ** Changed: Pagination now targets the rel attribute versus using :eq()
 
 * 1.0.5
-** New: Current slide number passed to animationComplete()
+** New: Current slide number passed to animationComplete();
 
 * 1.0.4
 ** Fixed: start option bug
