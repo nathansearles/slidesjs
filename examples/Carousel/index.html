@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	
+	<title>Slides, A Slideshow Plugin for jQuery</title>
+	
+	<style type="text/css" media="screen">
+		/*
+			Load CSS before JavaScript
+		*/
+		
+		/*
+			Slides container
+			Important:
+			Set the width of your slides container
+			Set to display none, prevents content flash
+		*/
+		.slides_container {
+			width:470px;
+			display:none;
+		}
+
+		/*
+			Each slide
+			Important:
+			Set the width of your slides
+			If height not specified height will be set by the slide content
+			Set to display block
+		*/
+		.slides_container div.slide {
+			width:470px;
+			height:170px;
+			display:block;
+		}
+		
+		/*
+			Set the size of your carousel items
+		*/
+		.item {
+			float:left;
+			width:135px;
+			height:135px;
+			margin:0 10px;
+			background:#efefef;
+		}
+		
+		/*
+			Optional:
+			Reset list default style
+		*/
+		.pagination {
+			list-style:none;
+			margin:0;
+			padding:0;
+		}
+
+		/*
+			Optional:
+			Show the current slide in the pagination
+		*/
+		.pagination .current a {
+			color:red;
+		}
+	</style>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+	<script src="js/slides.min.jquery.js"></script>
+	
+	<script>
+		$(function(){
+			$('#slides').slides({
+				preload: true,
+				generateNextPrev: true
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="slides">
+		<div class="slides_container">
+			
+			<div class="slide">
+				<div class="item">
+					Item One
+				</div>
+				<div class="item">
+					Item Two
+				</div>
+				<div class="item">
+					Item Three
+				</div>
+			</div>
+			
+			<div class="slide">
+				<div class="item">
+					Item Four
+				</div>
+				<div class="item">
+					Item Five
+				</div>
+				<div class="item">
+					Item Six
+				</div>
+			</div>
+			
+			<div class="slide">
+				<div class="item">
+					Item Seven
+				</div>
+				<div class="item">
+					Item Eight
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</body>
+</html>

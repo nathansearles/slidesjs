@@ -2,8 +2,8 @@
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
-* Version: 1.1.7
-* Updated: May 2nd, 2011
+* Version: 1.1.8
+* Updated: June 1st, 2011
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -322,7 +322,7 @@
 			}
 			
 			// checks if image is loaded
-			if (option.preload && control.find('img').length) {
+			if (option.preload && control.find('img:eq(' + start + ')').length) {
 				// adds preload image
 				$('.' + option.container, elem).css({
 					background: 'url(' + option.preloadImage + ') no-repeat 50% 50%'
