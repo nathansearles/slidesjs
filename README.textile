@@ -24,7 +24,7 @@ h3. Soon to be added demos
 * Captions
 ** Image slideshow with captions
 * Side Navigation
-** With vertical slideshow, like on http://www.metalabdesign.com/
+** With vertical slideshow
 * Play/pause
 ** Image slideshow with play/pause button, pagination, next/prev buttons
 
