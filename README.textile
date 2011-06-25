@@ -1,44 +1,197 @@
-h1. Slides, A Slideshow Plugin for jQuery
+h1. SlidesJS version 2.0 bata 1
 
-Slides is a crazy simple slideshow plugin for jQuery. With features like looping, auto play, fade or slide transition effects, crossfading, image preloading, and auto generated pagination.
+**SlidesJS version 2.0 beta 1 is not meant for production deployment.**
 
-With Slides you'll never see multiple slides fly by. Slides elegantly just slides from one slide to the next. Awesome.
+For the current production ready version of SlidesJS visit "http://slidesjs.com/":http://slidesjs.com/.
 
-Check out "http://slidesjs.com/":http://slidesjs.com/ for full instructions and examples.
+Created by "Nathan Searles":mailto:nsearles@gmail.com, "http://nathansearles.com":http://nathansearles.com
 
-Give it a try and if you have a question or find a bug <a href="http://github.com/nathansearles/slides/issues">hit me up</a> at GitHub or <a href="mailto:nsearles@gmail.com">shoot me an email</a>..
+Support forum "http://groups.google.com/group/slidesjs":http://groups.google.com/group/slidesjs
 
-Slides is compatible with all modern web browsers including; Internet Explorer 7/8/9, Firefox 3+, Chrome, Safari and Mobile Safari. And it'll even work in our old friend IE6.
+(c) 2011 by Nathan Searles
 
-h2. Info
+h2. SlidesJS 2 documentation
 
-Developed by "Nathan Searles":mailto:nsearles@gmail.com, "http://nathansearles.com":http://nathansearles.com
+h3. Basic Markup Structure
 
-For updates, follow Nathan Searles on "Twitter":http://twitter.com/nathansearles
+For just images you can simply use:
 
-Slides is licensed under the "Apache license":http://www.apache.org/licenses/LICENSE-2.0.
+<pre><div id="slides">
+ <img src="http://slidesjs.com/examples/standard/img/slide-1.jpg" width="570" height="270" alt="Slide 1">
+ <img src="http://slidesjs.com/examples/standard/img/slide-2.jpg" width="570" height="270" alt="Slide 2">
+ <img src="http://slidesjs.com/examples/standard/img/slide-3.jpg" width="570" height="270" alt="Slide 3">
+ <img src="http://slidesjs.com/examples/standard/img/slide-4.jpg" width="570" height="270" alt="Slide 4">
+</div></pre>
 
-h2. Examples and Instructions
+Or you can use &lt;div&gt;s for your slides
 
-These examples are also included in the download.
+<pre><div id="slides">
+ <div>
+  <img src="http://slidesjs.com/examples/standard/img/slide-1.jpg" width="570" height="270" alt="Slide 1">
+ </div>
+ <div>
+  <img src="http://slidesjs.com/examples/standard/img/slide-2.jpg" width="570" height="270" alt="Slide 2">
+ </div>
+ <div>
+  <img src="http://slidesjs.com/examples/standard/img/slide-3.jpg" width="570" height="270" alt="Slide 3">
+ </div>
+ <div>
+  <img src="http://slidesjs.com/examples/standard/img/slide-4.jpg" width="570" height="270" alt="Slide 4">
+ </div>
+</div></pre>
 
-* "http://slidesjs.com/":http://slidesjs.com/
-* "Images with captions":http://slidesjs.com/examples/images-with-captions/
-* "Linking":http://slidesjs.com/examples/linking/
-* "Product":http://slidesjs.com/examples/product/
-* "Multiple slideshows":http://slidesjs.com/examples/multiple/
-* "Simple (unstyled)":http://slidesjs.com/examples/simple/
-* "Standard":http://slidesjs.com/examples/standard/
+Simple as that. No extra &lt;div&gt;s, no navigation or pagination to define, it's all created for you. SlidesJS creates two &lt;div&gt;s for the slideshow, ".slidesContainer" and ".slidesControl", both are required and can not be changed.
 
-h2. Todo
+Navigation classes are ".slidesPrevious" and ".slidesNext" and are created as anchor tags. These cannot be changed.
 
-Here's a list of soon to be added features. If you have a feature request let me know by either submitting an <a href="http://github.com/nathansearles/slides/issues">issue</a> or <a href="mailto:nsearles@gmail.com">by email</a>.
+Pagination uses an unordered list markup structure. The &lt;ul&gt; has a class of ".slidesPagination". This cannot be changed.
 
-* New: Play/pause button
-* New: Tutorial on how to create a custom slideshow using Slides
-* Fix: Bug when slideshow only has one slide
+You may define your own navigation or pagination, but they must use the same class names, sorry it saves from including extraneous code.
+
+h3. Basic CSS
+
+No CSS required. Shit yeah!
+
+h3. Initialize SlidesJS
+
+<pre><script>
+ $(function(){
+  $("#slides").slides();
+ });
+</script></pre>
+
+Tip: With SidesJS 2 you need to define the width and height if it's different from the default (780px x 300px). This resolves many issues having to do with loading and makes SlidesJS 2 self contained, not requiring any CSS.
+
+<pre><script>
+ $(function(){
+  $("#slides").slides({
+    width: 640,
+    height: 480
+  });
+ });
+</script></pre>
+
+h3. Method Calls - The good stuff
+
+h4. Play
+
+<pre>$("#slides").slides("play");</pre>
+
+h4. Pause
+
+<pre>$("#slides").slides("pause");</pre>
+
+h4. Stop
+
+<pre>$("#slides").slides("stop");</pre>
+
+h4. Next, using default effect
+
+<pre>$("#slides").slides("next");</pre>
+
+h4. Next, define effect, "slide" or "fade"
+
+<pre>$("#slides").slides("next","fade");</pre>
+
+h4. Previous, uses default effect
+
+<pre>$("#slides").slides("previous");</pre>
+
+h4. Previous, define effect, "slide" or "fade"
+
+<pre>$("#slides").slides("previous","fade");</pre>
+
+h4. Goto slide 2 using default effect
+
+<pre>$("#slides").slides("slide",2);</pre>
+
+h4. Goto slide 2 define effect, "slide" or "fade"
+
+<pre>$("#slides").slides("slide",4,"fade");</pre>
+
+h4. Update
+
+<pre>$("#slides").slides("update");</pre>
+
+h4. Destroy
+
+<pre>$("#slides").slides("destroy");</pre>
+
+
+h4. Status
+
+<pre>$("#slides").slides("status");</pre>
+
+Returns JSON object:
+<pre>{
+ current: 4,
+ state: "playing",
+ total: 7
+}</pre>
+
+The follow could also be used
+	
+<pre>$("#slides").slides("status","current");</pre>
+
+returns: number
+
+<pre>$("#slides").slides("status","state");</pre>
+
+returns: string, playing, paused, stopped, undefined
+
+<pre>$("#slides").slides("status","total");</pre>
+
+returns: number
+
+h3. Options
+
+<pre>width: 780, // [Number] Define the slide width
+responsive: false, // [Boolean] slideshow will scale to its container
+height: 300, // [Number] Define the slide height
+navigation: true, // [Boolean] Auto generate the naviagation, next/previous buttons
+pagination: true, // [Boolean] Auto generate the pagination
+effects: {
+ navigation: "slide",  // [String] Can be either "slide" or "fade"
+ pagination: "slide" // [String] Can be either "slide" or "fade"
+},
+direction: "left", // [String] Define the slide direction: "Up", "Right", "Down", "left"
+fade: {
+ interval: 1000, // [Number] Interval of fade in milliseconds
+ crossfade: false, // [Boolean] TODO: add this feature. Crossfade the slides, great for images, bad for text
+ easing: "" // [String] Dependency: jQuery Easing plug-in <http://gsgd.co.uk/sandbox/jquery/easing/>
+},
+slide: {
+ interval: 1000, // [Number] Interval of fade in milliseconds
+ browserWindow: false, // [Boolean] Slide in/out from browser window, bad ass
+ easing: "" // [String] Dependency: jQuery Easing plug-in <http://gsgd.co.uk/sandbox/jquery/easing/>
+},
+preload: {
+ active: true, // [Boolean] Preload the slides before showing them, this needs some work
+ image: "../img/loading.gif" // [String] Define the path to a load .gif, yes I should do something cooler
+},
+startAtSlide: 1, // [Number] What should the first slide be?
+playInterval: 5000, // [Number] Time spent on each slide in milliseconds
+pauseInterval: 8000, // [Number] Time spent on pause, triggered on any navigation or pagination click
+autoHeight: false // [Boolean] TODO: add this feature. Auto sets height based on each slide</pre>
+
+h2. License
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
 h2. Changelog
+* 2.0 beta 1
+** Complete rewrite using method based pattern
+
 * 1.1.8
 ** Fixed: bug with preloading image and starting at a slide other then the first
 
