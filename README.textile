@@ -40,7 +40,7 @@ Here's a list of soon to be added features. If you have a feature request let me
 
 h2. Changelog
 * 1.1.8
-** Fixed: bug with preloading image and starting at slide other then the first
+** Fixed: bug with preloading image and starting at a slide other then the first
 
 * 1.1.7 
 ** Added currentClass default, thanks arronmabrey!
