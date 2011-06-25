@@ -10,6 +10,24 @@ Support forum "http://groups.google.com/group/slidesjs":http://groups.google.com
 
 (c) 2011 by Nathan Searles
 
+h2. SlidesJS 2 Demos
+
+* "Standard":http://beta.slidesjs.com/examples/standard/
+* "Responsive":http://beta.slidesjs.com/examples/responsive/ (kinda buggy, working on that)
+* "Browser Window":http://beta.slidesjs.com/examples/browser-window/
+
+h3. Soon to be added demos
+* Carousel Style
+** 3 or 4 items per slide, could be album covers or similar
+* Thumbnails
+** Pagination with thumbnails
+* Captions
+** Image slideshow with captions
+* Side Navigation
+** With vertical slideshow, like on http://www.metalabdesign.com/
+* Play/pause
+** Image slideshow with play/pause button, pagination, next/prev buttons
+
 h2. SlidesJS 2 documentation
 
 h3. Basic Markup Structure
