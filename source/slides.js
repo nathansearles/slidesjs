@@ -759,11 +759,22 @@
 		},
 		_navigate: function( event, effect ) {
 			var to, position, direction, next, prev, pagination, $target = $(event.target), currentSlide = this.slides.eq( this.current );
-				
+			
+			/*
+				Slide to error correction
+			*/
+			if ( this.element.data("goto") < 0 ) {
+				// If goto is less then 0
+				this.element.data("goto",0);
+			} else  if ( this.element.data("goto") > this.total ) {
+				// If goto is greater then total slides
+				this.element.data("goto",(this.total - 1));
+			}
+			
 			/*
 				Check if slides is currently animating
 			*/
-			if ( this.element.data("animated") || $target.data("slidesindex") === this.current ) {
+			if ( this.element.data("animated") || $target.data("slidesindex") === this.current || this.element.data("goto") === this.current ) {
 				return false;
 			}
 			
@@ -815,7 +826,7 @@
 			
 			if (pagination) {
 				// Get next from data-slidesindex
-				to = this.element.data("goto") ? this.element.data("goto") : $target.data("slidesindex");
+				to = this.element.data("goto") > -1 ? this.element.data("goto") : $target.data("slidesindex");
 			} else {
 				// Get next based on curent
 				to = next ? (this.current + 1) : (prev ? this.current - 1 : this.current);
