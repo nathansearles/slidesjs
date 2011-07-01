@@ -553,7 +553,7 @@
 				easing: "" // [String] Dependency: jQuery Easing plug-in <http://gsgd.co.uk/sandbox/jquery/easing/>
 			},
 			preload: {
-				active: true, // [Boolean] Preload the slides before showing them, this needs some work
+				active: false, // [Boolean] Preload the slides before showing them, this needs some work
 				image: "../img/loading.gif" // [String] Define the path to a load .gif, yes I should do something cooler
 			},
 			startAtSlide: 1, // [Number] What should the first slide be?
@@ -641,17 +641,21 @@
 						backgroundPosition: "50% 50%",
 						backgroundRepeat: "no-repeat"
 					});
-*/
-					
-					this._loadImage( this.slides.eq( this.options.startAtSlide - 1 ).attr("src") ).then( $.proxy(function( url ) {
-				  this.slidesControl.fadeIn( this.options.fade.interval );
+*/					
+				var preloadImage;
+			
+				if (this.slides.eq( this.options.startAtSlide - 1 ).is("img")) {
+					preloadImage = this.slides.eq( this.options.startAtSlide - 1 ).attr("src");
+				} else {
+					preloadImage = this.slides.eq( this.options.startAtSlide - 1 ).find("img").attr("src");
+				}
+			
+				this._loadImage( preloadImage ).then( $.proxy(function( url ) {
+			  	this.slidesControl.fadeIn( this.options.fade.interval );
 					this._trigger( "loaded", this.options.startAtSlide, this );
-					
 				},this));
 			} else {
-				 this.slidesControl.fadeIn( this.options.fade.interval, function() {
-					this._trigger( "loaded", this.options.startAtSlide, this );
-				});
+				 this.slidesControl.fadeIn( this.options.fade.interval );
 			}
 
 			if ( this.options.navigation ) {
