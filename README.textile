@@ -1,4 +1,4 @@
-h1. SlidesJS version 2.0 beta 1
+h1. SlidesJS version 2.0 beta 1+
 
 **SlidesJS version 2.0 beta 1 is not meant for production deployment.**
 
@@ -207,6 +207,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 h2. Changelog
+* 2.0 beta 1+
+** Ability to change the position of navigation and pagination (prepend or append) 
+** Customizable class names 
+** Customizable navigation buttons text 
+** Option to disable buttons when first or last (limit) 
+** Implemented crossfade 
+** Implemented autoheight 
+** Div holder for navigation buttons 
+** Support for naming of the pagination (by adding title attribute to the nav elements) 
+** Added demo showing the newly implemented features
+
 * 2.0 beta 1
 ** Complete rewrite using method based pattern
 
