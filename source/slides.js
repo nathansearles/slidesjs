@@ -539,6 +539,7 @@
             navigationPrepend: false, // [Boolean] Prepend navigation instead of appending it @NIXIN
 			pagination: true, // [Boolean] Auto generate the pagination
             paginationPrepend: false, // [Boolean] Prepend pagination instead of appending it @NIXIN
+            supportHashHistory: false, // [Boolean] Enables support for history change navigation @NIXIN
             classNames: { // array of [String] Names for used classes (should be unique, can be many at once)
                 slidesCurrent: "slidesCurrent",
                 slidesPagination: "slidesPagination",
@@ -597,7 +598,16 @@
 			if (this.element.children().length < 2) {
 				return;
 			}
-			
+
+            // @NIXIN
+            if ( this.options.supportHashHistory )
+            {
+                if (window.location.hash == '' || window.location.hash.length > 2)
+                    window.location.hash = '#'+this.options.startAtSlide;
+                else
+                    this.options.startAtSlide = window.location.hash.charAt(1);
+            }
+
 			if ( this.options.slide.browserWindow ) {
 				this.element.css({
 					width: window.innerWidth,
@@ -621,7 +631,7 @@
             /* @NIXIN */
             var initialHeight = this.options.autoHeight ? this.element.children().eq( this.options.startAtSlide - 1 ).outerHeight() : this.options.height;
 
-			this.slidesContainer = this.element.children().not("."+this.options.classNames.slidesNavigation).wrapAll( "<div class='slidesContainer'>" ).parent().css({
+			this.slidesContainer = this.element.children().not(this._classUniformNaming(this.options.classNames.slidesNavigation)).wrapAll( "<div class='slidesContainer'>" ).parent().css({
 				width: this.options.responsive ? "100%" : this.options.width,
                 height: initialHeight, // @NIXIN
 				overflow: this.options.slide.browserWindow ? "visible" : "hidden",
@@ -700,7 +710,6 @@
                 this.navigation = $('<div>',{"class": this.options.classNames.slidesNavigationContainer });
                 this.prevButton = tempPrevButton.clone().appendTo(this.navigation);
                 this.nextButton = tempNextButton.clone().appendTo(this.navigation);
-                console.log(this.navigation);
 
                 if ( this.options.navigationPrepend ) // @NIXIN
                 {
@@ -711,24 +720,45 @@
                     this.navigation.appendTo(this.element);
                 }
 			} else {
-				this.nextButton = $("."+this.options.classNames.slidesNext);
-				this.prevButton = $("."+this.options.classNames.slidesPrevious);
+				this.nextButton = $(this._classUniformNaming(this.options.classNames.slidesNext));
+				this.prevButton = $(this._classUniformNaming(this.options.classNames.slidesPrevious));
 			}
 
+            this.total = this.slides.length;
+			this.current = this.options.startAtSlide - 1;
+            
             // @NIXIN
             if (this.options.buttons.limit) this._limitButtons( this.options.startAtSlide - 1 );
 			
 			if (this.options.pagination) {
 				this._buildPagination();
 				// add current class to first pagination
-				this.pagination.children().eq( this.options.startAtSlide - 1 ).addClass(this.options.classNames.slidesCurrent);
+				this.pagination.children().eq( this.current ).addClass(this.options.classNames.slidesCurrent);
 			}
-			
-			this.current = this.options.startAtSlide - 1;
-			
-			this.element.delegate( "."+this.options.classNames.slidesNavigation, "click", $.proxy(this, "_navigate") );
-			
-			this.total = this.slides.length;
+        
+            // @NIXIN: autoResize content on change (if something grows or shrinks inside), with https://github.com/cowboy/jquery-resize
+            if (this.options.autoHeight) {
+                this.slides.resize($.proxy(function(){
+                    console.log("resizing...");
+                    this._autoHeight(this.current);
+                }, this));
+            }
+
+            // @NIXIN: fix - using delegate doesn't get triggered when the navigation classes is manually added, using live() is better for this
+            $(this._classUniformNaming(this.options.classNames.slidesNavigation)).live('click', $.proxy(this, "_navigate"));
+
+            // @NIXIN: TODO: doesn't work for now, it will require http://github.com/cowboy/jquery-hashchange/raw/v1.3/jquery.ba-hashchange.min.js
+            // easiest way is probably to simulate a click on pagination with # number.
+            if ( this.options.supportHashHistory )
+            {
+                $(window).hashchange( function(){
+//                        $.proxy(function(){
+                        console.log("navigating... "+window.location.hash.charAt(1));
+                        //if(window.location.hash.charAt(1)-1 < this.total)
+                            //this._navigate(window.location.hash.charAt(1)-1);
+//                    }, this);
+                });
+            }
     },
 		_loaded: function() {
 			if ( this.options.responsive ) {
@@ -753,7 +783,7 @@
 			}
 		},
     _buildPagination: function() {
-			
+
 			if (this.pagination) {
 				// Remove the current paginaiton
 				this.pagination.remove();
@@ -778,10 +808,10 @@
             var innerText;
 			this.slides.each(
 				$.proxy(function(index, element) {
-                    console.log(element);
-                    if($(element).attr("title")) innerText = $(element).attr("title");
+//                    console.log(element);
+                    if($(element).attr("data-title")) innerText = $(element).attr("data-title");
                     else innerText = index + 1;
-					$("<li><a href='#" + index + "' class='"+this.options.classNames.slidesNavigation+" "+this.options.classNames.slidesPaginationItem+"' data-slidesindex=" + index + "> " + innerText + "</a></li>").appendTo(this.pagination);
+					$("<li><a href='#" + (index + 1) + "' class='"+this.options.classNames.slidesNavigation+" "+this.options.classNames.slidesPaginationItem+"' data-slidesindex=" + index + "> " + innerText + "</a></li>").appendTo(this.pagination);
 				},this)
 			);
 			
@@ -899,7 +929,7 @@
 				// Get next from data-slidesindex
 				to = this.element.data("goto") > -1 ? this.element.data("goto") : $target.data("slidesindex");
 			} else {
-				// Get next based on curent
+				// Get next based on current
 				to = next ? (this.current + 1) : (prev ? this.current - 1 : this.current);
 			}
 
@@ -946,8 +976,16 @@
             {
                 this._limitButtons(to);
             }
+
+            if ( this.options.supportHashHistory )
+            {
+                window.location.hash = '#'+(to+1);
+            }
 		},
         _limitButtons: function (to) {
+                // @NIXIN: trigger a callback function notifying which slide we are at
+                this.element.trigger('atSlide', [to+1]);
+
                 this.nextButton.removeClass(this.options.buttons.limitClass);
                 this.prevButton.removeClass(this.options.buttons.limitClass);
                 if (this.options.buttons.limitStyle === "hide")
@@ -962,7 +1000,7 @@
                 }
                 switch ( to + 1 )
                 {
-                    case this.slides.length:
+                    case this.total:
                         this.nextButton.addClass(this.options.buttons.limitClass);
                         if (this.options.buttons.limitStyle === "hide") this.nextButton.animate({ opacity: 0 });
                         else if (this.options.buttons.limitStyle === "remove") this.nextButton.fadeOut(this.options.fade.interval, this.options.fade.easing);
@@ -1045,7 +1083,7 @@
 				});
 				
 				this.current = navigateData.to;
-				
+
 				this._trigger("navigateEnd", ( this.current + 1 ), this);
 			}, this));
 		},
@@ -1151,13 +1189,18 @@
       }
       $.Widget.prototype._setOption.apply(this,arguments);
     },
+      _classUniformNaming: function ( classList ) { // @NIXIN
+          // escaping dots and replacing spaces for dots
+          return '.'+classList.split(".").join("\\\\.").split(" ").join(".");
+      },
     destroy: function() {
 			
 			this.slidesContainer.contents().unwrap();
 			
 			this.slidesControl.contents().unwrap();
-			
-			this.element.unbind();
+
+            // @NIXIN: unbinding the clicks for navigation
+            $(this._classUniformNaming(this.options.classNames.slidesNavigation)).die('click');
 			
 			this.pagination.remove();
 			
