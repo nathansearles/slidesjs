@@ -536,7 +536,7 @@
 			responsive: false, // [Boolean] slideshow will scale to its container
 			height: 300, // [Number] Define the slide height
 			navigation: true, // [Boolean] Auto generate the naviagation, next/previous buttons
-			pagination: "append", // [String] Can be either "apend" or "prepend". You can also pass [Boolean] false to disable Auto generation.
+			pagination: "append", // [String] Can be either "append" or "prepend". You can also pass [Boolean] false to disable Auto generation.
 			effects: {
 				navigation: "slide",  // [String] Can be either "slide" or "fade"
 				pagination: "slide" // [String] Can be either "slide" or "fade"
