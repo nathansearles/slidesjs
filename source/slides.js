@@ -369,8 +369,12 @@
       this.widgetBaseClass + "-disabled " + "ui-state-disabled");
       // clean up events and states
       this.bindings.unbind("." + this.widgetName);
-      this.hoverable.removeClass("ui-state-hover");
-      this.focusable.removeClass("ui-state-focus");
+      if (this.hoverable) {
+        this.hoverable.removeClass("ui-state-hover");
+      }
+      if (this.focusable) {
+        this.focusable.removeClass("ui-state-focus");
+      }
     },
     _destroy: $.noop,
     widget: function () {
@@ -416,8 +420,12 @@
       this.options[key] = value;
       if (key === "disabled") {
         this.widget().toggleClass(this.widgetBaseClass + "-disabled ui-state-disabled", !! value).attr("aria-disabled", value);
-        this.hoverable.removeClass("ui-state-hover");
-        this.focusable.removeClass("ui-state-focus");
+        if (this.hoverable) {
+          this.hoverable.removeClass("ui-state-hover");
+        }
+        if (this.focusable) {
+          this.focusable.removeClass("ui-state-focus");
+        }
       }
       return this;
     },
