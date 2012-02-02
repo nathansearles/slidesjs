@@ -760,6 +760,7 @@
 		slide: function( slide, effect ) {			
 			this.element.data("goto", (slide - 1));
 			this._navigate("pagination", effect);
+			this.element.data("goto", null);
 		},
 		_navigate: function( event, effect ) {
 			var to, position, direction, next, prev, pagination, $target = $(event.target), currentSlide = this.slides.eq( this.current );
