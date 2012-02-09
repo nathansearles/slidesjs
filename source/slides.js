@@ -958,11 +958,11 @@
 		},
 		play: function( gotoNext ) {
 			if (gotoNext !== false) {
-				this._navigate("next");
+				this._navigate("next", this.options.effects.play || "slide");
 			}
 			
 			var playInterval = setInterval( $.proxy(function() {
-				this._navigate("next");
+				this._navigate("next", this.options.effects.play || "slide");
 			}, this), this.options.playInterval);
 			
 			// Set status
