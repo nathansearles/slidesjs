@@ -795,8 +795,10 @@
 			} else {
 				if (event === "next") {
 					next = true;
+					effect = effect ? effect : this.options.effects.navigation;
 				} else {
 					prev = true;
+					effect = effect ? effect : this.options.effects.navigation;
 				}
 			}
 		
@@ -808,11 +810,13 @@
 			if ( $target.hasClass( "slidesNext" ) ) {
 				// Next button clicked
 				next = true;
+				effect = effect ? effect : this.options.effects.navigation;
 				
 			} else if ( $target.hasClass("slidesPrevious") ) {
 				
 				// Previous button clicked
-				prev = true;		
+				prev = true;
+				effect = effect ? effect : this.options.effects.navigation;
 				
 			}	else if ( $target.hasClass("slidesPaginationItem") ||  event === "pagination") {
 
@@ -827,6 +831,7 @@
 				
 				effect = effect ? effect : this.options.effects.pagination;
 			}
+			
 			
 			if (pagination) {
 				// Get next from data-slidesindex
