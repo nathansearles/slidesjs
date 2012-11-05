@@ -988,6 +988,7 @@
 		},
 		stop: function() {
 			clearInterval( this.element.data("playIntervalId") );
+			clearInterval( this.element.data("pauseTimeoutId") );
 			
 			// Set status
 			this.state = "stopped";
