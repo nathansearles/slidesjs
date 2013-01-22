@@ -387,7 +387,7 @@
 					cursor: 'pointer'
 				});
 				// click handler
-				control.children().click(function () {
+				control.children().on('click', function () {
 					// animate to next on slide click
 					animate('next', effect);
 					return false;
@@ -396,11 +396,11 @@
 
 			// pause on mouseover
 			if (option.hoverPause && option.play) {
-				control.bind('mouseover', function () {
+				control.on('mouseover', function () {
 					// on mouse over stop
 					stop();
 				});
-				control.bind('mouseleave', function () {
+				control.on('mouseleave', function () {
 					// on mouse leave start pause timeout
 					pause();
 				});
@@ -413,7 +413,7 @@
 			}
 
 			// next button
-			$('.' + option.next, elem).click(function (e) {
+			$('.' + option.next, elem).on('click', function (e) {
 				e.preventDefault();
 				if (option.play) {
 					pause();
@@ -422,7 +422,7 @@
 			});
 
 			// previous button
-			$('.' + option.prev, elem).click(function (e) {
+			$('.' + option.prev, elem).on('click', function (e) {
 				e.preventDefault();
 				if (option.play) {
 					pause();
@@ -455,7 +455,7 @@
 			$('.' + option.paginationClass + ' li:eq(' + start + ')', elem).addClass(option.currentClass);
 
 			// click handling
-			$('.' + option.paginationClass + ' li a', elem).click(function () {
+			$('.' + option.paginationClass + ' li a', elem).on('click', function () {
 				// pause slideshow
 				if (option.play) {
 					pause();
@@ -470,7 +470,7 @@
 			});
 
 			// click handling
-			$('a.link', elem).click(function () {
+			$('a.link', elem).on('click', function () {
 				// pause slideshow
 				if (option.play) {
 					pause();
