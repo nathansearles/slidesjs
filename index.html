@@ -1,0 +1,394 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>SlidesJS, a responsive, CSS3 based slideshow plugin for jQuery.</title>
+  <meta name="description" content="SlidesJS is a simple slideshow plugin for jQuery. Packed with a useful set of features to help novice and advanced developers alike create elegant and user-friendly slideshows.">
+  <meta name="author" content="Nathan Searles">
+
+  <!-- SlidesJS Required (if responsive): Sets the page width to the device width. -->
+  <meta name="viewport" content="width=device-width">
+  <!-- End SlidesJS Required -->
+
+  <meta property="og:title" content="SlidesJS, a simple slideshow plugin for jQuery">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://www.slidesjs.com">
+  <meta property="og:image" content="http://slidesjs.com/img/slidesjs-black.png">
+  <meta property="og:site_name" content="SlidesJS, a simple slideshow plugin for jQuery">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <!-- End CSS -->
+
+  <!-- Google Analytics Asynchronous Tracking -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2772036-11']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- End Google Analytics -->
+
+  <!-- AdPacks.com Ad Code -->
+  <script type="text/javascript">
+  (function(){
+    var bsa = document.createElement('script');
+       bsa.type = 'text/javascript';
+       bsa.async = true;
+       bsa.src = '//s3.buysellads.com/ac/bsa.js';
+    (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+  })();
+  </script>
+  <!-- End AdPacks.com Ad Code -->
+</head>
+<body data-spy="scroll" data-target=".navbar">
+  <!-- Start site navbar -->
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <img src="img/slidesjs.png" width="130" height="26" alt="SlidesJS" class="brand">
+        <div class="nav-collapse collapse">
+          <ul class="nav pull-right">
+            <li><a href="#slides-section"><i class="icon-check icon-large"></i> Overview</a></li>
+            <li><a href="#examples"><i class="icon-picture icon-large"></i> Examples</a></li>
+            <li><a href="#docs"><i class="icon-file icon-large"></i> Docs</a></li>
+            <li><a href="#" class="donate"><i class="icon-thumbs-up icon-large track_donate"></i> Donate</a></li>
+            <li><a href="http://slidesjs.com/downloads/slides.zip"><i class="icon-download icon-large track_download"></i> Download</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End site navbar -->
+
+  <!--  Start SlidesJS -->
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <div id="slides-section" class="section">
+            <div id="slides">
+              <img src="img/example-slide-1.jpg" alt="Photo by: Missy S Link: http://www.flickr.com/photos/listenmissy/5087404401/">
+              <img src="img/example-slide-2.jpg" alt="Photo by: Daniel Parks Link: http://www.flickr.com/photos/parksdh/5227623068/">
+              <img src="img/example-slide-3.jpg" alt="Photo by: Lee Link: hhttp://www.flickr.com/photos/typicalnaloboy/4151014982/in/photostream/">
+              <img src="img/example-slide-4.jpg" alt="Photo by: Michael Silberstein Link: http://www.flickr.com/photos/michaelsilberstein/4223108917">
+              <a href="#" class="slidesjs-previous slidesjs-navigation"><i class="icon-chevron-left icon-large"></i></a>
+              <a href="#" class="slidesjs-next slidesjs-navigation"><i class="icon-chevron-right icon-large"></i></a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  End SlidesJS -->
+
+  <!-- Start main content -->
+  <div class="container">
+    <div class="row">
+      <div class="span8">
+
+        <!-- Overview -->
+        <div id="overview" class="section">
+          <h1><i class="icon-check"></i> Overview</h1>
+
+          <p>SlidesJS, a responsive, CSS3 based slideshow plugin for jQuery. Packed with a useful set of features to help novice and advanced developers alike create elegant and user-friendly slideshows.</p>
+
+          <p>SlidesJS is provided with limited support but if you find a bug please submit an <a href="https://github.com/nathansearles/slides/issues">Issue</a> with a brief description of the bug and a link to where it can be reviewed.</p>
+
+          <!--
+          <p>For general support please visit the <a href="http://groups.google.com/group/slidesjs">SlidesJS User Group</a>.</p>
+
+          <p>SlidesJS is compatible with all modern web browsers and jQuery versions 1.4.4+.</p>
+          -->
+
+          <div class="btns">
+            <a href="http://slidesjs.com/downloads/slides.zip" class="btn btn-inverse btn-large push-right"><i class="icon-download icon-large track_download"></i> Download</a>
+
+            <a href="#" class="btn btn-success btn-large donate"><i class="icon-thumbs-up icon-large track_donate"></i> Donate</a>
+          </div>
+        </div>
+
+        <!-- Examples -->
+        <div id="examples" class="section">
+          <h1><i class="icon-picture"></i> Examples</h1>
+
+          <small>These examples are also included in the <a href="http://slidesjs.com/downloads/slides.zip" class="download_track">download</a>.</small>
+
+          <ul class="examples">
+            <li><a href="/examples/standard/">Standard</a></li>
+            <li><a href="/examples/basic/">Basic (unstyled)</a></li>
+            <li>More examples coming soon!</li>
+          </ul>
+        </div>
+
+        <!-- Docs -->
+        <div id="docs" class="section">
+          <h1><i class="icon-file"></i> Docs</h1>
+
+          <h2 id="html">Basic markup</h2>
+
+          <pre><code>&lt;!doctype html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    #slides {
+      display:none;
+    }
+  &lt;/style&gt;
+
+  &lt;script src=&quot;http://code.jquery.com/jquery-latest.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;jquery.slides.min.js&quot;&gt;&lt;/script&gt;
+
+  &lt;script&gt;
+    $(function(){
+      $(&quot;#slides&quot;).slidesjs();
+    });
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id=&quot;slides&quot;&gt;
+    &lt;img src=&quot;http://placehold.it/940x528&quot;&gt;
+    &lt;img src=&quot;http://placehold.it/940x528&quot;&gt;
+    &lt;img src=&quot;http://placehold.it/940x528&quot;&gt;
+    &lt;img src=&quot;http://placehold.it/940x528&quot;&gt;
+    &lt;img src=&quot;http://placehold.it/940x528&quot;&gt;
+  &lt;/div&gt;
+&lt;/body&gt;</code></pre>
+        </div>
+
+        <h2 id="options">Options</h2>
+
+        <div id="widthandheight" class="expand">
+          <h3>width (number) &amp; height (number)</h3>
+          <p>Set the default width and height of the slideshow.  <a href="#" class="show"><i class="icon-plus-sign"></i> Show example</a></p>
+          <div class="content">
+            <div class="innner">
+<pre><code>$(function(){
+  $("#slides").slidesjs({
+    width: 700,
+    height: 393
+  });
+});</code></pre>
+            </div>
+          </div>
+          <small><i class="icon-ok"></i> This must be defined.</small>
+        </div>
+
+        <div id="start" class="expand">
+          <h3>start (number)</h3>
+          <p>Set the first slide in the slideshow.  <a href="#" class="show"><i class="icon-plus-sign"></i> Show example</a></p>
+          <div class="content">
+            <div class="innner">
+<pre><code>$(function(){
+  $("#slides").slidesjs({
+    start: 3
+  });
+});</code></pre>
+            </div>
+          </div>
+          <small><i class="icon-ok"></i> Default value is 1.</small>
+        </div>
+
+        <div id="navigation" class="expand">
+          <h3>navigation (object)</h3>
+          <p>Next and previous button settings. <a href="#" class="show"><i class="icon-plus-sign"></i> Show example</a></p>
+          <div class="content">
+            <div class="innner">
+<pre><code>$(function(){
+  $("#slides").slidesjs({
+    navigation: {
+      active: true,
+        # [boolean] Create next and previous buttons.
+        # You can set to false and use your own next/prev buttons.
+        # User defined next/prev buttons must have the following:
+        # previous: class="slidesjs-previous slidesjs-navigation"
+        # next: class="slidesjs-next slidesjs-navigation"
+      effect: "slide"
+        # [string] Can be either "slide" or "fade".
+    }
+  });
+});</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div id="pagination" class="expand">
+          <h3>pagination (object)</h3>
+          <p>Pagination settings <a href="#" class="show"><i class="icon-plus-sign"></i> Show example</a></p>
+          <div class="content">
+            <div class="innner">
+<pre><code>$(function(){
+  $("#slides").slidesjs({
+    pagination: {
+      active: true,
+        # [boolean] Create pagination items.
+        # You cannot use your own pagination.
+      effect: "slide"
+        # [string] Can be either "slide" or "fade".
+    }
+  });
+});</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div id="controls" class="expand">
+          <h3>controls (object)</h3>
+          <p>Play and stop button setting. <a href="#" class="show"><i class="icon-plus-sign"></i> Show example</a></p>
+          <div class="content">
+            <div class="innner">
+<pre><code>$(function(){
+  $("#slides").slidesjs({
+    controls: {
+      active: true,
+        # [boolean] Create the play and stop buttons.
+        # You cannot use your own pagination.
+      effect: "slide",
+        # [string] Can be either "slide" or "fade".
+      interval: 5000
+        # [number] Time spent on each slide in milliseconds.
+    }
+  });
+});</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div id="controls" class="expand">
+          <h3>effect (object)</h3>
+          <p>Effect setting. <a href="#" class="show"><i class="icon-plus-sign"></i> Show example</a></p>
+          <div class="content">
+            <div class="innner">
+<pre><code>$(function(){
+  $("#slides").slidesjs({
+    controls: {
+      slide: {
+        # Slide effect settings.
+        speed: 200,
+          # [number] Speed in milliseconds of the slide animation.
+        easing: ""
+          # easing plug-in required: http://gsgd.co.uk/sandbox/jquery/easing/
+      },
+      fade: {
+        speed: 300,
+          # [number] Speed in milliseconds of the fade animation.
+        easing: "",
+          # easing plug-in required: http://gsgd.co.uk/sandbox/jquery/easing/
+        crossfade: true
+          # [boolean] Cross-fade the transition
+      }
+    }
+  });
+});</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div id="controls" class="expand">
+          <h3>callback (function)</h3>
+          <p>SlidesJS callbacks. <a href="#" class="show"><i class="icon-plus-sign"></i> Show example</a></p>
+          <div class="content">
+            <div class="innner">
+<pre><code>$(function(){
+  $("#slides").slidesjs({
+    callback: {
+      loaded: function() {
+        # Do something awesome!
+      },
+      start: function() {
+        # Do something awesome!
+      },
+      complete: function() {
+        # Do something awesome!
+      }
+    }
+  });
+});</code></pre>
+            </div>
+          </div>
+        </div>
+      </div> <!-- end main .span8 -->
+      <div class="span4">
+        <div id="ad_packs">
+          <!-- AdPacks.com Zone Code -->
+          <div id="bsap_1274362" class="bsarocks bsap_e1c36c6d71b660012e27f395930d4761"></div>
+          <a href="http://adpacks.com" id="bsap_aplink">via Ad Packs</a>
+          <!-- End AdPacks.com Zone Code -->
+        </div>
+
+        <div class="social-buttons clearfix">
+          <ul>
+            <li class="ctwitter"><a href="http://twitter.com/share" class="socialite twitter-share" data-text="SlidesJS, a simple slideshow plugin for jQuery." data-url="http://slidesjs.com" data-count="vertical" data-via="slidesjs" rel="nofollow" target="_blank"><span class="vhidden">Share on Twitter</span></a></li>
+            <li class="cgoogle"><a href="https://plus.google.com/share?url=http://slidesjs.com" class="socialite googleplus-one" data-size="tall" data-href="http://slidesjs.com" rel="nofollow" target="_blank"><span class="vhidden">Share on Google+</span></a></li>
+            <li class="cfacebook"><a href="http://www.facebook.com/sharer.php?u=http://slidesjs.com&amp;t=SlidesJS, a simple slideshow plugin for jQuery." class="socialite facebook-like" data-href="http://slidesjs.com" data-send="false" data-layout="box_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">Share on Facebook</span></a></li>
+            <li class="cpinterest"><a href="http://pinterest.com/pin/create/button/?url=http://slidesjs.com/&amp;media=http://slidesjs.com/img/slidesjs-black.png&amp;description=SlidesJS, a simple slideshow plugin for jQuery" class="socialite pinterest-pinit" data-count-layout="vertical"><span class="vhidden">Pin It!</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer" class="section">
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <p>This site has been built using <a href="http://fortawesome.github.com/Font-Awesome/" target="_blank">Font Awesome</a>, <a href="http://twitter.github.com/bootstrap/"  target="_blank">Twitter Bootstrap</a>, <a href="http://softwaremaniacs.org/soft/highlight/en/" target="_blank">Highlight.js</a>, <a href="http://placehold.it/" target="_blank">Placehold.it</a> and <a href="http://subtlepatterns.com/" target="_blank">Subtle Patterns</a>.</p>
+          <p>Want to advertise on this site? Check out ads via <a href="http://bsa.ly/jec">Ad Packs</a>.</p>
+          <p>SlidesJS is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache license</a>. &copy; 2013 <a href="http://nathansearles.com" target="_blank">Nathan Searles</a>. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SlidesJS Required: Link to jQuery -->
+  <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+  <!-- End SlidesJS Required -->
+
+  <!-- JavaScript -->
+  <script src="js/plugins.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/script.js"></script>
+  <!-- End JavaScript -->
+
+  <!-- Highlight.js -->
+  <script>
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
+  </script>
+  <!-- End Highlight.js -->
+
+  <!-- SlidesJS Required: Link to jquery.slides.js -->
+  <script src="js/jquery.slides.min.js"></script>
+  <!-- End SlidesJS Required -->
+
+  <!-- SlidesJS Required: Initialize SlidesJS with a jQuery doc ready -->
+  <script>
+    $(function() {
+      $('#slides').slidesjs({
+        width: 940,
+        height: 528,
+        navigation: false,
+        controls: false
+      });
+    });
+  </script>
+  <!-- End SlidesJS Required -->
+
+  <!-- Paypal -->
+  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" style="display:none" target="_blank">
+  <input type="hidden" name="cmd" value="_s-xclick">
+  <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
+  <input type="submit" id="submit" name="Donate" value="Donate" alt="PayPal - The safer, easier way to pay online!">
+  <img src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+  <!-- End Paypal -->
+</body>
+</html>

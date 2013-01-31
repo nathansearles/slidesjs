@@ -1,0 +1,699 @@
+
+# Note: SlidesJS version 3.0.1 beta is not yet ready
+# for production deployment. Please download the latest
+# version at https://slidesjs.com
+
+# Created by Nathan Searles http://nathansearles.com
+
+# Documentation and examples http://slidesjs.com
+# Support forum http://groups.google.com/group/slidesjs
+
+# Version: 3.0.1 beta
+# Updated: January 31st, 2013
+
+# SlidesJS is an open source project, contribute at GitHub:
+# https://github.com/nathansearles/Slides
+
+# (c) 2013 by Nathan Searles
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+# http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# SlidesJS 3.0.1 beta
+(($, window, document) ->
+  pluginName = "slidesjs"
+  defaults =
+    width: 940
+      # Set the default width of the slideshow.
+    height: 528
+      # Set the default height of the slideshow.
+    start: 1
+      # Set the first slide in the slideshow.
+    navigation:
+      # Next and previous button settings.
+      active: true
+        # [boolean] Create next and previous buttons.
+        # You can set to false and use your own next/prev buttons.
+        # User defined next/prev buttons must have the following:
+        # previous: class="slidesjs-previous slidesjs-navigation"
+        # next: class="slidesjs-next slidesjs-navigation"
+      effect: "slide"
+        # [string] Can be either "slide" or "fade".
+    pagination:
+        # Pagination settings
+      active: true
+        # [boolean] Create pagination items.
+        # You cannot use your own pagination.
+      effect: "slide"
+        # [string] Can be either "slide" or "fade".
+    controls:
+        # Play and stop button setting.
+      active: true
+        # [boolean] Create the play and stop buttons.
+        # You cannot use your own pagination.
+      effect: "slide"
+        # [string] Can be either "slide" or "fade".
+      interval: 5000
+        # [number] Time spent on each slide in milliseconds.
+    effect:
+      slide:
+        # Slide effect settings.
+        speed: 500
+          # [number] Speed in milliseconds of the slide animation.
+        easing: ""
+          # easing plug-in required: http://gsgd.co.uk/sandbox/jquery/easing/
+      fade:
+        speed: 300
+          # [number] Speed in milliseconds of the fade animation.
+        easing: ""
+          # easing plug-in required: http://gsgd.co.uk/sandbox/jquery/easing/
+        crossfade: true
+          # [boolean] Cross-fade the transition
+    callback:
+      loaded: () ->
+        # [function] Called when slides is loaded
+      start: () ->
+        # [function] Called when animation has started
+      complete: () ->
+        # [function] Called when animation is complete
+
+  class Plugin
+    constructor: (@element, options) ->
+      @options = $.extend {}, defaults, options
+      @_defaults = defaults
+      @_name = pluginName
+      @init()
+
+  Plugin::init = ->
+    $element = $(@element)
+    @data = $.data this
+
+    # Set data
+    $.data this, "animating", false
+    $.data this, "total", $element.children().not(".slidesjs-navigation", $element).length
+    $.data this, "current", @options.start - 1
+    $.data this, "supportsTransitions", @_supportsTransitions()
+
+    # Detect touch device
+    if typeof TouchEvent != "undefined"
+      $.data this, "touch", true
+      # Set slide speed to half for touch
+      this.options.effect.slide.speed = this.options.effect.slide.speed / 2
+
+    # Hide overflow
+    $element.css overflow: "hidden"
+
+    # Create container
+    $element.slidesContainer = $element.children().not(".slidesjs-navigation", $element).wrapAll("<div class='slidesjs-container'>", $element).parent().css
+      overflow: "hidden"
+      position: "relative"
+
+    # Create control div
+    $(".slidesjs-container", $element)
+    .wrapInner("<div class='slidesjs-control'>", $element)
+    .children()
+
+    # Setup control div
+    $(".slidesjs-control", $element)
+    .css
+      position: "relative"
+      left: 0
+
+    # Setup slides
+    $(".slidesjs-control", $element)
+    .children()
+    .addClass("slidesjs-slide")
+    .css
+      position: "absolute"
+      top: 0
+      left: 0
+      width: "100%"
+      zIndex: 10
+      display: "none"
+
+    # Assign an index to each slide
+    $.each( $(".slidesjs-control", $element).children(), (i) ->
+      $slide = $(this)
+      $slide.attr("slidesjs-index", i)
+    )
+
+    if @data.touch
+      # Bind touch events, if supported
+      $(".slidesjs-control", $element).on("touchstart", (e) =>
+        @_touchstart(e)
+      )
+
+      $(".slidesjs-control", $element).on("touchmove", (e) =>
+        @_touchmove(e)
+      )
+
+      $(".slidesjs-control", $element).on("touchend", (e) =>
+        @_touchend(e)
+      )
+
+    # Fades in slideshow, your slideshow ID must be display:none in your CSS
+    $element.fadeIn 0
+
+    # Update sets width/height of slideshow
+    @update()
+
+    # Fade in start slide
+    $(".slidesjs-control", $element)
+    .children(":eq(" + @data.current + ")")
+    .eq(0)
+    .fadeIn 0
+
+    if @options.navigation.active
+      # Create next/prev buttons
+      prevButton = $("<a>"
+        class: "slidesjs-previous slidesjs-navigation"
+        href: "#"
+        title: "Previous"
+        text: "Previous"
+      ).appendTo($element)
+
+      nextButton = $("<a>"
+        class: "slidesjs-next slidesjs-navigation"
+        href: "#"
+        title: "Next"
+        text: "Next"
+      ).appendTo($element)
+
+    # bind click events
+    $(".slidesjs-next", $element).click (e) =>
+      e.preventDefault()
+      @stop()
+      @next(@options.navigation.effect)
+
+    $(".slidesjs-previous", $element).click (e) =>
+      e.preventDefault()
+      @stop()
+      @previous(@options.navigation.effect)
+
+    if @options.controls.active
+      playButton = $("<a>",
+        class: "slidesjs-play slidesjs-navigation"
+        href: "#"
+        title: "Play"
+        text: "Play"
+      ).appendTo($element)
+
+      stopButton = $("<a>",
+        class: "slidesjs-stop slidesjs-navigation"
+        href: "#"
+        title: "Stop"
+        text: "Stop"
+      ).appendTo($element)
+
+      playButton.click (e) =>
+        e.preventDefault()
+        @play(true)
+
+      stopButton.click (e) =>
+        e.preventDefault()
+        @stop()
+
+    if @options.pagination.active
+      # Create unordered list pagination
+      pagination = $("<ul>"
+        class: "slidesjs-pagination"
+      ).appendTo($element)
+
+      # Create a list item and anchor for each slide
+      $.each(new Array(@data.total), (i) =>
+        paginationItem = $("<li>"
+          class: "slidesjs-pagination-item"
+        ).appendTo(pagination)
+
+        paginationLink = $("<a>"
+          href: "#"
+          "data-slidesjs-item": i
+          html: i + 1
+        ).appendTo(paginationItem)
+
+        # bind click events
+        paginationLink.click (e) =>
+          e.preventDefault()
+          # Stop play
+          @stop()
+          # Goto to selected slide
+          @goto( ($(e.currentTarget).attr("data-slidesjs-item") * 1) + 1 )
+      )
+
+    # Bind update on browser resize
+    $(window).bind("resize", () =>
+      @update()
+    )
+
+    # Set start pagination item to active
+    @_setActive()
+
+    # Slides has loaded
+    @options.callback.loaded()
+
+  # @_setActive()
+  # Sets the active slide in the pagination
+  Plugin::_setActive = (number) ->
+    $element = $(@element)
+    @data = $.data this
+
+    # Get the current slide index
+    current = if number > -1 then number else @data.current
+
+    # Set active slide in pagination
+    $(".active", $element).removeClass "active"
+    $("li:eq(" + current + ") a", $element).addClass "active"
+
+  # @update()
+  # Update the slideshow size on browser resize
+  Plugin::update = ->
+    $element = $(@element)
+    @data = $.data this
+
+    # Get the new width and height
+    width = $element.width()
+    height = (@options.height / @options.width) * width
+
+    # Store new width and height
+    @options.width = width
+    @options.height = height
+
+    # Set new width and height
+    $(".slidesjs-control, .slidesjs-container", $element).css
+      width: width
+      height: height
+
+  # @next()
+  # Next mechanics
+  Plugin::next = (effect) ->
+    $element = $(@element)
+    @data = $.data this
+
+    # Set the direction
+    $.data this, "direction", "next"
+
+    # Slides or fade effect
+    if effect is undefined then effect = @options.navigation.effect
+    if effect is "fade" then @_fade() else @_slide()
+
+  # @previous()
+  # Previous mechanics
+  Plugin::previous = (effect) ->
+    $element = $(@element)
+    @data = $.data this
+
+    # Set the direction
+    $.data this, "direction", "previous"
+
+    # Slides or fade effect
+    if effect is undefined then effect = @options.navigation.effect
+    if effect is "fade" then @_fade() else @_slide()
+
+  # @goto()
+  # Pagination mechanics
+  Plugin::goto = (number) ->
+    $element = $(@element)
+    @data = $.data this
+
+    # Set effect to default if not defined
+    if effect is undefined then effect = @options.pagination.effect
+
+    # Error correction if slide doesn't exists
+    if number > @data.total
+      number = @data.total
+    else if number < 1
+      number = 1
+
+    if typeof number is "number"
+      if effect is "fade" then @_fade(number) else @_slide(number)
+    else if typeof number is "string"
+      if number is "first"
+        if effect is "fade" then @_fade(0) else @_slide(0)
+      else if number is "last"
+        if effect is "fade" then @_fade(@data.total) else @_slide(@data.total)
+      else
+        alert "SlidesJS: goto error"
+
+  # @_setuptouch()
+  # Setup slideshow for touch
+  Plugin::_setuptouch = (e) ->
+    $element = $(@element)
+    @data = $.data this
+
+    # Define slides control
+    slidesControl = $(".slidesjs-control", $element)
+
+    slidesControl.children().each ->
+      $slide = $(this)
+
+    # Get next/prev slides around current slide
+    next = @data.current + 1
+    previous = @data.current - 1
+
+    # Create the loop
+    previous = @data.total - 1 if previous < 0
+    next = 0 if next > @data.total - 1
+
+
+    # By default next/prev slides are hidden, show them when on touch device
+    slidesControl.children(":eq(" + next + ")").css
+      display: "block"
+      left: @options.width
+
+    slidesControl.children(":eq(" + previous + ")").css
+      display: "block"
+      left: -@options.width
+
+  # @_touchstart()
+  # Start touch
+  Plugin::_touchstart = (e) ->
+    $element = $(@element)
+    @data = $.data this
+    touches = e.originalEvent.touches[0]
+
+    # Prevent default scrolling
+    e.preventDefault()
+
+    # Set touch position
+    $.data this, "touchstart", touches.pageX
+
+    @_setuptouch()
+
+    # Stop event from bubbling up
+    e.stopPropagation()
+
+  # @_touchend()
+  # Animates the slideshow when touch is complete
+  Plugin::_touchend = (e) ->
+    $element = $(@element)
+    @data = $.data this
+    touches = e.originalEvent.touches[0]
+
+    # Prevent default scrolling
+    e.preventDefault()
+
+    # Define slides control
+    slidesControl = $(".slidesjs-control", $element)
+
+    # Slide has been dragged to the right, goto previous slide
+    if slidesControl.position().left > @options.width * .45
+      $.data this, "direction", "previous"
+      @_slide()
+    # Slide has been dragged to the left, goto next slide
+    else if slidesControl.position().left < -(@options.width * .45)
+      $.data this, "direction", "next"
+      @_slide()
+    else
+      # Slide has not been dragged far enough, animate back to 0 and reset
+      slidesControl.css
+        webkitTransform: "translateX(0px)"
+        webkitTransitionDuration: @options.effect.slide.speed + "ms"
+        webkitTransitionTimingFunction: "ease-in-out"
+
+    # Rest slideshow
+    slidesControl.on "transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd", =>
+      slidesControl.css
+        webkitTransform: ""
+        webkitTransitionDuration: ""
+        webkitTransitionTimingFunction: ""
+
+    # Stop event from bubbling up
+    e.stopPropagation()
+
+  # @_touchstart()
+  # Moves the slide on touch
+  Plugin::_touchmove = (e) ->
+    $element = $(@element)
+    @data = $.data this
+    touches = e.originalEvent.touches[0]
+
+    # Prevent default scrolling
+    e.preventDefault();
+
+    # Move the slides with touch
+    $(".slidesjs-control", $element).css webkitTransform: "translateX(" + (touches.pageX - @data.touchstart) + "px)"
+
+    # Stop event from bubbling up
+    e.stopPropagation()
+
+  # @play()
+  # Play the slideshow
+  Plugin::play = (next) ->
+    $element = $(@element)
+    @data = $.data this
+
+    # Check if the slideshow is already playing
+    if not @data.playInterval
+      # If next is true goto next slide
+      if next
+        currentSlide = @data.current
+        @data.direction = "next"
+        if @options.controls.effect is "fade" then @_fade() else @_slide()
+
+      # Set and store interval
+      $.data this, "playInterval", setInterval ( =>
+        currentSlide = @data.current
+        @data.direction = "next"
+        if @options.controls.effect is "fade" then @_fade() else @_slide()
+      ), @options.controls.interval
+
+      $.data this, "playing", true
+
+      # Add "slidesjs-playing" class to "slidesjs-play" button
+      $(".slidesjs-play", $element).addClass("slidesjs-playing")
+
+  # @stop()
+  # Stops a playing slideshow
+  Plugin::stop = () ->
+    $element = $(@element)
+    @data = $.data this
+
+    # Clear play interval
+    clearInterval @data.playInterval
+
+    # Reset slideshow
+    $.data this, "playInterval", null
+    $.data this, "playing", false
+    $(".slidesjs-play", $element).removeClass("slidesjs-playing")
+
+  # @_slide()
+  # CSS3 and JavaScript slide animations
+  Plugin::_slide = (number) ->
+    $element = $(@element)
+    @data = $.data this
+
+    if not @data.animating and number isnt @data.current + 1
+      # Set animating to true
+      $.data this, "animating", true
+
+      # Get current slide
+      currentSlide = @data.current
+
+      if number
+        number = number - 1
+        value = if number > currentSlide then 1 else -1
+        direction = if number > currentSlide then -@options.width else @options.width
+        next = number
+      else
+        value = if @data.direction is "next" then 1 else -1
+        direction = if @data.direction is "next" then -@options.width else @options.width
+        next = currentSlide + value
+
+      # Loop from first to last slide
+      next = @data.total - 1 if next is -1
+
+      # Loop from last to first slide
+      next = 0 if next is @data.total
+
+      # Set next slide pagination item to active
+      @_setActive(next)
+
+      # Define slides control
+      slidesControl = $(".slidesjs-control", $element)
+
+      # Setup the next slide
+      slidesControl.children(":eq(" + next + ")").css
+        display: "block"
+        left: value * @options.width
+
+      # Start the slide animation
+      @options.callback.start()
+
+      if @data.supportsTransitions
+        # If supported use CSS3 for the animation
+        slidesControl.css
+          webkitTransform: "translateX(" + direction + "px)"
+          webkitTransitionDuration: @options.effect.slide.speed + "ms"
+          webkitTransitionTimingFunction: "ease-in-out"
+
+        slidesControl.on "transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd", =>
+          slidesControl.css
+            webkitTransform: ""
+            webkitTransitionDuration: ""
+            webkitTransitionTimingFunction: ""
+          slidesControl.children(":eq(" + next + ")").css left: 0
+          slidesControl.children(":eq(" + currentSlide + ")").css
+            display: "none"
+            left: 0
+
+          # Set the new slide to the current
+          $.data this, "current", next
+
+          # # Set animating to false
+          $.data this, "animating", false
+
+          # Unbind transition callback to prevent build up
+          slidesControl.unbind("transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd")
+
+          # Hide all slides expect current
+          slidesControl.children(":not(:eq(" + next + "))").css
+            display: "none"
+            left: 0
+
+          # If touch device setup next slides
+          @_setuptouch() if @data.touch
+
+          # End of the animation, call complete callback
+          @options.callback.complete()
+      else
+        # If CSS3 isn't support use JavaScript for the animation
+        slidesControl.stop().animate
+          left: direction
+        , @options.effect.slide.speed, (=>
+          slidesControl.css left: 0
+          slidesControl.children(":eq(" + next + ")").css left: 0
+          slidesControl.children(":eq(" + currentSlide + ")").css
+            display: "none"
+            left: 0
+
+            # Set the new slide to the current
+            $.data this, "current", next
+
+            # Set animating to false
+            $.data this, "animating", false
+
+            # End of the animation, call complete callback
+            @options.callback.complete()
+          )
+
+  # @_fade()
+  # Fading and cross fading
+  Plugin::_fade = (number) ->
+    $element = $(@element)
+    @data = $.data this
+
+    # Check if not currently animating and the selected slide is not the current slide
+    if not @data.animating and number isnt @data.current + 1
+
+      # Set animating to true
+      $.data this, "animating", true
+
+      # Get current slide
+      currentSlide = @data.current
+
+      if number
+        # Specific slide has been called
+        number = number - 1
+        value = if number > currentSlide then 1 else -1
+        next = number
+      else
+        # Next/prev slide has been called
+        value = if @data.direction is "next" then 1 else -1
+        next = currentSlide + value
+
+      # Loop from first to last slide
+      next = @data.total - 1 if next is -1
+
+      # Loop from last to first slide
+      next = 0 if next is @data.total
+
+      # Set next slide pagination item to active
+      @_setActive next
+
+      # Define slides control
+      slidesControl = $(".slidesjs-control", $element)
+
+      # Setup the next slide
+      slidesControl.children(":eq(" + next + ")").css
+        display: "block"
+        left: 0
+        zIndex: 0
+
+      # Start of the animation, call the start callback
+      @options.callback.start()
+
+      if @options.effect.fade.crossfade
+        # Crossfade to next slide
+        slidesControl.children(":eq(" + @data.current + ")")
+        .stop()
+        .fadeOut @options.effect.fade.speed, (=>
+          # Reset slides
+          slidesControl.children(":eq(" + next + ")").css zIndex: 10
+
+          # Set animating to false
+          $.data this, "animating", false
+
+          # Set the new slide to the current
+          $.data this, "current", next
+
+          #End of the animation, call complete callback
+          @options.callback.complete()
+        )
+      else
+        # Fade out current slide, fade in next slide
+        slidesControl.children(":eq(" + next + ")").css
+          display: "none"
+        # Fade to next slide
+        slidesControl.children(":eq(" + currentSlide + ")")
+        .stop()
+        .fadeOut @options.effect.fade.speed, (->
+          # Reset slides
+          slidesControl.children(":eq(" + next + ")")
+          .stop()
+          .fadeIn(@options.effect.fade.speed)
+          .css zIndex: 10
+
+          # Set animating to false
+          settings.animating = false
+
+          # Set the new slide to the current
+          $.data this, "current", next
+
+          # End of the animation, call complete callback
+          @options.callback.complete()
+        )
+
+  # @_supportsTransitions()
+  # Check if the browser supports CSS3 Transitions
+  Plugin::_supportsTransitions = (number) ->
+    body = document.body or document.documentElement
+    style = body.style
+    transition = "transition"
+    return true  if typeof style[transition] is "string"
+
+    vendor = ["Moz", "Webkit", "Khtml", "O", "ms"]
+    transition = transition.charAt(0).toUpperCase() + transition.substr(1)
+
+    i = 0
+
+    while i < vendor.length
+      return true  if typeof style[vendor[i] + transition] is "string"
+      i++
+    false
+
+  # Plugin constructor
+  $.fn[pluginName] = (options) ->
+    @each ->
+      if !$.data(@, "plugin_#{pluginName}")
+        $.data(@, "plugin_#{pluginName}", new Plugin(@, options))
+
+)(jQuery, window, document)

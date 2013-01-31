@@ -1,6 +1,10 @@
-h1. SlidesJS version 2.0 beta 1
+h1. SlidesJS version 3.0.1 beta
 
-**SlidesJS version 2.0 beta 1 is not meant for production deployment.**
+SlidesJS, a responsive, CSS3 based slideshow plugin for jQuery. Packed with a useful set of features to help novice and advanced developers alike create elegant and user-friendly slideshows.
+
+SlidesJS is provided with limited support but if you find a bug please submit an "https://github.com/nathansearles/slides/issues":Issue with a brief description of the bug and a link to where it can be reviewed.
+
+**SlidesJS version 3.0.1 beta is not meant for production deployment.**
 
 For the current production ready version of SlidesJS visit "http://slidesjs.com/":http://slidesjs.com/.
 
@@ -8,189 +12,11 @@ Created by "Nathan Searles":mailto:nsearles@gmail.com, "http://nathansearles.com
 
 Support forum "http://groups.google.com/group/slidesjs":http://groups.google.com/group/slidesjs
 
-(c) 2011 by Nathan Searles
+(c) 2013 by Nathan Searles
 
-h2. SlidesJS 2 Demos
+h2. Documentation
 
-* "Standard":http://beta.slidesjs.com/examples/standard/
-* "Responsive":http://beta.slidesjs.com/examples/responsive/ (kinda buggy, working on that)
-* "Browser Window":http://beta.slidesjs.com/examples/browser-window/
-
-h3. Soon to be added demos
-* Carousel Style
-** 3 or 4 items per slide, could be album covers or similar
-* Thumbnails
-** Pagination with thumbnails
-* Captions
-** Image slideshow with captions
-* Side Navigation
-** With vertical slideshow
-* Play/pause
-** Image slideshow with play/pause button, pagination, next/prev buttons
-
-h2. SlidesJS 2 documentation
-
-h3. Basic Markup Structure
-
-For just images you can simply use:
-
-<pre><div id="slides">
- <img src="http://slidesjs.com/examples/standard/img/slide-1.jpg" width="570" height="270" alt="Slide 1">
- <img src="http://slidesjs.com/examples/standard/img/slide-2.jpg" width="570" height="270" alt="Slide 2">
- <img src="http://slidesjs.com/examples/standard/img/slide-3.jpg" width="570" height="270" alt="Slide 3">
- <img src="http://slidesjs.com/examples/standard/img/slide-4.jpg" width="570" height="270" alt="Slide 4">
-</div></pre>
-
-Or you can use &lt;div&gt;s for your slides
-
-<pre><div id="slides">
- <div>
-  <img src="http://slidesjs.com/examples/standard/img/slide-1.jpg" width="570" height="270" alt="Slide 1">
- </div>
- <div>
-  <img src="http://slidesjs.com/examples/standard/img/slide-2.jpg" width="570" height="270" alt="Slide 2">
- </div>
- <div>
-  <img src="http://slidesjs.com/examples/standard/img/slide-3.jpg" width="570" height="270" alt="Slide 3">
- </div>
- <div>
-  <img src="http://slidesjs.com/examples/standard/img/slide-4.jpg" width="570" height="270" alt="Slide 4">
- </div>
-</div></pre>
-
-Simple as that. No extra &lt;div&gt;s, no navigation or pagination to define, it's all created for you. SlidesJS creates two &lt;div&gt;s for the slideshow, ".slidesContainer" and ".slidesControl", both are required and can not be changed.
-
-Navigation classes are ".slidesPrevious" and ".slidesNext" and are created as anchor tags. These cannot be changed.
-
-Pagination uses an unordered list markup structure. The &lt;ul&gt; has a class of ".slidesPagination". This cannot be changed.
-
-You may define your own navigation or pagination, but they must use the same class names, sorry it saves from including extraneous code.
-
-h3. Basic CSS
-
-No CSS required. Shit yeah!
-
-h3. Initialize SlidesJS
-
-<pre><script>
- $(function(){
-  $("#slides").slides();
- });
-</script></pre>
-
-Tip: With SidesJS 2 you need to define the width and height if it's different from the default (780px x 300px). This resolves many issues having to do with loading and makes SlidesJS 2 self contained, not requiring any CSS.
-
-<pre><script>
- $(function(){
-  $("#slides").slides({
-    width: 640,
-    height: 480
-  });
- });
-</script></pre>
-
-h3. Method Calls - The good stuff
-
-h4. Play
-
-<pre>$("#slides").slides("play");</pre>
-
-h4. Pause
-
-<pre>$("#slides").slides("pause");</pre>
-
-h4. Stop
-
-<pre>$("#slides").slides("stop");</pre>
-
-h4. Next, using default effect
-
-<pre>$("#slides").slides("next");</pre>
-
-h4. Next, define effect, "slide" or "fade"
-
-<pre>$("#slides").slides("next","fade");</pre>
-
-h4. Previous, uses default effect
-
-<pre>$("#slides").slides("previous");</pre>
-
-h4. Previous, define effect, "slide" or "fade"
-
-<pre>$("#slides").slides("previous","fade");</pre>
-
-h4. Goto slide 2 using default effect
-
-<pre>$("#slides").slides("slide",2);</pre>
-
-h4. Goto slide 2 define effect, "slide" or "fade"
-
-<pre>$("#slides").slides("slide",4,"fade");</pre>
-
-h4. Update
-
-<pre>$("#slides").slides("update");</pre>
-
-h4. Destroy
-
-<pre>$("#slides").slides("destroy");</pre>
-
-
-h4. Status
-
-<pre>$("#slides").slides("status");</pre>
-
-Returns JSON object:
-<pre>{
- current: 4,
- state: "playing",
- total: 7
-}</pre>
-
-The follow could also be used
-	
-<pre>$("#slides").slides("status","current");</pre>
-
-returns: number
-
-<pre>$("#slides").slides("status","state");</pre>
-
-returns: string, playing, paused, stopped, undefined
-
-<pre>$("#slides").slides("status","total");</pre>
-
-returns: number
-
-h3. Options
-
-<pre>width: 780, // [Number] Define the slide width
-responsive: false, // [Boolean] slideshow will scale to its container
-height: 300, // [Number] Define the slide height
-navigation: true, // [Boolean] Auto generate the naviagation, next/previous buttons
-pagination: true, // [Boolean] Auto generate the pagination
-effects: {
- navigation: "slide",  // [String] Can be either "slide" or "fade"
- pagination: "slide" // [String] Can be either "slide" or "fade"
-},
-direction: "left", // [String] Define the slide direction: "Up", "Right", "Down", "left"
-fade: {
- interval: 1000, // [Number] Interval of fade in milliseconds
- crossfade: false, // [Boolean] TODO: add this feature. Crossfade the slides, great for images, bad for text
- easing: "" // [String] Dependency: jQuery Easing plug-in <http://gsgd.co.uk/sandbox/jquery/easing/>
-},
-slide: {
- interval: 1000, // [Number] Interval of fade in milliseconds
- browserWindow: false, // [Boolean] Slide in/out from browser window, bad ass
- easing: "" // [String] Dependency: jQuery Easing plug-in <http://gsgd.co.uk/sandbox/jquery/easing/>
-},
-preload: {
- active: true, // [Boolean] Preload the slides before showing them, this needs some work
- image: "../img/loading.gif" // [String] Define the path to a load .gif, yes I should do something cooler
-},
-startAtSlide: 1, // [Number] What should the first slide be?
-playInterval: 5000, // [Number] Time spent on each slide in milliseconds
-pauseInterval: 8000, // [Number] Time spent on pause, triggered on any navigation or pagination click
-autoHeight: false // [Boolean] TODO: add this feature. Auto sets height based on each slide</pre>
+SlidesJS version 3.0.1 beta documentation is available at "http://beta.slidesjs.com/":http://beta.slidesjs.com/
 
 h2. License
 
@@ -207,81 +33,5 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 h2. Changelog
-* 2.0 beta 1
-** Complete rewrite using method based pattern
 
-* 1.1.8
-** Fixed: bug with preloading image and starting at a slide other then the first
-
-* 1.1.7 
-** Added currentClass default, thanks arronmabrey!
-
-* 1.1.6 
-** Fixed: bug with slidesLoaded function
-
-* 1.1.5 
-** New: option called slidesLoaded, a function that is called when Slides is fully loaded
-
-* 1.1.4
-** Fixed: Minor bug with loading image not being removed
-** Added: animationStart() now gets passed the current slide number
-** Updated: Examples now use jQuery 1.5.1
-
-* 1.1.3
-** New: Support for jQuery's easing plugin
-*** Added: fadeEasing and slideEasing defaults
-** Cleaned up JavaScript using http://jshint.com
-** Fixed: Minor bug with hoverPause
-
-* 1.1.2
-** Changed: Width and Height is set in the CSS rather then the JavaScript
-** New: Added some helpful comments to example CSS
-** Fixed: Flash of slide content in IE
-** Updated: Better loading structure
-
-* 1.1.1
-** New: Width and height is now a required attribute
-*** This fixes numerous issues with blank slides and height
-** New: Rewrote image loading
-*** Now supports multiple parent elements
-*** Fixed other minor bugs
-** Fixed: Images should no longer flicker in IE
-
-* 1.1.0
-** Fixed: Issue with images and captions example in IE6/7
-
-* 1.0.9
-** Fixed: Using fade effect, crossfade and autoheight now works properly
-
-* 1.0.8
-** Fixed: IE6/7 JavaScript error related to the pagination
-
-* 1.0.7
-** New: Link to a slide from a slide. Check out /examples/Linking/ in the download
-** New: Deeplinking example added. Check out /examples/Linking/ in the download
-** Changed: Pagination no longer uses rel attribute, it now just uses href with hash
-
-* 1.0.6
-** Changed: Pagination now targets the rel attribute versus using :eq()
-
-* 1.0.5
-** New: Current slide number passed to animationComplete()
-
-* 1.0.4
-** Fixed: start option bug
-** New: error correction for start option
-
-* 1.0.3
-** Fixed: bugs related to auto height
-** New: animationStart() and animationComplete() added
-
-* 1.0.2
-** Fixed: bug with static pagination
-
-* 1.0.1
-** New: boolean to auto generated Next/Prev buttons
-** Width attribute is no longer set for main element
-** Fixed: pagination bug, it was set to false, should be true by default
-
-* 1.0
-** Initial release
+* 3.0.1 beta release
