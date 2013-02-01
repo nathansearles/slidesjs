@@ -1,6 +1,6 @@
 h1. SlidesJS version 3.0.1 beta
 
-SlidesJS, a responsive, CSS3 based slideshow plugin for jQuery. Packed with a useful set of features to help novice and advanced developers alike create elegant and user-friendly slideshows.
+SlidesJS, a responsive, CSS3 and touch based slideshow plugin for jQuery. Packed with a useful set of features to help novice and advanced developers alike create elegant and user-friendly slideshows.
 
 SlidesJS is provided with limited support but if you find a bug please submit an "Issue":https://github.com/nathansearles/slides/issues with a brief description of the bug and a link to where it can be reviewed.
 
