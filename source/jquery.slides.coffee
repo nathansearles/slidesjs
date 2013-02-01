@@ -1,7 +1,7 @@
 
 # Note: SlidesJS version 3.0.1 beta is not yet ready
 # for production deployment. Please download the latest
-# version at https://slidesjs.com
+# version at http://slidesjs.com
 
 # Created by Nathan Searles http://nathansearles.com
 
