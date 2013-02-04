@@ -569,12 +569,15 @@
       if @data.vendorPrefix
         # If supported use CSS3 for the animation
         # Get the browser's vendor prefix
-        prefix = @data.vendorPrefix
+        if typeof @data.vendorPrefix is "string"
+          prefix = @data.vendorPrefix + "T"
+        else
+          prefix = "t"
 
         # Create CSS3 styles based on vendor prefix
-        transform = prefix + "Transform"
-        duration = prefix + "TransitionDuration"
-        timing = prefix + "TransitionTimingFunction"
+        transform = prefix + "ransform"
+        duration = prefix + "ransitionDuration"
+        timing = prefix + "ransitionTimingFunction"
 
         # Set CSS3 styles
         slidesControl[0].style[transform] = "translateX(" + direction + "px)"
@@ -722,7 +725,7 @@
 
   # @_getVendorPrefix()
   # Check if the browser supports CSS3 Transitions
-  Plugin::_getVendorPrefix = (number) ->
+  Plugin::_getVendorPrefix = () ->
     body = document.body or document.documentElement
     style = body.style
     transition = "transition"

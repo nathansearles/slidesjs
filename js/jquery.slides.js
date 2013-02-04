@@ -424,10 +424,14 @@
         });
         this.options.callback.start();
         if (this.data.vendorPrefix) {
-          prefix = this.data.vendorPrefix;
-          transform = prefix + "Transform";
-          duration = prefix + "TransitionDuration";
-          timing = prefix + "TransitionTimingFunction";
+          if (typeof this.data.vendorPrefix === "string") {
+            prefix = this.data.vendorPrefix + "T";
+          } else {
+            prefix = "t";
+          }
+          transform = prefix + "ransform";
+          duration = prefix + "ransitionDuration";
+          timing = prefix + "ransitionTimingFunction";
           slidesControl[0].style[transform] = "translateX(" + direction + "px)";
           slidesControl[0].style[duration] = this.options.effect.slide.speed + "ms";
           slidesControl[0].style[timing] = "ease-out";
@@ -526,7 +530,7 @@
         }
       }
     };
-    Plugin.prototype._getVendorPrefix = function(number) {
+    Plugin.prototype._getVendorPrefix = function() {
       var body, i, style, transition, vendor;
       body = document.body || document.documentElement;
       style = body.style;
