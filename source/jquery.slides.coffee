@@ -1,5 +1,4 @@
-
-# Note: SlidesJS version 3.0.1 beta is not yet ready
+# Note: SlidesJS version 3.0.2 beta is not yet ready
 # for production deployment. Please download the latest
 # version at http://slidesjs.com
 
@@ -8,8 +7,8 @@
 # Documentation and examples http://slidesjs.com
 # Support forum http://groups.google.com/group/slidesjs
 
-# Version: 3.0.1 beta
-# Updated: January 31st, 2013
+# Version: 3.0.2 beta
+# Updated: February 4th, 2013
 
 # SlidesJS is an open source project, contribute at GitHub:
 # https://github.com/nathansearles/Slides
@@ -55,7 +54,7 @@
         # You cannot use your own pagination.
       effect: "slide"
         # [string] Can be either "slide" or "fade".
-    controls:
+    play:
         # Play and stop button setting.
       active: true
         # [boolean] Create the play and stop buttons.
@@ -64,6 +63,8 @@
         # [string] Can be either "slide" or "fade".
       interval: 5000
         # [number] Time spent on each slide in milliseconds.
+      auto: false
+        # [boolean] Start playing the slideshow on load
     effect:
       slide:
         # Slide effect settings.
@@ -101,7 +102,7 @@
     $.data this, "animating", false
     $.data this, "total", $element.children().not(".slidesjs-navigation", $element).length
     $.data this, "current", @options.start - 1
-    $.data this, "supportsTransitions", @_supportsTransitions()
+    $.data this, "vendorPrefix", @_getVendorPrefix()
 
     # Detect touch device
     if typeof TouchEvent != "undefined"
@@ -199,7 +200,7 @@
       @stop()
       @previous(@options.navigation.effect)
 
-    if @options.controls.active
+    if @options.play.active
       playButton = $("<a>",
         class: "slidesjs-play slidesjs-navigation"
         href: "#"
@@ -256,6 +257,10 @@
 
     # Set start pagination item to active
     @_setActive()
+
+    # Auto play slideshow
+    if @options.play.auto
+      @play()
 
     # Slides has loaded
     @options.callback.loaded()
@@ -405,26 +410,42 @@
     slidesControl = $(".slidesjs-control", $element)
 
     # Slide has been dragged to the right, goto previous slide
-    if slidesControl.position().left > @options.width * .45
+    if slidesControl.position().left > @options.width * .5
       $.data this, "direction", "previous"
       @_slide()
     # Slide has been dragged to the left, goto next slide
-    else if slidesControl.position().left < -(@options.width * .45)
+    else if slidesControl.position().left < -(@options.width * .5)
       $.data this, "direction", "next"
       @_slide()
     else
       # Slide has not been dragged far enough, animate back to 0 and reset
-      slidesControl.css
-        webkitTransform: "translateX(0px)"
-        webkitTransitionDuration: @options.effect.slide.speed + "ms"
-        webkitTransitionTimingFunction: "ease-in-out"
+        # Get the browser's vendor prefix
+        prefix = @data.vendorPrefix
+
+        # Create CSS3 styles based on vendor prefix
+        transform = prefix + "Transform"
+        duration = prefix + "TransitionDuration"
+        timing = prefix + "TransitionTimingFunction"
+
+        # Set CSS3 styles
+        slidesControl[0].style[transform] = "translateX(0px)"
+        slidesControl[0].style[duration] = @options.effect.slide.speed * .75 + "ms"
+        slidesControl[0].style[timing] = "ease-out"
 
     # Rest slideshow
     slidesControl.on "transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd", =>
-      slidesControl.css
-        webkitTransform: ""
-        webkitTransitionDuration: ""
-        webkitTransitionTimingFunction: ""
+        # Get the browser's vendor prefix
+        prefix = @data.vendorPrefix
+
+        # Create CSS3 styles based on vendor prefix
+        transform = prefix + "Transform"
+        duration = prefix + "TransitionDuration"
+        timing = prefix + "TransitionTimingFunction"
+
+        # Set CSS3 styles
+        slidesControl[0].style[transform] = ""
+        slidesControl[0].style[duration] = ""
+        slidesControl[0].style[timing] = ""
 
     # Stop event from bubbling up
     e.stopPropagation()
@@ -439,8 +460,18 @@
     # Prevent default scrolling
     e.preventDefault();
 
-    # Move the slides with touch
-    $(".slidesjs-control", $element).css webkitTransform: "translateX(" + (touches.pageX - @data.touchstart) + "px)"
+    # Get the browser's vendor prefix
+    prefix = @data.vendorPrefix
+
+    # Define slides control
+    slidesControl = $(".slidesjs-control", $element)
+
+    # Create CSS3 styles based on vendor prefix
+    transform = prefix + "Transform"
+
+    # Set CSS3 styles
+    if !@data.animating
+      slidesControl[0].style[transform] = "translateX(" + (touches.pageX - @data.touchstart) + "px)"
 
     # Stop event from bubbling up
     e.stopPropagation()
@@ -457,14 +488,14 @@
       if next
         currentSlide = @data.current
         @data.direction = "next"
-        if @options.controls.effect is "fade" then @_fade() else @_slide()
+        if @options.play.effect is "fade" then @_fade() else @_slide()
 
       # Set and store interval
       $.data this, "playInterval", setInterval ( =>
         currentSlide = @data.current
         @data.direction = "next"
-        if @options.controls.effect is "fade" then @_fade() else @_slide()
-      ), @options.controls.interval
+        if @options.play.effect is "fade" then @_fade() else @_slide()
+      ), @options.play.interval
 
       $.data this, "playing", true
 
@@ -498,7 +529,7 @@
       # Get current slide
       currentSlide = @data.current
 
-      if number
+      if number > -1
         number = number - 1
         value = if number > currentSlide then 1 else -1
         direction = if number > currentSlide then -@options.width else @options.width
@@ -520,6 +551,13 @@
       # Define slides control
       slidesControl = $(".slidesjs-control", $element)
 
+      # When changing from touch to pagination reset touch slide setup
+      if number > -1
+        # Hide all slides expect current
+        slidesControl.children(":not(:eq(" + currentSlide + "))").css
+          display: "none"
+          left: 0
+
       # Setup the next slide
       slidesControl.children(":eq(" + next + ")").css
         display: "block"
@@ -528,18 +566,28 @@
       # Start the slide animation
       @options.callback.start()
 
-      if @data.supportsTransitions
+      if @data.vendorPrefix
         # If supported use CSS3 for the animation
-        slidesControl.css
-          webkitTransform: "translateX(" + direction + "px)"
-          webkitTransitionDuration: @options.effect.slide.speed + "ms"
-          webkitTransitionTimingFunction: "ease-in-out"
+        # Get the browser's vendor prefix
+        prefix = @data.vendorPrefix
+
+        # Create CSS3 styles based on vendor prefix
+        transform = prefix + "Transform"
+        duration = prefix + "TransitionDuration"
+        timing = prefix + "TransitionTimingFunction"
+
+        # Set CSS3 styles
+        slidesControl[0].style[transform] = "translateX(" + direction + "px)"
+        slidesControl[0].style[duration] = @options.effect.slide.speed + "ms"
+        slidesControl[0].style[timing] = "ease-out"
 
         slidesControl.on "transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd", =>
-          slidesControl.css
-            webkitTransform: ""
-            webkitTransitionDuration: ""
-            webkitTransitionTimingFunction: ""
+          # Clear styles
+          slidesControl[0].style[transform] = ""
+          slidesControl[0].style[duration] = ""
+          slidesControl[0].style[timing] = ""
+
+          # Reset slideshow
           slidesControl.children(":eq(" + next + ")").css left: 0
           slidesControl.children(":eq(" + currentSlide + ")").css
             display: "none"
@@ -672,9 +720,9 @@
           @options.callback.complete()
         )
 
-  # @_supportsTransitions()
+  # @_getVendorPrefix()
   # Check if the browser supports CSS3 Transitions
-  Plugin::_supportsTransitions = (number) ->
+  Plugin::_getVendorPrefix = (number) ->
     body = document.body or document.documentElement
     style = body.style
     transition = "transition"
@@ -686,7 +734,7 @@
     i = 0
 
     while i < vendor.length
-      return true  if typeof style[vendor[i] + transition] is "string"
+      return vendor[i] if typeof style[vendor[i] + transition] is "string"
       i++
     false
 

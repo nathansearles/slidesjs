@@ -16,10 +16,11 @@
         active: true,
         effect: "slide"
       },
-      controls: {
+      play: {
         active: true,
         effect: "slide",
-        interval: 5000
+        interval: 5000,
+        auto: false
       },
       effect: {
         slide: {
@@ -59,7 +60,7 @@
       $.data(this, "animating", false);
       $.data(this, "total", $element.children().not(".slidesjs-navigation", $element).length);
       $.data(this, "current", this.options.start - 1);
-      $.data(this, "supportsTransitions", this._supportsTransitions());
+      $.data(this, "vendorPrefix", this._getVendorPrefix());
       if (typeof TouchEvent !== "undefined") {
         $.data(this, "touch", true);
         this.options.effect.slide.speed = this.options.effect.slide.speed / 2;
@@ -127,7 +128,7 @@
         _this.stop();
         return _this.previous(_this.options.navigation.effect);
       });
-      if (this.options.controls.active) {
+      if (this.options.play.active) {
         playButton = $("<a>", {
           "class": "slidesjs-play slidesjs-navigation",
           href: "#",
@@ -174,6 +175,9 @@
         return _this.update();
       });
       this._setActive();
+      if (this.options.play.auto) {
+        this.play();
+      }
       return this.options.callback.loaded();
     };
     Plugin.prototype._setActive = function(number) {
@@ -298,44 +302,51 @@
       return e.stopPropagation();
     };
     Plugin.prototype._touchend = function(e) {
-      var $element, slidesControl, touches,
+      var $element, duration, prefix, slidesControl, timing, touches, transform,
         _this = this;
       $element = $(this.element);
       this.data = $.data(this);
       touches = e.originalEvent.touches[0];
       e.preventDefault();
       slidesControl = $(".slidesjs-control", $element);
-      if (slidesControl.position().left > this.options.width * .45) {
+      if (slidesControl.position().left > this.options.width * .5) {
         $.data(this, "direction", "previous");
         this._slide();
-      } else if (slidesControl.position().left < -(this.options.width * .45)) {
+      } else if (slidesControl.position().left < -(this.options.width * .5)) {
         $.data(this, "direction", "next");
         this._slide();
       } else {
-        slidesControl.css({
-          webkitTransform: "translateX(0px)",
-          webkitTransitionDuration: this.options.effect.slide.speed + "ms",
-          webkitTransitionTimingFunction: "ease-in-out"
-        });
+        prefix = this.data.vendorPrefix;
+        transform = prefix + "Transform";
+        duration = prefix + "TransitionDuration";
+        timing = prefix + "TransitionTimingFunction";
+        slidesControl[0].style[transform] = "translateX(0px)";
+        slidesControl[0].style[duration] = this.options.effect.slide.speed * .75 + "ms";
+        slidesControl[0].style[timing] = "ease-out";
       }
       slidesControl.on("transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd", function() {
-        return slidesControl.css({
-          webkitTransform: "",
-          webkitTransitionDuration: "",
-          webkitTransitionTimingFunction: ""
-        });
+        prefix = _this.data.vendorPrefix;
+        transform = prefix + "Transform";
+        duration = prefix + "TransitionDuration";
+        timing = prefix + "TransitionTimingFunction";
+        slidesControl[0].style[transform] = "";
+        slidesControl[0].style[duration] = "";
+        return slidesControl[0].style[timing] = "";
       });
       return e.stopPropagation();
     };
     Plugin.prototype._touchmove = function(e) {
-      var $element, touches;
+      var $element, prefix, slidesControl, touches, transform;
       $element = $(this.element);
       this.data = $.data(this);
       touches = e.originalEvent.touches[0];
       e.preventDefault();
-      $(".slidesjs-control", $element).css({
-        webkitTransform: "translateX(" + (touches.pageX - this.data.touchstart) + "px)"
-      });
+      prefix = this.data.vendorPrefix;
+      slidesControl = $(".slidesjs-control", $element);
+      transform = prefix + "Transform";
+      if (!this.data.animating) {
+        slidesControl[0].style[transform] = "translateX(" + (touches.pageX - this.data.touchstart) + "px)";
+      }
       return e.stopPropagation();
     };
     Plugin.prototype.play = function(next) {
@@ -347,7 +358,7 @@
         if (next) {
           currentSlide = this.data.current;
           this.data.direction = "next";
-          if (this.options.controls.effect === "fade") {
+          if (this.options.play.effect === "fade") {
             this._fade();
           } else {
             this._slide();
@@ -356,12 +367,12 @@
         $.data(this, "playInterval", setInterval((function() {
           currentSlide = _this.data.current;
           _this.data.direction = "next";
-          if (_this.options.controls.effect === "fade") {
+          if (_this.options.play.effect === "fade") {
             return _this._fade();
           } else {
             return _this._slide();
           }
-        }), this.options.controls.interval));
+        }), this.options.play.interval));
         $.data(this, "playing", true);
         return $(".slidesjs-play", $element).addClass("slidesjs-playing");
       }
@@ -376,14 +387,14 @@
       return $(".slidesjs-play", $element).removeClass("slidesjs-playing");
     };
     Plugin.prototype._slide = function(number) {
-      var $element, currentSlide, direction, next, slidesControl, value,
+      var $element, currentSlide, direction, duration, next, prefix, slidesControl, timing, transform, value,
         _this = this;
       $element = $(this.element);
       this.data = $.data(this);
       if (!this.data.animating && number !== this.data.current + 1) {
         $.data(this, "animating", true);
         currentSlide = this.data.current;
-        if (number) {
+        if (number > -1) {
           number = number - 1;
           value = number > currentSlide ? 1 : -1;
           direction = number > currentSlide ? -this.options.width : this.options.width;
@@ -401,23 +412,29 @@
         }
         this._setActive(next);
         slidesControl = $(".slidesjs-control", $element);
+        if (number > -1) {
+          slidesControl.children(":not(:eq(" + currentSlide + "))").css({
+            display: "none",
+            left: 0
+          });
+        }
         slidesControl.children(":eq(" + next + ")").css({
           display: "block",
           left: value * this.options.width
         });
         this.options.callback.start();
-        if (this.data.supportsTransitions) {
-          slidesControl.css({
-            webkitTransform: "translateX(" + direction + "px)",
-            webkitTransitionDuration: this.options.effect.slide.speed + "ms",
-            webkitTransitionTimingFunction: "ease-in-out"
-          });
+        if (this.data.vendorPrefix) {
+          prefix = this.data.vendorPrefix;
+          transform = prefix + "Transform";
+          duration = prefix + "TransitionDuration";
+          timing = prefix + "TransitionTimingFunction";
+          slidesControl[0].style[transform] = "translateX(" + direction + "px)";
+          slidesControl[0].style[duration] = this.options.effect.slide.speed + "ms";
+          slidesControl[0].style[timing] = "ease-out";
           return slidesControl.on("transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd", function() {
-            slidesControl.css({
-              webkitTransform: "",
-              webkitTransitionDuration: "",
-              webkitTransitionTimingFunction: ""
-            });
+            slidesControl[0].style[transform] = "";
+            slidesControl[0].style[duration] = "";
+            slidesControl[0].style[timing] = "";
             slidesControl.children(":eq(" + next + ")").css({
               left: 0
             });
@@ -509,7 +526,7 @@
         }
       }
     };
-    Plugin.prototype._supportsTransitions = function(number) {
+    Plugin.prototype._getVendorPrefix = function(number) {
       var body, i, style, transition, vendor;
       body = document.body || document.documentElement;
       style = body.style;
@@ -522,7 +539,7 @@
       i = 0;
       while (i < vendor.length) {
         if (typeof style[vendor[i] + transition] === "string") {
-          return true;
+          return vendor[i];
         }
         i++;
       }

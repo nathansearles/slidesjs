@@ -75,7 +75,7 @@
 
   <div class="alert alert-fixed-top">
     <div class="container">
-      <strong>Welcome to the SlidesJS v3.0.1 beta site!</strong> To check out the current production version of SlidesJS goto <a href="http://slidesjs.com/">http://slidesjs.com/</a>.
+      <strong>Welcome to the SlidesJS v3.0.x beta site!</strong> To check out the current production version of SlidesJS goto <a href="http://slidesjs.com/">http://slidesjs.com/</a>.
     </div>
   </div>
 
@@ -111,14 +111,15 @@
 
           <p>SlidesJS is provided with limited support but if you find a bug please submit an <a href="https://github.com/nathansearles/slides/issues">Issue</a> with a brief description of the bug and a link to where it can be reviewed.</p>
 
-          <p><strong>Note:</strong> SlidesJS version 3.0.1 beta is not yet ready for production deployment. Please download the latest version at <a href="http://slidesjs.com">http://slidesjs.com</a>.</p>
+          <p><strong>Note:</strong> SlidesJS version 3.0.x beta is not yet ready for production deployment. Please download the latest version at <a href="http://slidesjs.com">http://slidesjs.com</a>.</p>
 
           <p>View on <a href="https://github.com/nathansearles/Slides/tree/SlidesJS-3">GitHub</a>.</p>
 
+          <!--
           <h2>Known bugs</h2>
           <ol>
-            <li>Currently only works in webkit based browsers like Safari and Chrome</li>
-          </ol>
+            <li>No known bugs</li>
+          </ol> -->
 
           <p>For general support please visit the <a href="http://groups.google.com/group/slidesjs">SlidesJS User Group</a>.</p>
 
@@ -254,21 +255,23 @@
           </div>
         </div>
 
-        <div id="controls" class="expand">
-          <h3>controls (object)</h3>
+        <div id="play" class="expand">
+          <h3>play (object)</h3>
           <p>Play and stop button setting. <a href="#" class="show"><i class="icon-plus-sign"></i> Show example</a></p>
           <div class="content">
             <div class="innner">
 <pre><code>$(function(){
   $("#slides").slidesjs({
-    controls: {
+    play: {
       active: true,
         # [boolean] Create the play and stop buttons.
         # You cannot use your own pagination.
       effect: "slide",
         # [string] Can be either "slide" or "fade".
-      interval: 5000
+      interval: 5000,
         # [number] Time spent on each slide in milliseconds.
+      auto: false
+        # [boolean] Start playing the slideshow on load
     }
   });
 });</code></pre>
@@ -276,14 +279,14 @@
           </div>
         </div>
 
-        <div id="controls" class="expand">
+        <div id="effect" class="expand">
           <h3>effect (object)</h3>
           <p>Effect setting. <a href="#" class="show"><i class="icon-plus-sign"></i> Show example</a></p>
           <div class="content">
             <div class="innner">
 <pre><code>$(function(){
   $("#slides").slidesjs({
-    controls: {
+    effect: {
       slide: {
         # Slide effect settings.
         speed: 200,
@@ -390,7 +393,7 @@
         width: 940,
         height: 528,
         navigation: false,
-        controls: false
+        play: false
       });
     });
   </script>

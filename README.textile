@@ -1,10 +1,10 @@
-h1. SlidesJS version 3.0.1 beta
+h1. SlidesJS version 3.0.x beta
 
 SlidesJS, a responsive, CSS3 and touch based slideshow plugin for jQuery. Packed with a useful set of features to help novice and advanced developers alike create elegant and user-friendly slideshows.
 
 SlidesJS is provided with limited support but if you find a bug please submit an "Issue":https://github.com/nathansearles/slides/issues with a brief description of the bug and a link to where it can be reviewed.
 
-**SlidesJS version 3.0.1 beta is not meant for production deployment.**
+**SlidesJS version 3.0.x beta is not meant for production deployment.**
 
 For the current production ready version of SlidesJS visit "http://slidesjs.com/":http://slidesjs.com/.
 
@@ -16,7 +16,7 @@ Support forum "http://groups.google.com/group/slidesjs":http://groups.google.com
 
 h2. Documentation
 
-SlidesJS version 3.0.1 beta documentation is available at "http://beta.slidesjs.com/":http://beta.slidesjs.com/
+SlidesJS version 3.0.x beta documentation is available at "http://beta.slidesjs.com/":http://beta.slidesjs.com/
 
 h2. License
 
@@ -33,5 +33,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 h2. Changelog
+
+* 3.0.2 beta release
+** New: Firefox support
+** New: auto play functionality
+** Changed: "controls" default to "play"
+** Cleaned up touch animations
 
 * 3.0.1 beta release
