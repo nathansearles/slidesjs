@@ -25,4 +25,12 @@ $(function() {
     });
 
     Socialite.load();
+
+     $(".track_download").click(function(){
+        _gaq.push(["_trackEvent", "Slides", "Download", "Slides GitHub Download"]);
+    });
+
+    $(".track_donate").click(function(){
+        _gaq.push(["_trackEvent", "Slides", "Donate", "Slides Donation"]);
+    });
 });
