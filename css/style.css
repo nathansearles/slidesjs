@@ -40,6 +40,10 @@ body {
     background-color: #111;
 }
 
+.navbar .nav > li > a {
+  padding:10px;
+}
+
 
 /* Social Buttons */
 .social-buttons {
@@ -126,11 +130,11 @@ a.show {
 
 /* Type styles */
 h1 {
-    font-size: 23px;
+    font-size: 20px;
     text-transform: uppercase;
 }
 
-h2 { font-size: 18px }
+h2 { font-size: 16px }
 
 h3 { margin: 0 }
 
