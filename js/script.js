@@ -1,10 +1,6 @@
 $(function() {
     $('#navbar').scrollspy()
 
-    $("#main_nav li.active").removeClass("active");
-
-    $("#main_nav li:first").addClass("active");
-
     $(".brand").click(function(e) {
         e.preventDefault();
         window.scrollTo( 0, 0) ;
@@ -22,18 +18,6 @@ $(function() {
             $(".content",obj).slideDown(150);
             $(this).html("<i class='icon-minus-sign'></i> Hide example");
         }
-    });
-
-    $(".donate").click(function(e) {
-        e.preventDefault();
-        $("#submit").click();
-    });
-
-    $(".track_download").click(function(){
-        _gaq.push(["_trackEvent", "Slides", "Download", "Slides GitHub Download"]);
-    });
-    $(".track_donate").click(function(){
-        _gaq.push(["_trackEvent", "Slides", "Donate", "Slides Donation"]);
     });
 
     $(".collapse").collapse({
