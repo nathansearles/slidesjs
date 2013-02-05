@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	
+
 	<title>Slides, A Slideshow Plugin for jQuery</title>
-	
+
 	<style type="text/css" media="screen">
 		/*
 			Load CSS before JavaScript
 		*/
-		
+
 		/*
 			Slides container
 			Important:
@@ -29,13 +29,13 @@
 			If height not specified height will be set by the slide content
 			Set to display block
 		*/
-		
+
 		#slides .slides_container div {
 			width:570px;
 			height:170px;
 			display:block;
 		}
-		
+
 		/*
 			Slides container
 			Important:
@@ -54,13 +54,13 @@
 			If height not specified height will be set by the slide content
 			Set to display block
 		*/
-		
+
 		#slides_two .slides_container div {
 			width:250px;
 			height:250px;
 			display:block;
 		}
-		
+
 		/*
 			Slides container
 			Important:
@@ -79,14 +79,14 @@
 			If height not specified height will be set by the slide content
 			Set to display block
 		*/
-		
+
 		#slides_three .slides_container div {
 			width:200px;
 			height:100px;
 			display:block;
 		}
-		
-		/* 
+
+		/*
 			Example only
 		*/
 		.pagination .current a {
@@ -96,10 +96,10 @@
 			background:#efefef;
 		}
 	</style>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="js/slides.min.jquery.js"></script>
-	
+
 	<script>
 		$(function(){
 			$('#slides').slides({
@@ -115,22 +115,22 @@
 				play: 6500,
 				autoHeight: true
 			});
-			
+
 			/*
 				You could also combin them all
 				But you can't customize each this way
-				
+
 				$('#slides,#slides_two,#slides_three').slides({
 					preload: true,
 					generateNextPrev: true
 				});
 			*/
 
-			/*	
+			/*
 				Or use a class for all three
 				If all three had class="slides"
 				Same here can't customize each this way
-				
+
 				$('.slides').slides({
 					preload: true,
 					generateNextPrev: true

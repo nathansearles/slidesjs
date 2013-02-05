@@ -30,25 +30,21 @@ These examples are also included in the download.
 * "Simple (unstyled)":http://slidesjs.com/examples/simple/
 * "Standard":http://slidesjs.com/examples/standard/
 
-h2. Todo
-
-Here's a list of soon to be added features. If you have a feature request let me know by either submitting an <a href="http://github.com/nathansearles/slides/issues">issue</a> or <a href="mailto:nsearles@gmail.com">by email</a>.
-
-* New: Play/pause button
-* New: Tutorial on how to create a custom slideshow using Slides
-* Fix: Bug when slideshow only has one slide
-
 h2. Changelog
+
+* 1.2.0
+** New: Added support for jQuery 1.9.x. Dropped support for jQuery versions below 1.7.
+
 * 1.1.8
 ** Fixed: bug with preloading image and starting at slide other then the first
 
-* 1.1.7 
+* 1.1.7
 ** Added currentClass default, thanks arronmabrey!
 
-* 1.1.6 
+* 1.1.6
 ** Fixed: bug with slidesLoaded function
 
-* 1.1.5 
+* 1.1.5
 ** New: option called slidesLoaded, a function that is called when Slides is fully loaded
 
 * 1.1.4
