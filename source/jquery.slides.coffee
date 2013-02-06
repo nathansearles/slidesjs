@@ -1,4 +1,4 @@
-# Note: SlidesJS version 3.0.2 beta is not yet ready
+# Note: SlidesJS version 3 beta is not yet ready
 # for production deployment. Please download the latest
 # version at http://slidesjs.com
 
