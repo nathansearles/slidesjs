@@ -7,8 +7,8 @@
 # Documentation and examples http://slidesjs.com
 # Support forum http://groups.google.com/group/slidesjs
 
-# Version: 3.0.2 beta
-# Updated: February 4th, 2013
+# Version: 3.0.2b beta
+# Updated: February 5th, 2013
 
 # SlidesJS is an open source project, contribute at GitHub:
 # https://github.com/nathansearles/Slides
@@ -569,15 +569,12 @@
       if @data.vendorPrefix
         # If supported use CSS3 for the animation
         # Get the browser's vendor prefix
-        if typeof @data.vendorPrefix is "string"
-          prefix = @data.vendorPrefix + "T"
-        else
-          prefix = "t"
+        prefix = @data.vendorPrefix
 
         # Create CSS3 styles based on vendor prefix
-        transform = prefix + "ransform"
-        duration = prefix + "ransitionDuration"
-        timing = prefix + "ransitionTimingFunction"
+        transform = prefix + "Transform"
+        duration = prefix + "TransitionDuration"
+        timing = prefix + "TransitionTimingFunction"
 
         # Set CSS3 styles
         slidesControl[0].style[transform] = "translateX(" + direction + "px)"
@@ -729,7 +726,6 @@
     body = document.body or document.documentElement
     style = body.style
     transition = "transition"
-    return true  if typeof style[transition] is "string"
 
     vendor = ["Moz", "Webkit", "Khtml", "O", "ms"]
     transition = transition.charAt(0).toUpperCase() + transition.substr(1)

@@ -424,14 +424,10 @@
         });
         this.options.callback.start();
         if (this.data.vendorPrefix) {
-          if (typeof this.data.vendorPrefix === "string") {
-            prefix = this.data.vendorPrefix + "T";
-          } else {
-            prefix = "t";
-          }
-          transform = prefix + "ransform";
-          duration = prefix + "ransitionDuration";
-          timing = prefix + "ransitionTimingFunction";
+          prefix = this.data.vendorPrefix;
+          transform = prefix + "Transform";
+          duration = prefix + "TransitionDuration";
+          timing = prefix + "TransitionTimingFunction";
           slidesControl[0].style[transform] = "translateX(" + direction + "px)";
           slidesControl[0].style[duration] = this.options.effect.slide.speed + "ms";
           slidesControl[0].style[timing] = "ease-out";
@@ -535,9 +531,6 @@
       body = document.body || document.documentElement;
       style = body.style;
       transition = "transition";
-      if (typeof style[transition] === "string") {
-        return true;
-      }
       vendor = ["Moz", "Webkit", "Khtml", "O", "ms"];
       transition = transition.charAt(0).toUpperCase() + transition.substr(1);
       i = 0;
