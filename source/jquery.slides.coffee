@@ -7,8 +7,8 @@
 # Documentation and examples http://slidesjs.com
 # Support forum http://groups.google.com/group/slidesjs
 
-# Version: 3.0.2b beta
-# Updated: February 5th, 2013
+# Version: 3.0.2c beta
+# Updated: February 6th, 2013
 
 # SlidesJS is an open source project, contribute at GitHub:
 # https://github.com/nathansearles/Slides
@@ -27,7 +27,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# SlidesJS 3.0.1 beta
+# SlidesJS 3 beta
 (($, window, document) ->
   pluginName = "slidesjs"
   defaults =
@@ -138,8 +138,9 @@
       top: 0
       left: 0
       width: "100%"
-      zIndex: 10
+      zIndex: 0
       display: "none"
+      webkitBackfaceVisibility: "hidden"
 
     # Assign an index to each slide
     $.each( $(".slidesjs-control", $element).children(), (i) ->
@@ -171,7 +172,8 @@
     $(".slidesjs-control", $element)
     .children(":eq(" + @data.current + ")")
     .eq(0)
-    .fadeIn 0
+    .fadeIn 0, ->
+      $(this).css zIndex: 10
 
     if @options.navigation.active
       # Create next/prev buttons
@@ -284,6 +286,12 @@
     $element = $(@element)
     @data = $.data this
 
+    # Hide all slides expect current
+    $(".slidesjs-control", $element).children(":not(:eq(" + @data.current + "))").css
+      display: "none"
+      left: 0
+      zIndex: 0
+
     # Get the new width and height
     width = $element.width()
     height = (@options.height / @options.width) * width
@@ -367,7 +375,6 @@
     # Create the loop
     previous = @data.total - 1 if previous < 0
     next = 0 if next > @data.total - 1
-
 
     # By default next/prev slides are hidden, show them when on touch device
     slidesControl.children(":eq(" + next + ")").css
@@ -557,11 +564,13 @@
         slidesControl.children(":not(:eq(" + currentSlide + "))").css
           display: "none"
           left: 0
+          zIndex: 0
 
       # Setup the next slide
       slidesControl.children(":eq(" + next + ")").css
         display: "block"
         left: value * @options.width
+        zIndex: 10
 
       # Start the slide animation
       @options.callback.start()
@@ -592,6 +601,7 @@
           slidesControl.children(":eq(" + currentSlide + ")").css
             display: "none"
             left: 0
+            zIndex: 0
 
           # Set the new slide to the current
           $.data this, "current", next
@@ -606,6 +616,7 @@
           slidesControl.children(":not(:eq(" + next + "))").css
             display: "none"
             left: 0
+            zIndex: 0
 
           # If touch device setup next slides
           @_setuptouch() if @data.touch
@@ -622,6 +633,7 @@
           slidesControl.children(":eq(" + currentSlide + ")").css
             display: "none"
             left: 0
+            zIndex: 0
 
             # Set the new slide to the current
             $.data this, "current", next

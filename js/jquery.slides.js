@@ -82,8 +82,9 @@
         top: 0,
         left: 0,
         width: "100%",
-        zIndex: 10,
-        display: "none"
+        zIndex: 0,
+        display: "none",
+        webkitBackfaceVisibility: "hidden"
       });
       $.each($(".slidesjs-control", $element).children(), function(i) {
         var $slide;
@@ -103,7 +104,11 @@
       }
       $element.fadeIn(0);
       this.update();
-      $(".slidesjs-control", $element).children(":eq(" + this.data.current + ")").eq(0).fadeIn(0);
+      $(".slidesjs-control", $element).children(":eq(" + this.data.current + ")").eq(0).fadeIn(0, function() {
+        return $(this).css({
+          zIndex: 10
+        });
+      });
       if (this.options.navigation.active) {
         prevButton = $("<a>", {
           "class": "slidesjs-previous slidesjs-navigation",
@@ -192,6 +197,11 @@
       var $element, height, width;
       $element = $(this.element);
       this.data = $.data(this);
+      $(".slidesjs-control", $element).children(":not(:eq(" + this.data.current + "))").css({
+        display: "none",
+        left: 0,
+        zIndex: 0
+      });
       width = $element.width();
       height = (this.options.height / this.options.width) * width;
       this.options.width = width;
@@ -415,12 +425,14 @@
         if (number > -1) {
           slidesControl.children(":not(:eq(" + currentSlide + "))").css({
             display: "none",
-            left: 0
+            left: 0,
+            zIndex: 0
           });
         }
         slidesControl.children(":eq(" + next + ")").css({
           display: "block",
-          left: value * this.options.width
+          left: value * this.options.width,
+          zIndex: 10
         });
         this.options.callback.start();
         if (this.data.vendorPrefix) {
@@ -440,14 +452,16 @@
             });
             slidesControl.children(":eq(" + currentSlide + ")").css({
               display: "none",
-              left: 0
+              left: 0,
+              zIndex: 0
             });
             $.data(_this, "current", next);
             $.data(_this, "animating", false);
             slidesControl.unbind("transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd");
             slidesControl.children(":not(:eq(" + next + "))").css({
               display: "none",
-              left: 0
+              left: 0,
+              zIndex: 0
             });
             if (_this.data.touch) {
               _this._setuptouch();
@@ -466,7 +480,8 @@
             });
             return slidesControl.children(":eq(" + currentSlide + ")").css({
               display: "none",
-              left: 0
+              left: 0,
+              zIndex: 0
             }, $.data(_this, "current", next), $.data(_this, "animating", false), _this.options.callback.complete());
           }));
         }
