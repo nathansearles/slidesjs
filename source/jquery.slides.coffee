@@ -56,7 +56,7 @@
         # [string] Can be either "slide" or "fade".
     play:
         # Play and stop button setting.
-      active: true
+      active: false
         # [boolean] Create the play and stop buttons.
         # You cannot use your own pagination.
       effect: "slide"

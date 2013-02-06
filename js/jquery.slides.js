@@ -17,7 +17,7 @@
         effect: "slide"
       },
       play: {
-        active: true,
+        active: false,
         effect: "slide",
         interval: 5000,
         auto: false
