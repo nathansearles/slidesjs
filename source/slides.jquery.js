@@ -452,7 +452,9 @@
       $('.' + option.paginationClass + ' li:eq('+ start +')', elem).addClass(option.currentClass);
 
       // click handling
-      $('.' + option.paginationClass + ' li a', elem ).on('click', function(){
+      $('.' + option.paginationClass + ' li a', elem ).on('click', function(e){
+        e.preventDefault();
+        
         // pause slideshow
         if (option.play) {
            pause();
@@ -463,11 +465,12 @@
         if (current != clicked) {
           animate('pagination', paginationEffect, clicked);
         }
-        return false;
       });
 
       // click handling
-      $('a.link', elem).on('click', function(){
+      $('a.link', elem).on('click', function(e){
+        e.preventDefault();
+        
         // pause slideshow
         if (option.play) {
            pause();
@@ -478,7 +481,6 @@
         if (current != clicked) {
           animate('pagination', paginationEffect, clicked);
         }
-        return false;
       });
 
       if (option.play) {
