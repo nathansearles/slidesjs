@@ -7,7 +7,7 @@
 # Documentation and examples http://slidesjs.com
 # Support forum http://groups.google.com/group/slidesjs
 
-# Version: 3.0.2d beta
+# Version: 3.0.2e beta
 # Updated: February 7th, 2013
 
 # SlidesJS is an open source project, contribute at GitHub:
@@ -167,6 +167,9 @@
 
     # Update sets width/height of slideshow
     @update()
+
+    # If touch device setup next slides
+    @_setuptouch() if @data.touch
 
     # Fade in start slide
     $(".slidesjs-control", $element)
