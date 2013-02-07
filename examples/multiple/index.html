@@ -201,7 +201,7 @@
   <!-- End SlidesJS Required -->
 
   <!-- SlidesJS Required: Link to jquery.slides.js -->
-  <script src="../../js/jquery.slides.js"></script>
+  <script src="js/jquery.slides.min.js"></script>
   <!-- End SlidesJS Required -->
 
   <!-- SlidesJS Required: Initialize SlidesJS with a jQuery doc ready -->
@@ -221,7 +221,10 @@
         width: 940,
         height: 528,
         navigation: false,
-        start: 3
+        start: 3,
+        play: {
+          auto: true
+        }
       });
 
       $('#slides3').slidesjs({

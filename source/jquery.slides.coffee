@@ -7,8 +7,8 @@
 # Documentation and examples http://slidesjs.com
 # Support forum http://groups.google.com/group/slidesjs
 
-# Version: 3.0.2c beta
-# Updated: February 6th, 2013
+# Version: 3.0.2d beta
+# Updated: February 7th, 2013
 
 # SlidesJS is an open source project, contribute at GitHub:
 # https://github.com/nathansearles/Slides
@@ -89,7 +89,7 @@
 
   class Plugin
     constructor: (@element, options) ->
-      @options = $.extend {}, defaults, options
+      @options = $.extend true, {}, defaults, options
       @_defaults = defaults
       @_name = pluginName
       @init()
@@ -108,7 +108,7 @@
     if typeof TouchEvent != "undefined"
       $.data this, "touch", true
       # Set slide speed to half for touch
-      this.options.effect.slide.speed = this.options.effect.slide.speed / 2
+      @options.effect.slide.speed = this.options.effect.slide.speed / 2
 
     # Hide overflow
     $element.css overflow: "hidden"
