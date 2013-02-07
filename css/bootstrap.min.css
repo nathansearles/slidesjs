@@ -1812,6 +1812,9 @@ input[type="submit"].btn.btn-mini {
   .modal.fade.in {
     top: 20px;
   }
+  .features {
+    margin-bottom: 10px;
+  }
 }
 @media (max-width: 480px) {
   .nav-collapse {

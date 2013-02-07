@@ -1,6 +1,15 @@
 $(function() {
     $('#navbar').scrollspy()
 
+    $('.nav a').on('click', function(e) {
+        e.preventDefault();
+        $this = $(this);
+        offset = 109;
+        target = $this.attr('href');
+        targetPos = $(target).position().top;
+        window.scrollTo(0,targetPos - offset)
+    });
+
     $(".brand").click(function(e) {
         e.preventDefault();
         window.scrollTo( 0, 0) ;
