@@ -1,7 +1,7 @@
 $(function() {
     $('#navbar').scrollspy()
 
-    $('.nav a').on('click', function(e) {
+    $('.nav a.scrollto').on('click', function(e) {
         e.preventDefault();
         $this = $(this);
         offset = 109;
