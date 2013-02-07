@@ -354,19 +354,16 @@
       else if number is "last"
         if effect is "fade" then @_fade(@data.total) else @_slide(@data.total)
       else
-        alert "SlidesJS: goto error"
+        # error
 
   # @_setuptouch()
   # Setup slideshow for touch
-  Plugin::_setuptouch = (e) ->
+  Plugin::_setuptouch = () ->
     $element = $(@element)
     @data = $.data this
 
     # Define slides control
     slidesControl = $(".slidesjs-control", $element)
-
-    slidesControl.children().each ->
-      $slide = $(this)
 
     # Get next/prev slides around current slide
     next = @data.current + 1
@@ -417,11 +414,11 @@
     slidesControl = $(".slidesjs-control", $element)
 
     # Slide has been dragged to the right, goto previous slide
-    if slidesControl.position().left > @options.width * .5
+    if slidesControl.position().left > @options.width * 0.5
       $.data this, "direction", "previous"
       @_slide()
     # Slide has been dragged to the left, goto next slide
-    else if slidesControl.position().left < -(@options.width * .5)
+    else if slidesControl.position().left < -(@options.width * 0.5)
       $.data this, "direction", "next"
       @_slide()
     else
@@ -436,7 +433,7 @@
 
         # Set CSS3 styles
         slidesControl[0].style[transform] = "translateX(0px)"
-        slidesControl[0].style[duration] = @options.effect.slide.speed * .75 + "ms"
+        slidesControl[0].style[duration] = @options.effect.slide.speed * 0.75 + "ms"
         slidesControl[0].style[timing] = "ease-out"
 
     # Rest slideshow
@@ -723,7 +720,7 @@
           .css zIndex: 10
 
           # Set animating to false
-          settings.animating = false
+          $.data this, "animating", false
 
           # Set the new slide to the current
           $.data this, "current", next
