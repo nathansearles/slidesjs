@@ -95,6 +95,17 @@ body {
     width:43px;
 }
 
+.features {
+  list-style-type: none;
+  padding:0;
+  color:#111;
+  margin:0;
+}
+
+.features li:first-child {
+  margin-bottom:10px;
+}
+
 /* Ad Packs */
 #ad_packs {
     margin: 45px 0 30px 0;
@@ -139,24 +150,29 @@ a.show {
 }
 
 /* Type styles */
+h1,h2,h3,h4,h5 {
+  color:#111;
+}
 h1 {
     font-size: 20px;
     text-transform: uppercase;
 }
 
-h2 { font-size: 16px }
+h2 {
+  font-size: 18px;
+}
 
 h3 { margin: 0 }
 
-p {
+p,ul,ol {
     font-weight: 400;
-    color: #333;
+    color: #111;
     margin:0 0 15px;
 }
 
 small {
     font-weight: 400;
-    color: #333;
+    color: #111;
 }
 
 a:link, a:visited {
@@ -177,19 +193,24 @@ a.btn {
 }
 
 .btns {
-  margin-top: 30px;
+  margin: 30px 0;
+}
+
+.btns a {
+  margin-top:0;
+  margin-bottom:0;
 }
 
 .push-right {
   margin-right:10px;
 }
 
-.section {
-  padding-top:30px;
+#slides-section {
+  margin:15px 0;
 }
 
 #footer {
-  margin-top:20px;
+  margin:0 0 30px;
   font-size:12px;
 }
 
@@ -385,4 +406,11 @@ pre .deletion {
 
 pre .comment .yardoctag {
   font-weight: bold;
+}
+
+hr {
+  margin: 30px 0;
+  border: 0;
+  border-top: 1px solid #e1e1e1;
+  height: 1px;
 }

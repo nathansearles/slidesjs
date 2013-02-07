@@ -108,22 +108,41 @@
         <div id="overview" class="section">
           <h1><i class="icon-check"></i> Overview</h1>
 
-          <p>SlidesJS is a responsive, CSS3 and touch based slideshow plugin for jQuery. Built to work on desktops, tablets and mobile devices alike. The goal with SlidesJS is to keep it simple and to not over complicate development.</p>
+          <p>SlidesJS is a responsive, CSS3 and touch supported slideshow plugin for jQuery. Packed with a useful set of features to help novice and advanced developers alike create elegant and user-friendly slideshows.</p>
 
-          <p>If you're looking for general support please visit the <a href="http://groups.google.com/group/slidesjs">SlidesJS User Group</a>. SlidesJS is distributed with limited support and on an "as is" basis.</p>
+          <h2>Features</h2>
 
-          <p><strong>Note:</strong> SlidesJS version 3.0.x beta is not yet ready for production deployment. Please download the latest version at <a href="http://slidesjs.com">http://slidesjs.com</a>.</p>
-
-          <p>If you're interested in contributing to the SlidesJS code base you can check it out on <a href="https://github.com/nathansearles/Slides/tree/SlidesJS-3">GitHub</a>.</p>
-
-          <p>SlidesJS is compatible with all modern web browsers and jQuery versions 1.7.1+.</p>
+          <div class="row">
+            <div class="span4">
+              <ul class="features">
+                <li><i class="icon-resize-horizontal"></i> Responsive</li>
+                <li><i class="icon-magic"></i>CSS3 animations</li>
+              </ul>
+            </div>
+            <div class="span4">
+              <ul class="features">
+                <li> <i class="icon-mobile-phone"></i> Touch support</li>
+                <li> <i class="icon-wrench"></i> Easy setup</li>
+              </ul>
+            </div>
+          </div>
 
           <div class="btns">
             <a href="https://github.com/nathansearles/Slides/archive/SlidesJS-3.zip" class="btn btn-inverse btn-large push-right track_download"><i class="icon-download icon-large"></i> Download</a>
 
             <a href="https://spacebox.io/s/BbDhQ7iWGP" target="_blank" class="btn btn-success btn-large track_donate"><i class="icon-thumbs-up icon-large"></i> Donate</a>
           </div>
+
+          <hr>
+
+          <p>If you're looking for support please visit the <a href="http://groups.google.com/group/slidesjs">SlidesJS forum</a>. SlidesJS is distributed with limited support and on an "as is" basis.</p>
+
+          <p>If you're interested in contributing to the SlidesJS code base you can check it out on <a href="https://github.com/nathansearles/Slides/tree/SlidesJS-3">GitHub</a>.</p>
+
+          <p>SlidesJS is compatible with all modern web browsers and jQuery 1.7.1+.</p>
         </div>
+
+        <hr>
 
         <!-- Examples -->
         <div id="examples" class="section">
@@ -138,6 +157,8 @@
             <li>More examples coming soon!</li>
           </ul>
         </div>
+
+        <hr>
 
         <!-- Docs -->
         <div id="docs" class="section">
@@ -173,11 +194,13 @@
 &lt;/body&gt;</code></pre>
         </div>
 
+        <hr>
+
         <h2 id="options">Options</h2>
 
         <div id="widthandheight" class="expand">
           <h3>width (number) &amp; height (number)</h3>
-          <p>Set the default width and height of the slideshow.  <a href="#" class="show"><i class="icon-plus-sign"></i> Show example</a></p>
+          <p>Set width and height of the slideshow.  <a href="#" class="show"><i class="icon-plus-sign"></i> Show example</a></p>
           <div class="content">
             <div class="innner">
 <pre><code>$(function(){
@@ -203,7 +226,7 @@
 });</code></pre>
             </div>
           </div>
-          <small><i class="icon-ok"></i> Default value is 1.</small>
+          <small><i class="icon-warning-sign"></i> Default value is 1.</small>
         </div>
 
         <div id="navigation" class="expand">
@@ -265,7 +288,7 @@
       interval: 5000,
         # [number] Time spent on each slide in milliseconds.
       auto: false
-        # [boolean] Start playing the slideshow on load
+        # [boolean] Start playing the slideshow on load.
     }
   });
 });</code></pre>
@@ -294,7 +317,7 @@
         easing: "",
           # easing plug-in required: http://gsgd.co.uk/sandbox/jquery/easing/
         crossfade: true
-          # [boolean] Cross-fade the transition
+          # [boolean] Cross-fade the transition.
       }
     }
   });
@@ -327,6 +350,8 @@
           </div>
         </div>
 
+        <hr>
+
         <!-- faq -->
         <div id="faq" class="section">
           <h1><i class="icon-question-sign icon-large"></i> Faq</h1>
@@ -335,11 +360,14 @@
           <p>To keep SlidesJS as simple as possible it only includes a slide or fade effect. Adding other effects would over complicate and bloat the plugin.</p>
 
           <h2>Can I use SlidesJS on a commercial site or include it in a template that I'm selling?</h2>
-          <p>Yes, you can. If you've found SlidesJS useful it'd awesome if you'd show your support by giving a <a href="https://spacebox.io/s/BbDhQ7iWGP" class="track_donate" target="_blank">donation</a>. If you have additional questions about licensing check out the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache license</a> which SlidesJS is licensed under.</p>
+          <p>Yes you can, but you must keep the copyright and licensing information with the plugin. And if you've found SlidesJS useful it'd awesome if you'd show your support by giving a <a href="https://spacebox.io/s/BbDhQ7iWGP" class="track_donate" target="_blank">donation</a>. If you have additional questions about licensing check out the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache license</a> which SlidesJS is licensed under.</p>
 
           <h2>I can't figure out how to add SlidesJS to my site. Can you help me?</h2>
-          <p>SlidesJS requires some basic understanding of HTML, CSS and jQuery. If you need help with adding SlidesJS to your site please post a question at the <a href="http://groups.google.com/group/slidesjs">SlidesJS User Group</a>. Most issues can be resolved by using your browsers built-in developer tools.</p>
+          <p>SlidesJS requires some basic understanding of HTML, CSS and jQuery. If you need help with adding SlidesJS to your site please post a question at the <a href="http://groups.google.com/group/slidesjs">SlidesJS forum</a>. Most issues can be resolved by using your browsers built-in developer tools.</p>
         </div>
+
+        <hr>
+
       </div> <!-- end main .span8 -->
       <div class="span4">
         <div id="ad_packs">
