@@ -7,8 +7,8 @@
 # Documentation and examples http://slidesjs.com
 # Support forum http://groups.google.com/group/slidesjs
 
-# Version: 3.0.2e beta
-# Updated: February 7th, 2013
+# Version: 3.0.2f beta
+# Updated: February 8th, 2013
 
 # SlidesJS is an open source project, contribute at GitHub:
 # https://github.com/nathansearles/Slides
@@ -65,6 +65,8 @@
         # [number] Time spent on each slide in milliseconds.
       auto: false
         # [boolean] Start playing the slideshow on load
+      swap: true
+        # [boolean] show/hide stop and play buttons
     effect:
       slide:
         # Slide effect settings.
@@ -227,6 +229,11 @@
       stopButton.click (e) =>
         e.preventDefault()
         @stop()
+
+      if @options.play.swap
+        stopButton.css
+          display: "none"
+
 
     if @options.pagination.active
       # Create unordered list pagination
@@ -509,6 +516,10 @@
       # Add "slidesjs-playing" class to "slidesjs-play" button
       $(".slidesjs-play", $element).addClass("slidesjs-playing")
 
+      if @options.play.swap
+        $(".slidesjs-play", $element).hide()
+        $(".slidesjs-stop", $element).show()
+
   # @stop()
   # Stops a playing slideshow
   Plugin::stop = () ->
@@ -522,6 +533,10 @@
     $.data this, "playInterval", null
     $.data this, "playing", false
     $(".slidesjs-play", $element).removeClass("slidesjs-playing")
+
+    if @options.play.swap
+      $(".slidesjs-stop", $element).hide()
+      $(".slidesjs-play", $element).show()
 
   # @_slide()
   # CSS3 and JavaScript slide animations
