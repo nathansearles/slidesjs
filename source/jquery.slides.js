@@ -8,7 +8,7 @@
   # Documentation and examples http://slidesjs.com
   # Support forum http://groups.google.com/group/slidesjs
 
-  # Version: 3.0.2g beta
+  # Version: 3.0.2h beta
   # Updated: February 8th, 2013
 
   # SlidesJS is an open source project, contribute at GitHub:
@@ -54,12 +54,10 @@
       },
       effect: {
         slide: {
-          speed: 500,
-          easing: ""
+          speed: 500
         },
         fade: {
           speed: 300,
-          easing: "",
           crossfade: true
         }
       },
@@ -513,7 +511,7 @@
         } else {
           return slidesControl.stop().animate({
             left: direction
-          }, this.options.effect.slide.speed, (function() {
+          }, this.options.effect.slide.speed((function() {
             slidesControl.css({
               left: 0
             });
@@ -525,7 +523,7 @@
               left: 0,
               zIndex: 0
             }, $.data(_this, "current", next), $.data(_this, "animating", false), _this.options.callback.complete(next));
-          }));
+          })));
         }
       }
     };
@@ -560,26 +558,26 @@
         });
         this.options.callback.start(currentSlide);
         if (this.options.effect.fade.crossfade) {
-          return slidesControl.children(":eq(" + this.data.current + ")").stop().fadeOut(this.options.effect.fade.speed, (function() {
+          return slidesControl.children(":eq(" + this.data.current + ")").stop().fadeOut(this.options.effect.fade.speed((function() {
             slidesControl.children(":eq(" + next + ")").css({
               zIndex: 10
             });
             $.data(_this, "animating", false);
             $.data(_this, "current", next);
             return _this.options.callback.complete();
-          }));
+          })));
         } else {
           slidesControl.children(":eq(" + next + ")").css({
             display: "none"
           });
-          return slidesControl.children(":eq(" + currentSlide + ")").stop().fadeOut(this.options.effect.fade.speed, (function() {
+          return slidesControl.children(":eq(" + currentSlide + ")").stop().fadeOut(this.options.effect.fade.speed((function() {
             slidesControl.children(":eq(" + next + ")").stop().fadeIn(this.options.effect.fade.speed).css({
               zIndex: 10
             });
             $.data(this, "animating", false);
             $.data(this, "current", next);
             return this.options.callback.complete();
-          }));
+          })));
         }
       }
     };

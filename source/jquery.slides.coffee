@@ -72,13 +72,13 @@
         # Slide effect settings.
         speed: 500
           # [number] Speed in milliseconds of the slide animation.
-        easing: ""
-          # easing plug-in required: http://gsgd.co.uk/sandbox/jquery/easing/
+        #easing: ""
+          # Currently disabled
       fade:
         speed: 300
           # [number] Speed in milliseconds of the fade animation.
-        easing: ""
-          # easing plug-in required: http://gsgd.co.uk/sandbox/jquery/easing/
+        #easing: ""
+          # Currently disabled
         crossfade: true
           # [boolean] Cross-fade the transition
     callback:
@@ -642,7 +642,7 @@
         # If CSS3 isn't support use JavaScript for the animation
         slidesControl.stop().animate
           left: direction
-        , @options.effect.slide.speed, (=>
+        , @options.effect.slide.speed (=>
           slidesControl.css left: 0
           slidesControl.children(":eq(" + next + ")").css left: 0
           slidesControl.children(":eq(" + currentSlide + ")").css
@@ -710,7 +710,7 @@
         # Crossfade to next slide
         slidesControl.children(":eq(" + @data.current + ")")
         .stop()
-        .fadeOut @options.effect.fade.speed, (=>
+        .fadeOut @options.effect.fade.speed (=>
           # Reset slides
           slidesControl.children(":eq(" + next + ")").css zIndex: 10
 
@@ -730,7 +730,7 @@
         # Fade to next slide
         slidesControl.children(":eq(" + currentSlide + ")")
         .stop()
-        .fadeOut @options.effect.fade.speed, (->
+        .fadeOut @options.effect.fade.speed (->
           # Reset slides
           slidesControl.children(":eq(" + next + ")")
           .stop()
