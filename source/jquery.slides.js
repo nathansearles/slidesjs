@@ -8,7 +8,7 @@
   # Documentation and examples http://slidesjs.com
   # Support forum http://groups.google.com/group/slidesjs
 
-  # Version: 3.0.2f beta
+  # Version: 3.0.2g beta
   # Updated: February 8th, 2013
 
   # SlidesJS is an open source project, contribute at GitHub:
@@ -65,8 +65,8 @@
       },
       callback: {
         loaded: function() {},
-        start: function() {},
-        complete: function() {}
+        start: function(e) {},
+        complete: function(e) {}
       }
     };
     Plugin = (function() {
@@ -476,7 +476,7 @@
           left: value * this.options.width,
           zIndex: 10
         });
-        this.options.callback.start();
+        this.options.callback.start(currentSlide);
         if (this.data.vendorPrefix) {
           prefix = this.data.vendorPrefix;
           transform = prefix + "Transform";
@@ -508,7 +508,7 @@
             if (_this.data.touch) {
               _this._setuptouch();
             }
-            return _this.options.callback.complete();
+            return _this.options.callback.complete(next);
           });
         } else {
           return slidesControl.stop().animate({
@@ -524,7 +524,7 @@
               display: "none",
               left: 0,
               zIndex: 0
-            }, $.data(_this, "current", next), $.data(_this, "animating", false), _this.options.callback.complete());
+            }, $.data(_this, "current", next), $.data(_this, "animating", false), _this.options.callback.complete(next));
           }));
         }
       }
@@ -558,7 +558,7 @@
           left: 0,
           zIndex: 0
         });
-        this.options.callback.start();
+        this.options.callback.start(currentSlide);
         if (this.options.effect.fade.crossfade) {
           return slidesControl.children(":eq(" + this.data.current + ")").stop().fadeOut(this.options.effect.fade.speed, (function() {
             slidesControl.children(":eq(" + next + ")").css({

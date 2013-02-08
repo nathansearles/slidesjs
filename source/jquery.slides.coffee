@@ -84,9 +84,9 @@
     callback:
       loaded: () ->
         # [function] Called when slides is loaded
-      start: () ->
+      start: (e) ->
         # [function] Called when animation has started
-      complete: () ->
+      complete: (e) ->
         # [function] Called when animation is complete
 
   class Plugin
@@ -588,7 +588,7 @@
         zIndex: 10
 
       # Start the slide animation
-      @options.callback.start()
+      @options.callback.start(currentSlide)
 
       if @data.vendorPrefix
         # If supported use CSS3 for the animation
@@ -637,7 +637,7 @@
           @_setuptouch() if @data.touch
 
           # End of the animation, call complete callback
-          @options.callback.complete()
+          @options.callback.complete(next)
       else
         # If CSS3 isn't support use JavaScript for the animation
         slidesControl.stop().animate
@@ -657,7 +657,7 @@
             $.data this, "animating", false
 
             # End of the animation, call complete callback
-            @options.callback.complete()
+            @options.callback.complete(next)
           )
 
   # @_fade()
@@ -704,7 +704,7 @@
         zIndex: 0
 
       # Start of the animation, call the start callback
-      @options.callback.start()
+      @options.callback.start(currentSlide)
 
       if @options.effect.fade.crossfade
         # Crossfade to next slide
