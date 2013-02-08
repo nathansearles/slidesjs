@@ -556,6 +556,7 @@
 				active: false, // [Boolean] Preload the slides before showing them, this needs some work
 				image: "../img/loading.gif" // [String] Define the path to a load .gif, yes I should do something cooler
 			},
+			autoPlay: true, // [Boolean] Auto play the slideshow
 			startAtSlide: 1, // [Number] What should the first slide be?
 			playInterval: 5000, // [Number] Time spent on each slide in milliseconds
 			pauseInterval: 8000, // [Number] Time spent on pause, triggered on any navigation or pagination click
@@ -688,7 +689,11 @@
 			this.element.delegate( ".slidesNavigation", "click", $.proxy(this, "_navigate") );
 			
 			this.total = this.slides.length;
-    },
+			
+			if( this.options.autoPlay ) {
+				this.play(false);
+			}
+	},
 		_loaded: function() {
 			if ( this.options.responsive ) {
 				
@@ -809,13 +814,17 @@
 				// Next button clicked
 				next = true;
 				
+				effect = effect ? effect : this.options.effects.navigation;
+				
 			} else if ( $target.hasClass("slidesPrevious") ) {
 				
 				// Previous button clicked
 				prev = true;		
 				
+				effect = effect ? effect : this.options.effects.navigation;
+				
 			}	else if ( $target.hasClass("slidesPaginationItem") ||  event === "pagination") {
-
+				
 				// Paginaiton item clicked
 				if ( this.current > $target.data("slidesindex") || this.current > this.element.data("goto") ) {
 					prev = true;					
@@ -826,6 +835,10 @@
 				pagination = true;
 				
 				effect = effect ? effect : this.options.effects.pagination;
+			} else {
+				
+				// Auto-played
+				effect = effect ? effect : this.options.effects.navigation;
 			}
 			
 			if (pagination) {
