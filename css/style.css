@@ -106,6 +106,12 @@ body {
   margin-bottom:10px;
 }
 
+.page_header {
+  padding-bottom: 9px;
+  margin: 20px 0 30px;
+  border-bottom: 1px solid #e1e1e1;
+}
+
 /* Ad Packs */
 #ad_packs {
     margin: 45px 0 30px 0;
@@ -154,12 +160,11 @@ h1,h2,h3,h4,h5 {
   color:#111;
 }
 h1 {
-    font-size: 20px;
-    text-transform: uppercase;
+    font-size: 24px;
 }
 
 h2 {
-  font-size: 18px;
+  font-size: 22px;
 }
 
 h3 { margin: 0 }
@@ -205,11 +210,13 @@ a.btn {
   margin-right:10px;
 }
 
-#slides-section {
-  margin:15px 0;
+.section {
+  padding-top: 30px;
 }
 
+
 #footer {
+  padding:0;
   margin:0 0 30px;
   font-size:12px;
 }
@@ -265,7 +272,9 @@ a.btn {
 /*
   Google Code style (c) Aahan Krish <geekpanth3r@gmail.com>
 */
-
+pre {
+  margin-bottom: 30px;
+}
 pre code {
   display: block;
   padding: 0.5em;

@@ -4,7 +4,7 @@ $(function() {
     $('.nav a.scrollto').on('click', function(e) {
         e.preventDefault();
         $this = $(this);
-        offset = 109;
+        offset = 60;
         target = $this.attr('href');
         targetPos = $(target).position().top;
         window.scrollTo(0,targetPos - offset)
