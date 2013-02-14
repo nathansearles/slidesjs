@@ -3,7 +3,7 @@
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
 * Version: 1.2
-* Updated: February 5th, 2013
+* Updated: February 13th, 2013
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@
           option.slidesLoaded();
         });
         // Hide the next/previous buttons
-        $('.' + option.next + ', .' + option.prev).fadeOut(0);
+        $('.' + option.next + ', .' + option.prev, elem).fadeOut(0);
         return false;
       }
 
