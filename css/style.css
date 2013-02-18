@@ -1,8 +1,7 @@
 body {
   padding-top: 89px;
   background: #efefef url(/img/bg-body.png) repeat 50% 0;
-  -webkit-font-smoothing: antialiased;
-  font: normal 15px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: normal 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #232525;
 }
 
@@ -17,10 +16,10 @@ body {
 }
 
 .nav a {
-    font-size: 12px;
+    font-size: 13px;
     text-transform: uppercase;
     line-height: 1;
-    font-weight: 800;
+    font-weight: 500;
     color: #afb2b6;
     text-decoration: none;
     display: block;
@@ -44,7 +43,17 @@ body {
   padding:10px;
 }
 
-.navbar-inverse .brand, .navbar-inverse .nav > li > a.donate.btn {
+.navbar-inverse .brand {
+  color:#fff;
+  position: relative;
+  top:3px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding:8px 10px;
+}
+
+.navbar-inverse .nav > li > a.donate.btn {
   color:#fff;
   position: relative;
   top:-4px;
@@ -103,7 +112,11 @@ body {
 }
 
 .features li:first-child {
-  margin-bottom:10px;
+  margin-bottom:20px;
+}
+
+.features p {
+  margin-top: 5px;
 }
 
 .page_header {
@@ -158,38 +171,33 @@ a.show {
 /* Type styles */
 h1,h2,h3,h4,h5 {
   color:#111;
-}
-h1 {
-    font-size: 24px;
+  font-weight: 400;
 }
 
-h2 {
-  font-size: 22px;
+h1 {
+  font-size:30px;
 }
 
 h3 { margin: 0 }
 
 p,ul,ol {
     font-weight: 400;
-    color: #111;
-    margin:0 0 15px;
+    color: #666;
 }
 
 small {
     font-weight: 400;
-    color: #111;
+    color: #666;
 }
 
 a:link, a:visited {
     color: #d22929;
     text-decoration: none;
-    font-weight: 600;
 }
 
 a:hover, a:active {
     color: #9e2020;
     text-decoration: none;
-    font-weight: 600;
 }
 
 a.btn {
@@ -214,11 +222,14 @@ a.btn {
   padding-top: 30px;
 }
 
+.alert {
+  font-size:13px;
+}
 
 #footer {
   padding:0;
   margin:0 0 30px;
-  font-size:12px;
+  font-size:13px;
 }
 
 /* Prevents the slideshow from flashing on load */

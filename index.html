@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>SlidesJS, a responsive, CSS3 and touch based slideshow plugin for jQuery.</title>
+  <title>SlidesJS, a responsive slideshow plug-in for jQuery with touch support and powered by CSS3.</title>
   <meta name="description" content="SlidesJS is a simple slideshow plugin for jQuery. Packed with a useful set of features to help novice and advanced developers alike create elegant and user-friendly slideshows.">
   <meta name="author" content="Nathan Searles">
 
@@ -18,9 +18,9 @@
   <meta property="og:site_name" content="SlidesJS, a simple slideshow plugin for jQuery">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/style.css">
   <!-- End CSS -->
 
   <!-- Google Analytics Asynchronous Tracking -->
@@ -61,12 +61,13 @@
         <img src="img/slidesjs.png" width="130" height="26" alt="SlidesJS" class="brand">
         <div class="nav-collapse collapse">
           <ul class="nav pull-right">
-            <li><a href="#slides-section" class="scrollto"><i class="icon-check icon-large"></i> Overview</a></li>
-            <li><a href="#examples" class="scrollto"><i class="icon-picture icon-large"></i> Examples</a></li>
-            <li><a href="#docs" class="scrollto"><i class="icon-file icon-large"></i> Docs</a></li>
-            <li><a href="#faq" class="scrollto"><i class="icon-question-sign icon-large"></i> Faq</a></li>
-            <li><a href="https://github.com/nathansearles/Slides/archive/SlidesJS-3.zip" class="track_download"><i class="icon-download icon-large"></i> Download</a></li>
-            <li><a href="https://spacebox.io/s/BbDhQ7iWGP" target="_blank" class="sbe-button btn btn-success btn-large donate track_donate"><i class="icon-thumbs-up icon-large"></i> Donate</a></li>
+            <li><a href="#slides-section" class="scrollto"><i class="icon-check"></i> Overview</a></li>
+            <li><a href="#examples" class="scrollto"><i class="icon-picture"></i> Examples</a></li>
+            <li><a href="#docs" class="scrollto"><i class="icon-book"></i> Docs</a></li>
+            <li><a href="#support" class="scrollto"><i class="icon-comments"></i> Support</a></li>
+            <li><a href="#faq" class="scrollto"><i class="icon-question-sign"></i> Faq</a></li>
+            <li><a href="https://github.com/nathansearles/Slides/archive/SlidesJS-3.zip" class="track_download"><i class="icon-download"></i> Download</a></li>
+            <li><a href="https://spacebox.io/s/BbDhQ7iWGP" target="_blank" class="sbe-button btn btn-success btn-large donate track_donate"><i class="icon-thumbs-up"></i> Donate</a></li>
           </ul>
         </div>
       </div>
@@ -108,21 +109,33 @@
         <div id="overview" class="section">
           <h1 class="page_header"><i class="icon-check"></i> Overview</h1>
 
-          <p>SlidesJS is a responsive, CSS3 and touch supported slideshow plugin for jQuery. Packed with a useful set of features to help novice and advanced developers alike create elegant and user-friendly slideshows.</p>
+          <p>SlidesJS is a responsive slideshow plug-in for jQuery (1.7.1+) with useful features like touch and CSS3 support. Give it a try above and check out the <a href="#examples" class="scrollto">examples</a> to help you get started on adding SlidesJS to your project.</p>
 
-          <h2 class="page_header">Features</h2>
+          <hr>
 
           <div class="row">
             <div class="span4">
               <ul class="features">
-                <li><i class="icon-resize-horizontal icon-large"></i> Responsive</li>
-                <li><i class="icon-bolt icon-large"></i>CSS3 animations</li>
+                <li>
+                  <h3><i class="icon-resize-horizontal icon-large"></i> Responsive</h3>
+                  <p>Create dynamic slideshows that adapt to any screen size.</p>
+                </li>
+                <li>
+                  <h3><i class="icon-bolt icon-large"></i> CSS3 animations</h3>
+                  <p>Animations that run smooth on modern devices.</p>
+                </li>
               </ul>
             </div>
             <div class="span4">
               <ul class="features">
-                <li> <i class="icon-mobile-phone icon-large"></i> Touch support</li>
-                <li> <i class="icon-wrench icon-large"></i> Easy setup</li>
+                <li>
+                  <h3><i class="icon-mobile-phone icon-large"></i> Touch</h3>
+                  <p>Swipe support that tracks touch movements on supported devices.</p>
+                </li>
+                <li>
+                  <h3><i class="icon-wrench icon-large"></i> Easy setup</h3>
+                  <p>Get going fast with the easy to use examples.</p>
+                </li>
               </ul>
             </div>
           </div>
@@ -135,13 +148,7 @@
             <a href="https://spacebox.io/s/BbDhQ7iWGP" target="_blank" class="sbe-button btn btn-success btn-large track_donate"><i class="icon-thumbs-up icon-large"></i> Donate</a>
           </div>
 
-          <hr>
-
-          <p>If you're looking for support please visit the <a href="http://groups.google.com/group/slidesjs">SlidesJS forum</a>. SlidesJS is distributed with limited support and on an "as is" basis.</p>
-
-          <p>If you're interested in contributing to the SlidesJS code base you can check it out on <a href="https://github.com/nathansearles/Slides/tree/SlidesJS-3">GitHub</a>.</p>
-
-          <p>SlidesJS is compatible with all modern web browsers and jQuery 1.7.1+.</p>
+          <p>If you're interested in contributing to the SlidesJS code base you can check it out at <a href="https://github.com/nathansearles/Slides/tree/SlidesJS-3">GitHub</a>.</p>
         </div>
 
         <!-- Examples -->
@@ -161,7 +168,7 @@
 
         <!-- Docs -->
         <div id="docs" class="section">
-          <h1 class="page_header"><i class="icon-file"></i> Docs</h1>
+          <h1 class="page_header"><i class="icon-book"></i> Docs</h1>
 
           <h2 id="html" class="page_header">Basic markup</h2>
 
@@ -349,6 +356,15 @@
           </div>
         </div>
 
+        <!-- Support -->
+        <div id="support" class="section">
+          <h1 class="page_header"><i class="icon-comments"></i> Support</h1>
+
+          <p>Basic support is available at the <a href="http://groups.google.com/group/slidesjs">SlidesJS forum</a>. Many request are resolved by other SlidesJS users and myself, but assistance is not guaranteed.</p>
+
+          <p>If you're in need of direct assistance or would like customization added to SlidesJS, <a href="https://spacebox.io/s/m4TesjsOar">Premium Support is available for $100</a>. Premium support provides you direct email access and allows for up to 1 hour of support. Premium Support is typically provided within 3-7 days.</p>
+        </div>
+
         <!-- faq -->
         <div id="faq" class="section">
           <h1 class="page_header"><i class="icon-question-sign icon-large"></i> Faq</h1>
@@ -360,7 +376,10 @@
           <p>Yes you can, but you must keep the copyright and licensing information with the plugin. And if you've found SlidesJS useful it'd awesome if you'd show your support by giving a <a href="https://spacebox.io/s/BbDhQ7iWGP" class="sbe-button track_donate" target="_blank">donation</a>. If you have additional questions about licensing check out the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache license</a> which SlidesJS is licensed under.</p>
 
           <h3>I can't figure out how to add SlidesJS to my site. Can you help me?</h3>
-          <p>SlidesJS requires some basic understanding of HTML, CSS and jQuery. If you need help with adding SlidesJS to your site please post a question at the <a href="http://groups.google.com/group/slidesjs">SlidesJS forum</a>. Most issues can be resolved by using your browsers built-in developer tools.</p>
+          <p>SlidesJS requires some basic understanding of HTML, CSS and jQuery. If you need help with adding SlidesJS to your site please post a question at the <a href="http://groups.google.com/group/slidesjs">SlidesJS forum</a>. <a href="https://spacebox.io/s/m4TesjsOar">Premium Support is available for $100</a> and provides you direct email access and allows for up to 1 hour of support. Premium Support is typically provided within 3-7 days.</p>
+
+          <h3>Can I uses SlidesJS on my website?</h3>
+          <p>Yes you can, that's what it's for. Although you must keep the copyright and licensing information intact at the top of the slides.jquery.js file.</p>
         </div>
 
         <hr>
