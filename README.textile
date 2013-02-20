@@ -34,6 +34,10 @@ limitations under the License.
 
 h2. Changelog
 
+* 3.0.3 beta release
+** New: Flick to next for smoother touch interactions
+** New: Scrolling vertically on the page is now supported for touch devices
+
 * 3.0.2a beta release
 ** Fixed: Now compatible with Firefox 17+
 

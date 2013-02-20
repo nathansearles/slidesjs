@@ -1688,6 +1688,9 @@ input[type="submit"].btn.btn-mini {
   display: inherit !important;
 }
 @media (min-width: 768px) and (max-width: 979px) {
+  body {
+    margin-top: 0;
+  }
   .hidden-desktop {
     display: inherit !important;
   }
@@ -1702,6 +1705,9 @@ input[type="submit"].btn.btn-mini {
   }
 }
 @media (max-width: 767px) {
+  body {
+    margin-top: 0;
+  }
   .hidden-desktop {
     display: inherit !important;
   }
@@ -1717,6 +1723,7 @@ input[type="submit"].btn.btn-mini {
 }
 @media (max-width: 767px) {
   body {
+    margin-top: 0;
     padding-left: 10px;
     padding-right: 10px;
   }
@@ -2184,6 +2191,9 @@ input[type="submit"].btn.btn-mini {
   }
 }
 @media (min-width: 1200px) {
+  body {
+     padding-top: 89px;
+  }
   .row {
     margin-left: -30px;
     *zoom: 1;
@@ -2509,9 +2519,6 @@ input[type="submit"].btn.btn-mini {
   }
 }
 @media (max-width: 979px) {
-  body {
-    padding-top: 0;
-  }
   .navbar-fixed-top,
   .navbar-fixed-bottom,
   .alert-fixed-top {
@@ -2663,6 +2670,9 @@ input[type="submit"].btn.btn-mini {
   }
 }
 @media (min-width: 980px) {
+  body {
+     padding-top: 89px;
+  }
   .nav-collapse.collapse {
     height: auto !important;
     overflow: visible !important;

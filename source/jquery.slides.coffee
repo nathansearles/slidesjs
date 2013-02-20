@@ -7,8 +7,8 @@
 # Documentation and examples http://slidesjs.com
 # Support forum http://groups.google.com/group/slidesjs
 
-# Version: 3.0.2f beta
-# Updated: February 8th, 2013
+# Version: 3.0.3 beta
+# Updated: February 19th, 2013
 
 # SlidesJS is an open source project, contribute at GitHub:
 # https://github.com/nathansearles/Slides
@@ -399,13 +399,15 @@
     @data = $.data this
     touches = e.originalEvent.touches[0]
 
-    # Prevent default scrolling
-    e.preventDefault()
+    # Setup the next and previous slides for swiping
+    @_setuptouch()
+
+    # Start touch timer
+    $.data this, "touchtimer", Number(new Date())
 
     # Set touch position
-    $.data this, "touchstart", touches.pageX
-
-    @_setuptouch()
+    $.data this, "touchstartx", touches.pageX
+    $.data this, "touchstarty", touches.pageY
 
     # Stop event from bubbling up
     e.stopPropagation()
@@ -417,18 +419,15 @@
     @data = $.data this
     touches = e.originalEvent.touches[0]
 
-    # Prevent default scrolling
-    e.preventDefault()
-
     # Define slides control
     slidesControl = $(".slidesjs-control", $element)
 
     # Slide has been dragged to the right, goto previous slide
-    if slidesControl.position().left > @options.width * 0.5
+    if slidesControl.position().left > @options.width * 0.5 || slidesControl.position().left > @options.width * 0.1 && (Number(new Date()) - @data.touchtimer < 250)
       $.data this, "direction", "previous"
       @_slide()
     # Slide has been dragged to the left, goto next slide
-    else if slidesControl.position().left < -(@options.width * 0.5)
+    else if slidesControl.position().left < -(@options.width * 0.5) || slidesControl.position().left < -(@options.width * 0.1) && (Number(new Date()) - @data.touchtimer < 250)
       $.data this, "direction", "next"
       @_slide()
     else
@@ -464,15 +463,12 @@
     # Stop event from bubbling up
     e.stopPropagation()
 
-  # @_touchstart()
+  # @_touchmove()
   # Moves the slide on touch
   Plugin::_touchmove = (e) ->
     $element = $(@element)
     @data = $.data this
     touches = e.originalEvent.touches[0]
-
-    # Prevent default scrolling
-    e.preventDefault();
 
     # Get the browser's vendor prefix
     prefix = @data.vendorPrefix
@@ -483,9 +479,15 @@
     # Create CSS3 styles based on vendor prefix
     transform = prefix + "Transform"
 
+    # Check if user is trying to scroll vertically
+    $.data this, "scrolling", Math.abs(touches.pageX - @data.touchstartx) < Math.abs(touches.pageY - @data.touchstarty)
+
     # Set CSS3 styles
-    if !@data.animating
-      slidesControl[0].style[transform] = "translateX(" + (touches.pageX - @data.touchstart) + "px)"
+    if !@data.animating && !@data.scrolling
+      # Prevent default scrolling
+      e.preventDefault()
+      @_setuptouch()
+      slidesControl[0].style[transform] = "translateX(" + (touches.pageX - @data.touchstartx) + "px)"
 
     # Stop event from bubbling up
     e.stopPropagation()
