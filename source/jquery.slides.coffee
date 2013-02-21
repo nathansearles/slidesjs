@@ -7,8 +7,8 @@
 # Documentation and examples http://slidesjs.com
 # Support forum http://groups.google.com/group/slidesjs
 
-# Version: 3.0.3 beta
-# Updated: February 19th, 2013
+# Version: 3.0.3a beta
+# Updated: February 21st, 2013
 
 # SlidesJS is an open source project, contribute at GitHub:
 # https://github.com/nathansearles/Slides
@@ -644,7 +644,7 @@
         # If CSS3 isn't support use JavaScript for the animation
         slidesControl.stop().animate
           left: direction
-        , @options.effect.slide.speed (=>
+        , @options.effect.slide.speed, (=>
           slidesControl.css left: 0
           slidesControl.children(":eq(" + next + ")").css left: 0
           slidesControl.children(":eq(" + currentSlide + ")").css
