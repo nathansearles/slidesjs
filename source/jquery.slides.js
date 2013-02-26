@@ -8,8 +8,8 @@
   # Documentation and examples http://slidesjs.com
   # Support forum http://groups.google.com/group/slidesjs
 
-  # Version: 3.0.3a beta
-  # Updated: February 21st, 2013
+  # Version: 3.0.3b beta
+  # Updated: February 26th, 2013
 
   # SlidesJS is an open source project, contribute at GitHub:
   # https://github.com/nathansearles/Slides
@@ -65,8 +65,8 @@
       },
       callback: {
         loaded: function() {},
-        start: function(e) {},
-        complete: function(e) {}
+        start: function() {},
+        complete: function() {}
       }
     };
     Plugin = (function() {
@@ -308,8 +308,6 @@
           } else {
             return this._slide(this.data.total);
           }
-        } else {
-
         }
       }
     };

@@ -7,8 +7,8 @@
 # Documentation and examples http://slidesjs.com
 # Support forum http://groups.google.com/group/slidesjs
 
-# Version: 3.0.3a beta
-# Updated: February 21st, 2013
+# Version: 3.0.3b beta
+# Updated: February 26th, 2013
 
 # SlidesJS is an open source project, contribute at GitHub:
 # https://github.com/nathansearles/Slides
@@ -84,9 +84,9 @@
     callback:
       loaded: () ->
         # [function] Called when slides is loaded
-      start: (e) ->
+      start: () ->
         # [function] Called when animation has started
-      complete: (e) ->
+      complete: () ->
         # [function] Called when animation is complete
 
   class Plugin
@@ -363,8 +363,6 @@
         if effect is "fade" then @_fade(0) else @_slide(0)
       else if number is "last"
         if effect is "fade" then @_fade(@data.total) else @_slide(@data.total)
-      else
-        # error
 
   # @_setuptouch()
   # Setup slideshow for touch
