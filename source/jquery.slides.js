@@ -8,7 +8,7 @@
   # Documentation and examples http://slidesjs.com
   # Support forum http://groups.google.com/group/slidesjs
 
-  # Version: 3.0.3b beta
+  # Version: 3.0.3c beta
   # Updated: February 26th, 2013
 
   # SlidesJS is an open source project, contribute at GitHub:
@@ -560,26 +560,26 @@
         });
         this.options.callback.start(currentSlide);
         if (this.options.effect.fade.crossfade) {
-          return slidesControl.children(":eq(" + this.data.current + ")").stop().fadeOut(this.options.effect.fade.speed((function() {
+          return slidesControl.children(":eq(" + this.data.current + ")").stop().fadeOut(this.options.effect.fade.speed, (function() {
             slidesControl.children(":eq(" + next + ")").css({
               zIndex: 10
             });
             $.data(_this, "animating", false);
             $.data(_this, "current", next);
             return _this.options.callback.complete();
-          })));
+          }));
         } else {
           slidesControl.children(":eq(" + next + ")").css({
             display: "none"
           });
-          return slidesControl.children(":eq(" + currentSlide + ")").stop().fadeOut(this.options.effect.fade.speed((function() {
+          return slidesControl.children(":eq(" + currentSlide + ")").stop().fadeOut(this.options.effect.fade.speed, (function() {
             slidesControl.children(":eq(" + next + ")").stop().fadeIn(this.options.effect.fade.speed).css({
               zIndex: 10
             });
             $.data(this, "animating", false);
             $.data(this, "current", next);
             return this.options.callback.complete();
-          })));
+          }));
         }
       }
     };

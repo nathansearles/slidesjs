@@ -7,7 +7,7 @@
 # Documentation and examples http://slidesjs.com
 # Support forum http://groups.google.com/group/slidesjs
 
-# Version: 3.0.3b beta
+# Version: 3.0.3c beta
 # Updated: February 26th, 2013
 
 # SlidesJS is an open source project, contribute at GitHub:
@@ -710,7 +710,7 @@
         # Crossfade to next slide
         slidesControl.children(":eq(" + @data.current + ")")
         .stop()
-        .fadeOut @options.effect.fade.speed (=>
+        .fadeOut @options.effect.fade.speed, (=>
           # Reset slides
           slidesControl.children(":eq(" + next + ")").css zIndex: 10
 
@@ -730,7 +730,7 @@
         # Fade to next slide
         slidesControl.children(":eq(" + currentSlide + ")")
         .stop()
-        .fadeOut @options.effect.fade.speed (->
+        .fadeOut @options.effect.fade.speed, (->
           # Reset slides
           slidesControl.children(":eq(" + next + ")")
           .stop()
