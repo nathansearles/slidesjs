@@ -109,7 +109,7 @@
         <div id="overview" class="section">
           <h1 class="page_header"><i class="icon-check"></i> Overview</h1>
 
-          <p>SlidesJS is a responsive slideshow plug-in for jQuery (1.7.1+) with features like touch and CSS3 support. Give it a try above and check out the <a href="#examples" class="scrollto">examples</a> to help you get started adding SlidesJS to your project.</p>
+          <p>SlidesJS is a responsive slideshow plug-in for jQuery (1.7.1+) with features like touch and CSS3 transitions. Give it a try above and check out the <a href="#examples" class="scrollto">examples</a> to help you get started adding SlidesJS to your project.</p>
 
           <hr>
 
@@ -121,7 +121,7 @@
                   <p>Create dynamic slideshows that adapt to any screen.</p>
                 </li>
                 <li>
-                  <h3><i class="icon-bolt icon-large"></i> CSS3 animations</h3>
+                  <h3><i class="icon-bolt icon-large"></i> CSS3 transitions</h3>
                   <p>Animations that run smoothly on modern devices.</p>
                 </li>
               </ul>
@@ -156,10 +156,12 @@
           <h1 class="page_header"><i class="icon-picture"></i> Examples</h1>
 
           <ul class="examples">
-            <li><a href="/examples/standard/">Standard</a></li>
-            <li><a href="/examples/playing/">Playing</a></li>
+            <li><a href="/examples/standard/">Standard slideshow</a></li>
+            <li><a href="/examples/playing/">Playing and stopping slideshow</a></li>
             <li><a href="/examples/multiple/">Multiple slideshows</a></li>
-            <li><a href="/examples/basic/">Basic (unstyled)</a></li>
+            <li><a href="/examples/callbacks/">Using callbacks</a></li>
+            <li><a href="/examples/basic/">Basic sliding slideshow (unstyled)</a></li>
+            <li><a href="/examples/basic-fade/">Basic fading slideshow (unstyled)</a></li>
             <li>More examples coming soon!</li>
           </ul>
 
@@ -175,6 +177,7 @@
           <pre><code>&lt;!doctype html&gt;
 &lt;head&gt;
   &lt;style&gt;
+    /* Prevents slides from flashing */
     #slides {
       display:none;
     }
@@ -185,7 +188,10 @@
 
   &lt;script&gt;
     $(function(){
-      $(&quot;#slides&quot;).slidesjs();
+      $(&quot;#slides&quot;).slidesjs({
+        width: 940,
+        height: 528
+      });
     });
   &lt;/script&gt;
 &lt;/head&gt;
@@ -242,13 +248,13 @@
   $("#slides").slidesjs({
     navigation: {
       active: true,
-        # [boolean] Create next and previous buttons.
-        # You can set to false and use your own next/prev buttons.
-        # User defined next/prev buttons must have the following:
-        # previous: class="slidesjs-previous slidesjs-navigation"
-        # next: class="slidesjs-next slidesjs-navigation"
+        // [boolean] Generates next and previous buttons.
+        // You can set to false and use your own buttons.
+        // User defined buttons must have the following:
+        // previous button: class="slidesjs-previous slidesjs-navigation"
+        // next button: class="slidesjs-next slidesjs-navigation"
       effect: "slide"
-        # [string] Can be either "slide" or "fade".
+        // [string] Can be either "slide" or "fade".
     }
   });
 });</code></pre>
@@ -265,10 +271,10 @@
   $("#slides").slidesjs({
     pagination: {
       active: true,
-        # [boolean] Create pagination items.
-        # You cannot use your own pagination.
+        // [boolean] Create pagination items.
+        // You cannot use your own pagination. Sorry.
       effect: "slide"
-        # [string] Can be either "slide" or "fade".
+        // [string] Can be either "slide" or "fade".
     }
   });
 });</code></pre>
@@ -285,16 +291,16 @@
   $("#slides").slidesjs({
     play: {
       active: true,
-        # [boolean] Create the play and stop buttons.
-        # You cannot use your own pagination.
+        // [boolean] Generate the play and stop buttons.
+        // You cannot use your own buttons. Sorry.
       effect: "slide",
-        # [string] Can be either "slide" or "fade".
+        // [string] Can be either "slide" or "fade".
       interval: 5000,
-        # [number] Time spent on each slide in milliseconds.
+        // [number] Time spent on each slide in milliseconds.
       auto: false,
-        # [boolean] Start playing the slideshow on load.
+        // [boolean] Start playing the slideshow on load.
       swap: true
-        # [boolean] show/hide stop and play buttons
+        // [boolean] show/hide stop and play buttons
     }
   });
 });</code></pre>
@@ -304,26 +310,22 @@
 
         <div id="effect" class="expand">
           <h3>effect (object)</h3>
-          <p>Effect setting. <a href="#" class="show"><i class="icon-plus-sign"></i> Show example</a></p>
+          <p>Effects setting. <a href="#" class="show"><i class="icon-plus-sign"></i> Show example</a></p>
           <div class="content">
             <div class="innner">
 <pre><code>$(function(){
   $("#slides").slidesjs({
     effect: {
       slide: {
-        # Slide effect settings.
-        speed: 200,
-          # [number] Speed in milliseconds of the slide animation.
-        easing: ""
-          # easing plug-in required: http://gsgd.co.uk/sandbox/jquery/easing/
+        // Slide effect settings.
+        speed: 200
+          // [number] Speed in milliseconds of the slide animation.
       },
       fade: {
         speed: 300,
-          # [number] Speed in milliseconds of the fade animation.
-        easing: "",
-          # easing plug-in required: http://gsgd.co.uk/sandbox/jquery/easing/
+          // [number] Speed in milliseconds of the fade animation.
         crossfade: true
-          # [boolean] Cross-fade the transition.
+          // [boolean] Cross-fade the transition.
       }
     }
   });
@@ -340,14 +342,17 @@
 <pre><code>$(function(){
   $("#slides").slidesjs({
     callback: {
-      loaded: function() {
-        # Do something awesome!
+      loaded: function(number) {
+        // Do something awesome!
+        // Passes start slide number
       },
-      start: function() {
-        # Do something awesome!
+      start: function(number) {
+        // Do something awesome!
+        // Passes slide number at start of animation
       },
-      complete: function() {
-        # Do something awesome!
+      complete: function(number) {
+        // Do something awesome!
+        // Passes slide number at end of animation
       }
     }
   });

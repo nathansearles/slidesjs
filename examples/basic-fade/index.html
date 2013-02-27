@@ -95,7 +95,7 @@
   <!-- End SlidesJS Required -->
 
   <!-- SlidesJS Required: Link to jquery.slides.js -->
-  <script src="../../source/jquery.slides.js"></script>
+  <script src="js/jquery.slides.min.js"></script>
   <!-- End SlidesJS Required -->
 
   <!-- SlidesJS Required: Initialize SlidesJS with a jQuery doc ready -->
@@ -103,7 +103,18 @@
     $(function() {
       $('#slides').slidesjs({
         width: 940,
-        height: 528
+        height: 528,
+        navigation: {
+          effect: "fade"
+        },
+        pagination: {
+          effect: "fade"
+        },
+        effect: {
+          fade: {
+            speed: 400
+          }
+        }
       });
     });
   </script>

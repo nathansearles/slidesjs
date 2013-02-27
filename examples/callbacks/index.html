@@ -87,6 +87,7 @@
       <img src="img/example-slide-3.jpg" alt="Photo by: Mike Ranweiler Link: http://www.flickr.com/photos/27874907@N04/4833059991/">
       <img src="img/example-slide-4.jpg" alt="Photo by: Stuart SeegerLink: http://www.flickr.com/photos/stuseeger/97577796/">
     </div>
+    <div id="slidesjs-log">Slide <span class="slidesjs-slide-number">1</span> of 4</div>
   </div>
   <!-- End SlidesJS Required: Start Slides -->
 
@@ -95,7 +96,7 @@
   <!-- End SlidesJS Required -->
 
   <!-- SlidesJS Required: Link to jquery.slides.js -->
-  <script src="../../source/jquery.slides.js"></script>
+  <script src="js/jquery.slides.min.js"></script>
   <!-- End SlidesJS Required -->
 
   <!-- SlidesJS Required: Initialize SlidesJS with a jQuery doc ready -->
@@ -103,7 +104,27 @@
     $(function() {
       $('#slides').slidesjs({
         width: 940,
-        height: 528
+        height: 528,
+        callback: {
+          loaded: function(number) {
+            // Use your browser console to view log
+            console.log('SlidesJS: Loaded with slide #' + number);
+
+            // Show start slide in log
+            $('#slidesjs-log .slidesjs-slide-number').text(number);
+          },
+          start: function(number) {
+            // Use your browser console to view log
+            console.log('SlidesJS: Start Animation on slide #' + number);
+          },
+          complete: function(number) {
+            // Use your browser console to view log
+            console.log('SlidesJS: Animation Complete. Current slide is #' + number);
+
+            // Change slide number on animation complete
+            $('#slidesjs-log .slidesjs-slide-number').text(number);
+          }
+        }
       });
     });
   </script>

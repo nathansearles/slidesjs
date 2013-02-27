@@ -8,7 +8,7 @@
   # Documentation and examples http://slidesjs.com
   # Support forum http://groups.google.com/group/slidesjs
 
-  # Version: 3.0.3c beta
+  # Version: 3.0.3d beta
   # Updated: February 26th, 2013
 
   # SlidesJS is an open source project, contribute at GitHub:
@@ -221,7 +221,7 @@
       if (this.options.play.auto) {
         this.play();
       }
-      return this.options.callback.loaded();
+      return this.options.callback.loaded(this.options.start);
     };
     Plugin.prototype._setActive = function(number) {
       var $element, current;
@@ -363,8 +363,7 @@
         duration = prefix + "TransitionDuration";
         timing = prefix + "TransitionTimingFunction";
         slidesControl[0].style[transform] = "translateX(0px)";
-        slidesControl[0].style[duration] = this.options.effect.slide.speed * 0.75 + "ms";
-        slidesControl[0].style[timing] = "ease-out";
+        slidesControl[0].style[duration] = this.options.effect.slide.speed * 0.85 + "ms";
       }
       slidesControl.on("transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd", function() {
         prefix = _this.data.vendorPrefix;
@@ -476,7 +475,7 @@
           left: value * this.options.width,
           zIndex: 10
         });
-        this.options.callback.start(currentSlide);
+        this.options.callback.start(currentSlide + 1);
         if (this.data.vendorPrefix) {
           prefix = this.data.vendorPrefix;
           transform = prefix + "Transform";
@@ -484,11 +483,9 @@
           timing = prefix + "TransitionTimingFunction";
           slidesControl[0].style[transform] = "translateX(" + direction + "px)";
           slidesControl[0].style[duration] = this.options.effect.slide.speed + "ms";
-          slidesControl[0].style[timing] = "ease-out";
           return slidesControl.on("transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd", function() {
             slidesControl[0].style[transform] = "";
             slidesControl[0].style[duration] = "";
-            slidesControl[0].style[timing] = "";
             slidesControl.children(":eq(" + next + ")").css({
               left: 0
             });
@@ -508,7 +505,7 @@
             if (_this.data.touch) {
               _this._setuptouch();
             }
-            return _this.options.callback.complete(next);
+            return _this.options.callback.complete(next + 1);
           });
         } else {
           return slidesControl.stop().animate({
@@ -524,7 +521,7 @@
               display: "none",
               left: 0,
               zIndex: 0
-            }, $.data(_this, "current", next), $.data(_this, "animating", false), _this.options.callback.complete(next));
+            }, $.data(_this, "current", next), $.data(_this, "animating", false), _this.options.callback.complete(next + 1));
           }));
         }
       }
@@ -558,7 +555,7 @@
           left: 0,
           zIndex: 0
         });
-        this.options.callback.start(currentSlide);
+        this.options.callback.start(currentSlide + 1);
         if (this.options.effect.fade.crossfade) {
           return slidesControl.children(":eq(" + this.data.current + ")").stop().fadeOut(this.options.effect.fade.speed, (function() {
             slidesControl.children(":eq(" + next + ")").css({
@@ -566,7 +563,7 @@
             });
             $.data(_this, "animating", false);
             $.data(_this, "current", next);
-            return _this.options.callback.complete();
+            return _this.options.callback.complete(next + 1);
           }));
         } else {
           slidesControl.children(":eq(" + next + ")").css({
@@ -578,7 +575,7 @@
             });
             $.data(this, "animating", false);
             $.data(this, "current", next);
-            return this.options.callback.complete();
+            return this.options.callback.complete(next + 1);
           }));
         }
       }

@@ -7,7 +7,7 @@
 # Documentation and examples http://slidesjs.com
 # Support forum http://groups.google.com/group/slidesjs
 
-# Version: 3.0.3c beta
+# Version: 3.0.3d beta
 # Updated: February 26th, 2013
 
 # SlidesJS is an open source project, contribute at GitHub:
@@ -72,13 +72,9 @@
         # Slide effect settings.
         speed: 500
           # [number] Speed in milliseconds of the slide animation.
-        #easing: ""
-          # Currently disabled
       fade:
         speed: 300
           # [number] Speed in milliseconds of the fade animation.
-        #easing: ""
-          # Currently disabled
         crossfade: true
           # [boolean] Cross-fade the transition
     callback:
@@ -275,7 +271,7 @@
       @play()
 
     # Slides has loaded
-    @options.callback.loaded()
+    @options.callback.loaded(@options.start)
 
   # @_setActive()
   # Sets the active slide in the pagination
@@ -440,8 +436,7 @@
 
         # Set CSS3 styles
         slidesControl[0].style[transform] = "translateX(0px)"
-        slidesControl[0].style[duration] = @options.effect.slide.speed * 0.75 + "ms"
-        slidesControl[0].style[timing] = "ease-out"
+        slidesControl[0].style[duration] = @options.effect.slide.speed * 0.85 + "ms"
 
     # Rest slideshow
     slidesControl.on "transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd", =>
@@ -588,7 +583,7 @@
         zIndex: 10
 
       # Start the slide animation
-      @options.callback.start(currentSlide)
+      @options.callback.start(currentSlide + 1)
 
       if @data.vendorPrefix
         # If supported use CSS3 for the animation
@@ -603,13 +598,11 @@
         # Set CSS3 styles
         slidesControl[0].style[transform] = "translateX(" + direction + "px)"
         slidesControl[0].style[duration] = @options.effect.slide.speed + "ms"
-        slidesControl[0].style[timing] = "ease-out"
 
         slidesControl.on "transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd", =>
           # Clear styles
           slidesControl[0].style[transform] = ""
           slidesControl[0].style[duration] = ""
-          slidesControl[0].style[timing] = ""
 
           # Reset slideshow
           slidesControl.children(":eq(" + next + ")").css left: 0
@@ -637,7 +630,7 @@
           @_setuptouch() if @data.touch
 
           # End of the animation, call complete callback
-          @options.callback.complete(next)
+          @options.callback.complete(next + 1)
       else
         # If CSS3 isn't support use JavaScript for the animation
         slidesControl.stop().animate
@@ -657,7 +650,7 @@
             $.data this, "animating", false
 
             # End of the animation, call complete callback
-            @options.callback.complete(next)
+            @options.callback.complete(next + 1)
           )
 
   # @_fade()
@@ -704,7 +697,7 @@
         zIndex: 0
 
       # Start of the animation, call the start callback
-      @options.callback.start(currentSlide)
+      @options.callback.start(currentSlide + 1)
 
       if @options.effect.fade.crossfade
         # Crossfade to next slide
@@ -721,7 +714,7 @@
           $.data this, "current", next
 
           #End of the animation, call complete callback
-          @options.callback.complete()
+          @options.callback.complete(next + 1)
         )
       else
         # Fade out current slide, fade in next slide
@@ -744,7 +737,7 @@
           $.data this, "current", next
 
           # End of the animation, call complete callback
-          @options.callback.complete()
+          @options.callback.complete(next + 1)
         )
 
   # @_getVendorPrefix()
