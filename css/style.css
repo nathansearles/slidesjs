@@ -1,5 +1,4 @@
 body {
-  /*background: #efefef url(/img/bg-body.png) repeat 50% 0;*/
   background: #fcfcfc;
   font: normal 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #232525;
@@ -442,4 +441,22 @@ hr {
   border: 0;
   border-top: 1px solid #e1e1e1;
   height: 1px;
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  #slides-section {
+    height:304px;
+  }
+}
+
+@media (min-width: 980px) {
+  #slides-section {
+    height:384px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #slides-section {
+    height:470px;
+  }
 }

@@ -1635,7 +1635,7 @@ input[type="submit"].btn.btn-mini {
   Code example styles
 */
 body {
-  background: #efefef url(/img/bg-body.png) repeat 50% 0;
+  background: #fcfcfc;
   -webkit-font-smoothing: antialiased;
   font: normal 15px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #232525;

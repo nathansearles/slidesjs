@@ -1,14 +1,11 @@
-# Note: SlidesJS version 3 beta is not yet ready
-# for production deployment. Please download the latest
-# version at http://slidesjs.com
-
-# Created by Nathan Searles http://nathansearles.com
+# SlidesJS 3.0
 
 # Documentation and examples http://slidesjs.com
 # Support forum http://groups.google.com/group/slidesjs
+# Created by Nathan Searles http://nathansearles.com
 
-# Version: 3.0.3d beta
-# Updated: February 26th, 2013
+# Version: 3.0
+# Updated: March 8th, 2013
 
 # SlidesJS is an open source project, contribute at GitHub:
 # https://github.com/nathansearles/Slides
@@ -27,7 +24,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# SlidesJS 3 beta
 (($, window, document) ->
   pluginName = "slidesjs"
   defaults =

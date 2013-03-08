@@ -1,34 +1,29 @@
 /*
-  # Note: SlidesJS version 3 beta is not yet ready
-  # for production deployment. Please download the latest
-  # version at http://slidesjs.com
+  SlidesJS 3.0
 
-  # Created by Nathan Searles http://nathansearles.com
+  Documentation and examples http://slidesjs.com
+  Support forum http://groups.google.com/group/slidesjs
+  Created by Nathan Searles http://nathansearles.com
 
-  # Documentation and examples http://slidesjs.com
-  # Support forum http://groups.google.com/group/slidesjs
+  Version: 3.0
+  Updated: March 8th, 2013
 
-  # Version: 3.0.3d beta
-  # Updated: February 26th, 2013
+  SlidesJS is an open source project, contribute at GitHub:
+  https://github.com/nathansearles/Slides
 
-  # SlidesJS is an open source project, contribute at GitHub:
-  # https://github.com/nathansearles/Slides
+  (c) 2013 by Nathan Searles
 
-  # (c) 2013 by Nathan Searles
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  # Licensed under the Apache License, Version 2.0 (the "License");
-  # you may not use this file except in compliance with the License.
-  # You may obtain a copy of the License at
+  http://www.apache.org/licenses/LICENSE-2.0
 
-  # http://www.apache.org/licenses/LICENSE-2.0
-
-  # Unless required by applicable law or agreed to in writing, software
-  # distributed under the License is distributed on an "AS IS" BASIS,
-  # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  # See the License for the specific language governing permissions and
-  # limitations under the License.
-
-  # SlidesJS 3 beta
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 (function() {
 
