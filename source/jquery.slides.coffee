@@ -1,11 +1,11 @@
-# SlidesJS 3.0
+# SlidesJS 3.0.1
 
 # Documentation and examples http://slidesjs.com
 # Support forum http://groups.google.com/group/slidesjs
 # Created by Nathan Searles http://nathansearles.com
 
 # Version: 3.0
-# Updated: March 8th, 2013
+# Updated: March 11th, 2013
 
 # SlidesJS is an open source project, contribute at GitHub:
 # https://github.com/nathansearles/Slides
@@ -719,7 +719,7 @@
         # Fade to next slide
         slidesControl.children(":eq(" + currentSlide + ")")
         .stop()
-        .fadeOut @options.effect.fade.speed, (->
+        .fadeOut @options.effect.fade.speed, (=>
           # Reset slides
           slidesControl.children(":eq(" + next + ")")
           .stop()

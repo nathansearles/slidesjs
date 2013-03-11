@@ -1,12 +1,12 @@
 /*
-  SlidesJS 3.0
+  SlidesJS 3.0.1
 
   Documentation and examples http://slidesjs.com
   Support forum http://groups.google.com/group/slidesjs
   Created by Nathan Searles http://nathansearles.com
 
   Version: 3.0
-  Updated: March 8th, 2013
+  Updated: March 11th, 2013
 
   SlidesJS is an open source project, contribute at GitHub:
   https://github.com/nathansearles/Slides
@@ -565,12 +565,12 @@
             display: "none"
           });
           return slidesControl.children(":eq(" + currentSlide + ")").stop().fadeOut(this.options.effect.fade.speed, (function() {
-            slidesControl.children(":eq(" + next + ")").stop().fadeIn(this.options.effect.fade.speed).css({
+            slidesControl.children(":eq(" + next + ")").stop().fadeIn(_this.options.effect.fade.speed).css({
               zIndex: 10
             });
-            $.data(this, "animating", false);
-            $.data(this, "current", next);
-            return this.options.callback.complete(next + 1);
+            $.data(_this, "animating", false);
+            $.data(_this, "current", next);
+            return _this.options.callback.complete(next + 1);
           }));
         }
       }
