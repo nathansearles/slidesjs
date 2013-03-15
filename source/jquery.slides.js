@@ -188,6 +188,14 @@
           });
         }
       }
+      if(this.options.play.hoverpause){
+        $element.mouseenter(function(){
+          _this.stop();
+        });
+        $element.mouseleave(function(){
+          _this.play(true);
+        });
+      }
       if (this.options.pagination.active) {
         pagination = $("<ul>", {
           "class": "slidesjs-pagination"
