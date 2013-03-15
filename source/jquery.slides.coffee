@@ -1,10 +1,10 @@
-# SlidesJS 3.0.2
+# SlidesJS 3.0.3
 
 # Documentation and examples http://slidesjs.com
 # Support forum http://groups.google.com/group/slidesjs
 # Created by Nathan Searles http://nathansearles.com
 
-# Version: 3.0.2
+# Version: 3.0.3
 # Updated: March 15th, 2013
 
 # SlidesJS is an open source project, contribute at GitHub:
@@ -716,20 +716,25 @@
 
       # Setup the next slide
       slidesControl.children(":eq(" + next + ")").css
-        display: "block"
+        display: "none"
         left: 0
-        zIndex: 0
+        zIndex: 10
 
       # Start of the animation, call the start callback
       @options.callback.start(currentSlide + 1)
 
       if @options.effect.fade.crossfade
-        # Crossfade to next slide
+        # Fade out current slide to next slide
         slidesControl.children(":eq(" + @data.current + ")")
         .stop()
-        .fadeOut @options.effect.fade.speed, (=>
+        .fadeOut @options.effect.fade.speed
+
+        # Fade in to next slide
+        slidesControl.children(":eq(" + next + ")")
+        .stop()
+        .fadeIn @options.effect.fade.speed, (=>
           # Reset slides
-          slidesControl.children(":eq(" + next + ")").css zIndex: 10
+          slidesControl.children(":eq(" + next + ")").css zIndex: 0
 
           # Set animating to false
           $.data this, "animating", false
@@ -737,13 +742,10 @@
           # Set the new slide to the current
           $.data this, "current", next
 
-          #End of the animation, call complete callback
+          # End of the animation, call complete callback
           @options.callback.complete(next + 1)
         )
       else
-        # Fade out current slide, fade in next slide
-        slidesControl.children(":eq(" + next + ")").css
-          display: "none"
         # Fade to next slide
         slidesControl.children(":eq(" + currentSlide + ")")
         .stop()
@@ -751,8 +753,10 @@
           # Reset slides
           slidesControl.children(":eq(" + next + ")")
           .stop()
-          .fadeIn(@options.effect.fade.speed)
-          .css zIndex: 10
+          .fadeIn @options.effect.fade.speed, (=>
+            # Reset slides
+            slidesControl.children(":eq(" + next + ")").css zIndex: 10
+          )
 
           # Set animating to false
           $.data this, "animating", false
