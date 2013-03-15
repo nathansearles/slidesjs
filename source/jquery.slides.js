@@ -244,7 +244,11 @@
         zIndex: 0
       });
       width = $element.width();
-      height = (this.options.height / this.options.width) * width;
+      if(this.options.inheritheight){
+        height = $element.height();
+      }else{
+        height = (this.options.height / this.options.width) * width;
+      }
       this.options.width = width;
       this.options.height = height;
       return $(".slidesjs-control, .slidesjs-container", $element).css({
