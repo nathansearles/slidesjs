@@ -1,11 +1,11 @@
-# SlidesJS 3.0.1
+# SlidesJS 3.0.2
 
 # Documentation and examples http://slidesjs.com
 # Support forum http://groups.google.com/group/slidesjs
 # Created by Nathan Searles http://nathansearles.com
 
-# Version: 3.0
-# Updated: March 11th, 2013
+# Version: 3.0.2
+# Updated: March 15th, 2013
 
 # SlidesJS is an open source project, contribute at GitHub:
 # https://github.com/nathansearles/Slides
@@ -63,6 +63,10 @@
         # [boolean] Start playing the slideshow on load
       swap: true
         # [boolean] show/hide stop and play buttons
+      pauseOnHover: false
+        # [boolean] pause a playing slideshow on hover
+      restartDelay: 2500
+        # [number] restart delay on an inactive slideshow
     effect:
       slide:
         # Slide effect settings.
@@ -191,12 +195,12 @@
     # bind click events
     $(".slidesjs-next", $element).click (e) =>
       e.preventDefault()
-      @stop()
+      @stop(true)
       @next(@options.navigation.effect)
 
     $(".slidesjs-previous", $element).click (e) =>
       e.preventDefault()
-      @stop()
+      @stop(true)
       @previous(@options.navigation.effect)
 
     if @options.play.active
@@ -220,7 +224,7 @@
 
       stopButton.click (e) =>
         e.preventDefault()
-        @stop()
+        @stop(true)
 
       if @options.play.swap
         stopButton.css
@@ -249,7 +253,7 @@
         paginationLink.click (e) =>
           e.preventDefault()
           # Stop play
-          @stop()
+          @stop(true)
           # Goto to selected slide
           @goto( ($(e.currentTarget).attr("data-slidesjs-item") * 1) + 1 )
       )
@@ -502,6 +506,26 @@
         if @options.play.effect is "fade" then @_fade() else @_slide()
       ), @options.play.interval
 
+      # Define slides container
+      slidesContainer = $(".slidesjs-container", $element)
+
+      if @options.play.pauseOnHover
+        # Prevent event build up
+        slidesContainer.unbind()
+
+        # Stop/pause slideshow on mouse enter
+        slidesContainer.bind "mouseenter", =>
+          @stop()
+
+        # Play slideshow on mouse leave
+        slidesContainer.bind "mouseleave", =>
+          if @options.play.restartDelay
+            $.data this, "restartDelay", setTimeout ( =>
+              @play(true)
+            ), @options.play.restartDelay
+          else
+            @play()
+
       $.data this, "playing", true
 
       # Add "slidesjs-playing" class to "slidesjs-play" button
@@ -513,12 +537,16 @@
 
   # @stop()
   # Stops a playing slideshow
-  Plugin::stop = () ->
+  Plugin::stop = (clicked) ->
     $element = $(@element)
     @data = $.data this
 
     # Clear play interval
     clearInterval @data.playInterval
+
+    if @options.play.pauseOnHover && clicked
+      # Prevent event build up
+      $(".slidesjs-container", $element).unbind()
 
     # Reset slideshow
     $.data this, "playInterval", null
