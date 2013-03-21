@@ -43,6 +43,18 @@
         # next: class="slidesjs-next slidesjs-navigation"
       effect: "slide"
         # [string] Can be either "slide" or "fade".
+      prevButton:
+        class: "slidesjs-previous slidesjs-navigation"
+        href: "#"
+        title: "Previous"
+        text: "Previous"
+        # [object] Config to create the previous button
+      nextButton:
+        class: "slidesjs-next slidesjs-navigation"
+        href: "#"
+        title: "Next"
+        text: "Next"
+        # [object] Config to create the next button
     pagination:
         # Pagination settings
       active: true
@@ -67,6 +79,18 @@
         # [boolean] pause a playing slideshow on hover
       restartDelay: 2500
         # [number] restart delay on an inactive slideshow
+      playButton:
+        class: "slidesjs-play slidesjs-navigation"
+        href: "#"
+        title: "Play"
+        text: "Play"
+        # [object] Config to create the play button
+      stopButton:
+        class: "slidesjs-stop slidesjs-navigation"
+        href: "#"
+        title: "Stop"
+        text: "Stop"
+        # [object] Config to create the stop button
     effect:
       slide:
         # Slide effect settings.
@@ -179,17 +203,11 @@
     if @options.navigation.active
       # Create next/prev buttons
       prevButton = $("<a>"
-        class: "slidesjs-previous slidesjs-navigation"
-        href: "#"
-        title: "Previous"
-        text: "Previous"
+        @options.navigation.prevButton
       ).appendTo($element)
 
       nextButton = $("<a>"
-        class: "slidesjs-next slidesjs-navigation"
-        href: "#"
-        title: "Next"
-        text: "Next"
+        @options.navigation.nextButton
       ).appendTo($element)
 
     # bind click events
@@ -205,17 +223,11 @@
 
     if @options.play.active
       playButton = $("<a>",
-        class: "slidesjs-play slidesjs-navigation"
-        href: "#"
-        title: "Play"
-        text: "Play"
+        @options.play.playButton
       ).appendTo($element)
 
       stopButton = $("<a>",
-        class: "slidesjs-stop slidesjs-navigation"
-        href: "#"
-        title: "Stop"
-        text: "Stop"
+        @options.play.stopButton
       ).appendTo($element)
 
       playButton.click (e) =>
