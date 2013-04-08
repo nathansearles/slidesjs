@@ -225,8 +225,8 @@
       $element = $(this.element);
       this.data = $.data(this);
       current = number > -1 ? number : this.data.current;
-      $(".active", $element).removeClass("active");
-      return $("li:eq(" + current + ") a", $element).addClass("active");
+      $("li.slidesjs-pagination-item a.active", $element).removeClass("active");
+      return $("li.slidesjs-pagination-item:eq(" + current + ") a", $element).addClass("active");
     };
     Plugin.prototype.update = function() {
       var $element, height, width;
