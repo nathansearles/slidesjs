@@ -289,27 +289,28 @@
   # @update()
   # Update the slideshow size on browser resize
   Plugin::update = ->
-    $element = $(@element)
-    @data = $.data this
+    unless @data.animating
+      $element = $(@element)
+      @data = $.data this
 
-    # Hide all slides expect current
-    $(".slidesjs-control", $element).children(":not(:eq(" + @data.current + "))").css
-      display: "none"
-      left: 0
-      zIndex: 0
+      # Hide all slides expect current
+      $(".slidesjs-control", $element).children(":not(:eq(" + @data.current + "))").css
+        display: "none"
+        left: 0
+        zIndex: 0
 
-    # Get the new width and height
-    width = $element.width()
-    height = (@options.height / @options.width) * width
+      # Get the new width and height
+      width = $element.width()
+      height = (@options.height / @options.width) * width
 
-    # Store new width and height
-    @options.width = width
-    @options.height = height
+      # Store new width and height
+      @options.width = width
+      @options.height = height
 
-    # Set new width and height
-    $(".slidesjs-control, .slidesjs-container", $element).css
-      width: width
-      height: height
+      # Set new width and height
+      $(".slidesjs-control, .slidesjs-container", $element).css
+        width: width
+        height: height
 
   # @next()
   # Next mechanics
