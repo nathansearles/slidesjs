@@ -255,7 +255,7 @@
           # Stop play
           @stop(true)
           # Goto to selected slide
-          @goto( ($(e.currentTarget).attr("data-slidesjs-item") * 1) + 1 )
+          @gotoIndex( ($(e.currentTarget).attr("data-slidesjs-item") * 1) + 1 )
       )
 
     # Bind update on browser resize
@@ -337,9 +337,9 @@
     if effect is undefined then effect = @options.navigation.effect
     if effect is "fade" then @_fade() else @_slide()
 
-  # @goto()
+  # @gotoIndex()
   # Pagination mechanics
-  Plugin::goto = (number) ->
+  Plugin::gotoIndex = (number) ->
     $element = $(@element)
     @data = $.data this
 
