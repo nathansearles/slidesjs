@@ -229,22 +229,24 @@
       return $("li:eq(" + current + ") a", $element).addClass("active");
     };
     Plugin.prototype.update = function() {
-      var $element, height, width;
-      $element = $(this.element);
-      this.data = $.data(this);
-      $(".slidesjs-control", $element).children(":not(:eq(" + this.data.current + "))").css({
-        display: "none",
-        left: 0,
-        zIndex: 0
-      });
-      width = $element.width();
-      height = (this.options.height / this.options.width) * width;
-      this.options.width = width;
-      this.options.height = height;
-      return $(".slidesjs-control, .slidesjs-container", $element).css({
-        width: width,
-        height: height
-      });
+      if (!this.data.animating) {
+        var $element, height, width;
+        $element = $(this.element);
+        this.data = $.data(this);
+        $(".slidesjs-control", $element).children(":not(:eq(" + this.data.current + "))").css({
+          display: "none",
+          left: 0,
+          zIndex: 0
+        });
+        width = $element.width();
+        height = (this.options.height / this.options.width) * width;
+        this.options.width = width;
+        this.options.height = height;
+        return $(".slidesjs-control, .slidesjs-container", $element).css({
+          width: width,
+          height: height
+        });
+      }
     };
     Plugin.prototype.next = function(effect) {
       var $element;
