@@ -1,11 +1,11 @@
-# SlidesJS 3.0.3
+# SlidesJS 3.0.4
 
 # Documentation and examples http://slidesjs.com
 # Support forum http://groups.google.com/group/slidesjs
 # Created by Nathan Searles http://nathansearles.com
 
-# Version: 3.0.3
-# Updated: March 15th, 2013
+# Version: 3.0.4
+# Updated: June 26th, 2013
 
 # SlidesJS is an open source project, contribute at GitHub:
 # https://github.com/nathansearles/Slides
@@ -284,7 +284,7 @@
 
     # Set active slide in pagination
     $(".active", $element).removeClass "active"
-    $("li:eq(" + current + ") a", $element).addClass "active"
+    $(".slidesjs-pagination li:eq(" + current + ") a", $element).addClass "active"
 
   # @update()
   # Update the slideshow size on browser resize
