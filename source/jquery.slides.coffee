@@ -300,7 +300,7 @@
 
     # Get the new width and height
     width = $element.width()
-    height = (@options.height / @options.width) * width
+    height = Math.floor((@options.height / @options.width) * width)
 
     # Store new width and height
     @options.width = width
