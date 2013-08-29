@@ -181,7 +181,7 @@
           return paginationLink.click(function(e) {
             e.preventDefault();
             _this.stop(true);
-            return _this.goto(($(e.currentTarget).attr("data-slidesjs-item") * 1) + 1);
+            return _this.gotoSlide(($(e.currentTarget).attr("data-slidesjs-item") * 1) + 1);
           });
         });
       }
@@ -248,7 +248,7 @@
         return this._slide();
       }
     };
-    Plugin.prototype.goto = function(number) {
+    Plugin.prototype.gotoSlide = function(number) {
       var $element, effect;
       $element = $(this.element);
       this.data = $.data(this);
