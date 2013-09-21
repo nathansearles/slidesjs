@@ -84,6 +84,9 @@
         # [function] Called when animation has started
       complete: () ->
         # [function] Called when animation is complete
+    commands: null
+        # [Object] If an object is provided the methods next(), previous() 
+        # and moveTo(number) will be added in order to navigate through slides
 
   class Plugin
     constructor: (@element, options) ->
@@ -269,6 +272,14 @@
     # Auto play slideshow
     if @options.play.auto
       @play()
+
+    if @options.commands
+      @options.commands.next = () =>
+        @next(@options.navigation.effect)
+      @options.commands.previous = () =>
+        @previous(@options.navigation.effect)
+      @options.commands.moveTo = (number) =>
+        @goto(number)
 
     # Slides has loaded
     @options.callback.loaded(@options.start)
