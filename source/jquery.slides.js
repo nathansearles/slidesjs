@@ -215,6 +215,9 @@
       height = (this.options.height / this.options.width) * width;
       this.options.width = width;
       this.options.height = height;
+      $(".slidesjs-control img").css({
+        height: (height-this.options.spanHeight)
+      });
       return $(".slidesjs-control, .slidesjs-container", $element).css({
         width: width,
         height: height
