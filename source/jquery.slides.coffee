@@ -393,6 +393,9 @@
     @data = $.data this
     touches = e.originalEvent.touches[0]
 
+    if @options.play.pauseOnHover
+      @_pause()
+
     # Setup the next and previous slides for swiping
     @_setuptouch()
 
@@ -412,6 +415,9 @@
     $element = $(@element)
     @data = $.data this
     touches = e.originalEvent.touches[0]
+
+    if @options.play.pauseOnHover
+      @_restart()
 
     # Define slides control
     slidesControl = $(".slidesjs-control", $element)
@@ -515,18 +521,11 @@
 
         # Stop/pause slideshow on mouse enter
         slidesContainer.bind "mouseenter", =>
-          clearTimeout @data.restartDelay
-					$.data this, "restartDelay", null
-          @stop()
+          @_pause()
 
         # Play slideshow on mouse leave
         slidesContainer.bind "mouseleave", =>
-          if @options.play.restartDelay
-            $.data this, "restartDelay", setTimeout ( =>
-              @play(true)
-            ), @options.play.restartDelay
-          else
-            @play()
+          @_restart()
 
       $.data this, "playing", true
 
@@ -558,6 +557,23 @@
     if @options.play.swap
       $(".slidesjs-stop", $element).hide()
       $(".slidesjs-play", $element).show()
+
+  # @_pause()
+  # pause the slideshow
+  Plugin::_pause = ->
+    clearTimeout @data.restartDelay
+    $.data this, "restartDelay", null
+    @stop()
+
+  # @_restart()
+  # restart the slideshow
+  Plugin::_restart = ->
+    if @options.play.restartDelay
+      $.data this, "restartDelay", setTimeout ( =>
+        @play(true)
+      ), @options.play.restartDelay
+    else
+      @play()
 
   # @_slide()
   # CSS3 and JavaScript slide animations
