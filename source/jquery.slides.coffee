@@ -626,7 +626,7 @@
         zIndex: 10
 
       # Start the slide animation
-      @options.callback.start(currentSlide + 1)
+      @options.callback.start(currentSlide + 1, next + 1)
 
       if @data.vendorPrefix
         # If supported use CSS3 for the animation
@@ -673,7 +673,7 @@
           @_setuptouch() if @data.touch
 
           # End of the animation, call complete callback
-          @options.callback.complete(next + 1)
+          @options.callback.complete(currentSlide + 1, next + 1)
       else
         # If CSS3 isn't support use JavaScript for the animation
         slidesControl.stop().animate
@@ -693,7 +693,7 @@
             $.data this, "animating", false
 
             # End of the animation, call complete callback
-            @options.callback.complete(next + 1)
+            @options.callback.complete(currentSlide + 1, next + 1)
           )
 
   # @_fade()
@@ -740,7 +740,7 @@
         zIndex: 10
 
       # Start of the animation, call the start callback
-      @options.callback.start(currentSlide + 1)
+      @options.callback.start(currentSlide + 1, next + 1)
 
       if @options.effect.fade.crossfade
         # Fade out current slide to next slide
@@ -762,7 +762,7 @@
           $.data this, "current", next
 
           # End of the animation, call complete callback
-          @options.callback.complete(next + 1)
+          @options.callback.complete(currentSlide + 1, next + 1)
         )
       else
         # Fade to next slide
@@ -784,7 +784,7 @@
           $.data this, "current", next
 
           # End of the animation, call complete callback
-          @options.callback.complete(next + 1)
+          @options.callback.complete(currentSlide + 1, next + 1)
         )
 
   # @_getVendorPrefix()

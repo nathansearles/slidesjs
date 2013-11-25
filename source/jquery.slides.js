@@ -481,7 +481,7 @@
           left: value * this.options.width,
           zIndex: 10
         });
-        this.options.callback.start(currentSlide + 1);
+        this.options.callback.start(currentSlide + 1, next + 1);
         if (this.data.vendorPrefix) {
           prefix = this.data.vendorPrefix;
           transform = prefix + "Transform";
@@ -511,7 +511,7 @@
             if (_this.data.touch) {
               _this._setuptouch();
             }
-            return _this.options.callback.complete(next + 1);
+            return _this.options.callback.complete(currentSlide + 1, next + 1);
           });
         } else {
           return slidesControl.stop().animate({
@@ -527,7 +527,7 @@
               display: "none",
               left: 0,
               zIndex: 0
-            }, $.data(_this, "current", next), $.data(_this, "animating", false), _this.options.callback.complete(next + 1));
+            }, $.data(_this, "current", next), $.data(_this, "animating", false), _this.options.callback.complete(currentSlide + 1, next + 1));
           }));
         }
       }
@@ -561,7 +561,7 @@
           left: 0,
           zIndex: 10
         });
-        this.options.callback.start(currentSlide + 1);
+        this.options.callback.start(currentSlide + 1, next + 1);
         if (this.options.effect.fade.crossfade) {
           slidesControl.children(":eq(" + this.data.current + ")").stop().fadeOut(this.options.effect.fade.speed);
           return slidesControl.children(":eq(" + next + ")").stop().fadeIn(this.options.effect.fade.speed, (function() {
@@ -570,7 +570,7 @@
             });
             $.data(_this, "animating", false);
             $.data(_this, "current", next);
-            return _this.options.callback.complete(next + 1);
+            return _this.options.callback.complete(currentSlide + 1, next + 1);
           }));
         } else {
           return slidesControl.children(":eq(" + currentSlide + ")").stop().fadeOut(this.options.effect.fade.speed, (function() {
@@ -581,7 +581,7 @@
             }));
             $.data(_this, "animating", false);
             $.data(_this, "current", next);
-            return _this.options.callback.complete(next + 1);
+            return _this.options.callback.complete(currentSlide + 1, next + 1);
           }));
         }
       }
