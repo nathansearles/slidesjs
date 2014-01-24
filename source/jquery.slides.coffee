@@ -516,7 +516,7 @@
         # Stop/pause slideshow on mouse enter
         slidesContainer.bind "mouseenter", =>
           clearTimeout @data.restartDelay
-					$.data this, "restartDelay", null
+          $.data this, "restartDelay", null
           @stop()
 
         # Play slideshow on mouse leave
@@ -609,7 +609,7 @@
         zIndex: 10
 
       # Start the slide animation
-      @options.callback.start(currentSlide + 1)
+      @options.callback.start(currentSlide + 1, next + 1)
 
       if @data.vendorPrefix
         # If supported use CSS3 for the animation
@@ -723,7 +723,7 @@
         zIndex: 10
 
       # Start of the animation, call the start callback
-      @options.callback.start(currentSlide + 1)
+      @options.callback.start(currentSlide + 1, next + 1)
 
       if @options.effect.fade.crossfade
         # Fade out current slide to next slide
