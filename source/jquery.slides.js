@@ -169,15 +169,15 @@
         }).appendTo($element);
         $children.each(function(i, element) {
           var dataHref, dataId, dataTitle, paginationItem, paginationLink, paginationText;
-          dataId = $(element).data('slidejs-id');
+          dataId = $(element).data('slidesjs-id');
           if (!dataId) {
             dataId = "slidejs-pagination-" + (i + 1);
           }
-          dataTitle = $(element).data('slidejs-title');
+          dataTitle = $(element).data('slidesjs-title');
           if (!dataTitle) {
             dataTitle = i + 1;
           }
-          dataHref = $(element).data('slidejs-href');
+          dataHref = $(element).data('slidesjs-href');
           if (!dataHref) {
             dataHref = "#";
           }

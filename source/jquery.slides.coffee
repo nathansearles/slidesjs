@@ -242,13 +242,13 @@
       $children.each (i, element) =>
 
         # Get optionnal data of element
-        dataId = $(element).data 'slidejs-id'
+        dataId = $(element).data 'slidesjs-id'
         if not dataId
           dataId = "slidejs-pagination-#{( i + 1 )}"
-        dataTitle = $(element).data 'slidejs-title'
+        dataTitle = $(element).data 'slidesjs-title'
         if not dataTitle
           dataTitle = i + 1
-        dataHref = $(element).data 'slidejs-href'
+        dataHref = $(element).data 'slidesjs-href'
         if not dataHref
           dataHref= "#"
 
