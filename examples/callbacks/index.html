@@ -100,16 +100,16 @@
             // Show start slide in log
             $('#slidesjs-log .slidesjs-slide-number').text(number);
           },
-          start: function(number) {
+          start: function(current, next) {
             // Use your browser console to view log
-            console.log('SlidesJS: Start Animation on slide #' + number);
+            console.log('SlidesJS: Start Animation from slide #' + current + ' to slide #' + next);
           },
-          complete: function(number) {
+          complete: function(prev, current) {
             // Use your browser console to view log
-            console.log('SlidesJS: Animation Complete. Current slide is #' + number);
+            console.log('SlidesJS: Animation Complete. Current slide is #' + current + ', prev was #' + prev);
 
             // Change slide number on animation complete
-            $('#slidesjs-log .slidesjs-slide-number').text(number);
+            $('#slidesjs-log .slidesjs-slide-number').text(current);
           }
         }
       });
