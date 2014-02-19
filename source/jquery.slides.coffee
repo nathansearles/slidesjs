@@ -196,12 +196,12 @@
     $(".slidesjs-next", $element).click (e) =>
       e.preventDefault()
       @stop(true)
-      @next(@options.navigation.effect)
+      @next(@options.play.effect)
 
     $(".slidesjs-previous", $element).click (e) =>
       e.preventDefault()
       @stop(true)
-      @previous(@options.navigation.effect)
+      @previous(@options.play.effect)
 
     if @options.play.active
       playButton = $("<a>",
