@@ -415,43 +415,48 @@
 
     # Define slides control
     slidesControl = $(".slidesjs-control", $element)
+    sensitivity = @options.width * 0.5
+    sensitivity = 10
 
     # Slide has been dragged to the right, goto previous slide
-    if slidesControl.position().left > @options.width * 0.5 || slidesControl.position().left > @options.width * 0.1 && (Number(new Date()) - @data.touchtimer < 250)
+    if slidesControl.position().left > sensitivity || slidesControl.position().left > @options.width * 0.1 && (Number(new Date()) - @data.touchtimer < 250)
       $.data this, "direction", "previous"
       @_slide()
     # Slide has been dragged to the left, goto next slide
-    else if slidesControl.position().left < -(@options.width * 0.5) || slidesControl.position().left < -(@options.width * 0.1) && (Number(new Date()) - @data.touchtimer < 250)
+    else if slidesControl.position().left < - sensitivity || slidesControl.position().left < -(@options.width * 0.1) && (Number(new Date()) - @data.touchtimer < 250)
       $.data this, "direction", "next"
       @_slide()
     else
       # Slide has not been dragged far enough, animate back to 0 and reset
-        # Get the browser's vendor prefix
-        prefix = @data.vendorPrefix
+      # Get the browser's vendor prefix
+      prefix = @data.vendorPrefix
 
-        # Create CSS3 styles based on vendor prefix
-        transform = prefix + "Transform"
-        duration = prefix + "TransitionDuration"
-        timing = prefix + "TransitionTimingFunction"
+      # Create CSS3 styles based on vendor prefix
+      transform = prefix + "Transform"
+      duration = prefix + "TransitionDuration"
+      timing = prefix + "TransitionTimingFunction"
 
-        # Set CSS3 styles
-        slidesControl[0].style[transform] = "translateX(0px)"
-        slidesControl[0].style[duration] = @options.effect.slide.speed * 0.85 + "ms"
+      # Set CSS3 styles
+      slidesControl[0].style[transform] = "translateX(0px)"
+      slidesControl[0].style[duration] = @options.effect.slide.speed * 0.85 + "ms"
+      setTimeout ->
+        slidesControl.trigger 'transitionend'
+      , slidesControl[0].style[duration]
 
     # Rest slideshow
     slidesControl.on "transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd", =>
-        # Get the browser's vendor prefix
-        prefix = @data.vendorPrefix
+      # Get the browser's vendor prefix
+      prefix = @data.vendorPrefix
 
-        # Create CSS3 styles based on vendor prefix
-        transform = prefix + "Transform"
-        duration = prefix + "TransitionDuration"
-        timing = prefix + "TransitionTimingFunction"
+      # Create CSS3 styles based on vendor prefix
+      transform = prefix + "Transform"
+      duration = prefix + "TransitionDuration"
+      timing = prefix + "TransitionTimingFunction"
 
-        # Set CSS3 styles
-        slidesControl[0].style[transform] = ""
-        slidesControl[0].style[duration] = ""
-        slidesControl[0].style[timing] = ""
+      # Set CSS3 styles
+      slidesControl[0].style[transform] = ""
+      slidesControl[0].style[duration] = ""
+      slidesControl[0].style[timing] = ""
 
     # Stop event from bubbling up
     e.stopPropagation()
@@ -516,7 +521,7 @@
         # Stop/pause slideshow on mouse enter
         slidesContainer.bind "mouseenter", =>
           clearTimeout @data.restartDelay
-					$.data this, "restartDelay", null
+          $.data this, "restartDelay", null
           @stop()
 
         # Play slideshow on mouse leave
@@ -609,7 +614,7 @@
         zIndex: 10
 
       # Start the slide animation
-      @options.callback.start(currentSlide + 1)
+      @options.callback.start(next + 1)
 
       if @data.vendorPrefix
         # If supported use CSS3 for the animation
