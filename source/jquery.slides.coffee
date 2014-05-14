@@ -412,11 +412,10 @@
     $element = $(@element)
     @data = $.data this
     touches = e.originalEvent.touches[0]
+    sensitivity = 10
 
     # Define slides control
     slidesControl = $(".slidesjs-control", $element)
-    sensitivity = @options.width * 0.5
-    sensitivity = 10
 
     # Slide has been dragged to the right, goto previous slide
     if slidesControl.position().left > sensitivity || slidesControl.position().left > @options.width * 0.1 && (Number(new Date()) - @data.touchtimer < 250)

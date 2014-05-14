@@ -335,9 +335,8 @@
       $element = $(this.element);
       this.data = $.data(this);
       touches = e.originalEvent.touches[0];
-      slidesControl = $(".slidesjs-control", $element);
-      sensitivity = this.options.width * 0.5;
       sensitivity = 10;
+      slidesControl = $(".slidesjs-control", $element);
       if (slidesControl.position().left > sensitivity || slidesControl.position().left > this.options.width * 0.1 && (Number(new Date()) - this.data.touchtimer < 250)) {
         $.data(this, "direction", "previous");
         this._slide();
@@ -630,3 +629,5 @@
   })(jQuery, window, document);
 
 }).call(this);
+
+//# sourceMappingURL=jquery.slides.map
