@@ -516,7 +516,7 @@
         # Stop/pause slideshow on mouse enter
         slidesContainer.bind "mouseenter", =>
           clearTimeout @data.restartDelay
-					$.data this, "restartDelay", null
+          $.data this, "restartDelay", null
           @stop()
 
         # Play slideshow on mouse leave
