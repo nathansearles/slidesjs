@@ -84,6 +84,8 @@
         # [function] Called when animation has started
       complete: () ->
         # [function] Called when animation is complete
+    zoom: false
+        # [boolean] Resize the images to fill the slider without distorting them
 
   class Plugin
     constructor: (@element, options) ->
@@ -286,6 +288,62 @@
     $(".active", $element).removeClass "active"
     $(".slidesjs-pagination li:eq(" + current + ") a", $element).addClass "active"
 
+  # @_zoom()
+  # Resizes the children images of the slider so that they fill the slider without being distorted
+  Plugin::_zoom = ->
+    $element = $(@element)
+    @data = $.data this
+	
+    # The aspect ratio of the parent container
+    targetRatio = @options.width  / @options.height
+    
+    # The children images (only first level)
+    img = $(".slidesjs-control", $element).children("img")
+    
+    
+    # Register the function to zoom each image as soon as it's loaded
+    img.each ->
+        $(this).one "load", ->
+            $img = $(this)
+            
+            imgWidth = $img.width()
+            imgHeight = $img.height()
+	
+            # The aspect ratio of this child img
+            imgRatio = imgWidth / imgHeight
+            
+            # A max width / height will cause manual resizing to fail, so we remove it if present. 
+            $img.css
+                "max-width": "none",
+                "max-height": "none"
+            
+            # If the image is wider than the container, set it to fill the container's height and overflow by width
+            # Also set the margins so that the image is centered
+            if imgRatio > targetRatio
+                
+                # Calculate half the amount by which the image is wider than the container as a percentage OF THE CONTAINER'S WIDTH
+                overflow = (imgRatio / targetRatio - 1) * 100 / 2
+                
+                $img.css
+                    height: "100%",
+                    width: "auto",
+                    "margin-left": "-" + overflow + "%"
+                    
+            # Vice versa for the other case (taller than container)        
+            else
+                
+                # Calculate half the amount by which the image is taller than the container as a percentage OF THE CONTAINER'S WIDTH
+                overflow = (1 / imgRatio - 1 / targetRatio) * 100 / 2
+                
+                $img.css
+                    height: "auto",
+                    width: "100%",
+                    "margin-top": "-" + overflow + "%"
+            
+        # If the image was already loaded by the time this code runs, trigger the "load" handler now    
+        if this.complete || this.naturalWidth != 0
+            $(this).trigger "load"
+
   # @update()
   # Update the slideshow size on browser resize
   Plugin::update = ->
@@ -305,6 +363,10 @@
     # Store new width and height
     @options.width = width
     @options.height = height
+	
+	# Zoom the image so that it fills the slider without distortion if the option is set
+    if @options.zoom
+      @_zoom()
 
     # Set new width and height
     $(".slidesjs-control, .slidesjs-container", $element).css
