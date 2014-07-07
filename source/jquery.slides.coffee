@@ -325,8 +325,6 @@
             # If the image is wider than the container, set it to fill the container's height and overflow by width
             # Also set the margins so that the image is centered
             if imgRatio > targetRatio
-                
-                console.log "setting wider"
                 # Calculate half the amount by which the image is wider than the container as a percentage OF THE CONTAINER'S WIDTH
                 overflow = (imgRatio / targetRatio - 1) * 100 / 2
                 
@@ -337,7 +335,6 @@
                     
             # Vice versa for the other case (taller than container)        
             else
-                console.log "setting higher"
                 # Calculate half the amount by which the image is taller than the container as a percentage OF THE CONTAINER'S WIDTH
                 overflow = (1 / imgRatio - 1 / targetRatio) * 100 / 2
                 
