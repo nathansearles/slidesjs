@@ -297,8 +297,13 @@
     # The aspect ratio of the parent container
     targetRatio = @options.width  / @options.height
     
-    # The children images (only first level)
-    img = $(".slidesjs-control", $element).children("img")
+    # Set any children divs to full size so that the subsequent resizing of their images works
+    $(".slidesjs-control", $element).children("div").css
+        width: "100%",
+        height: "100%"
+    
+    # The children images
+    img = $(".slidesjs-control", $element).find("img, div img:first")
     
     
     # Register the function to zoom each image as soon as it's loaded
@@ -306,9 +311,9 @@
         $(this).one "load", ->
             $img = $(this)
             
-            imgWidth = $img.width()
-            imgHeight = $img.height()
-	
+            imgWidth = this.width
+            imgHeight = this.height
+            
             # The aspect ratio of this child img
             imgRatio = imgWidth / imgHeight
             
@@ -321,6 +326,7 @@
             # Also set the margins so that the image is centered
             if imgRatio > targetRatio
                 
+                console.log "setting wider"
                 # Calculate half the amount by which the image is wider than the container as a percentage OF THE CONTAINER'S WIDTH
                 overflow = (imgRatio / targetRatio - 1) * 100 / 2
                 
@@ -331,7 +337,7 @@
                     
             # Vice versa for the other case (taller than container)        
             else
-                
+                console.log "setting higher"
                 # Calculate half the amount by which the image is taller than the container as a percentage OF THE CONTAINER'S WIDTH
                 overflow = (1 / imgRatio - 1 / targetRatio) * 100 / 2
                 

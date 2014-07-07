@@ -223,19 +223,24 @@
       $element = $(this.element);
       this.data = $.data(this);
       targetRatio = this.options.width / this.options.height;
-      img = $(".slidesjs-control", $element).children("img");
+      $(".slidesjs-control", $element).children("div").css({
+        width: "100%",
+        height: "100%"
+      });
+      img = $(".slidesjs-control", $element).find("img, div img:first");
       return img.each(function() {
         $(this).one("load", function() {
           var $img, imgHeight, imgRatio, imgWidth, overflow;
           $img = $(this);
-          imgWidth = $img.width();
-          imgHeight = $img.height();
+          imgWidth = this.width;
+          imgHeight = this.height;
           imgRatio = imgWidth / imgHeight;
           $img.css({
             "max-width": "none",
             "max-height": "none"
           });
           if (imgRatio > targetRatio) {
+            console.log("setting wider");
             overflow = (imgRatio / targetRatio - 1) * 100 / 2;
             return $img.css({
               height: "100%",
@@ -243,6 +248,7 @@
               "margin-left": "-" + overflow + "%"
             });
           } else {
+            console.log("setting higher");
             overflow = (1 / imgRatio - 1 / targetRatio) * 100 / 2;
             return $img.css({
               height: "auto",
