@@ -55,11 +55,11 @@
       active: false
         # [boolean] Enable hands-free playing of slideshow.
       generate: true
-      # [boolean] Create play and stop button.
-      # You can set to false and use your own play/stop buttons.
-      # User defined play/stop buttons must have the following:
-      # play: class="slidesjs-play slidesjs-navigation"
-      # stop: class="slidesjs-stop slidesjs-navigation"
+        # [boolean] Create play and stop button.
+        # You can set to false and use your own play/stop buttons.
+        # User defined play/stop buttons must have the following:
+        # play: class="slidesjs-play slidesjs-navigation"
+        # stop: class="slidesjs-stop slidesjs-navigation"
       effect: "slide"
         # [string] Can be either "slide" or "fade".
       interval: 5000
