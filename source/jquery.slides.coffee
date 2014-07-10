@@ -33,6 +33,8 @@
       # Set the default height of the slideshow.
     start: 1
       # Set the first slide in the slideshow.
+    zoom: false
+        # [boolean] Resize the images to fill the slider without distorting them
     navigation:
       # Next and previous button settings.
       active: true
@@ -84,8 +86,6 @@
         # [function] Called when animation has started
       complete: () ->
         # [function] Called when animation is complete
-    zoom: false
-        # [boolean] Resize the images to fill the slider without distorting them
 
   class Plugin
     constructor: (@element, options) ->
