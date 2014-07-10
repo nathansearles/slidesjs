@@ -214,17 +214,17 @@
       if @options.play.generate
       # Generate play / stop button
           playButton = $("<a>",
-          class: "slidesjs-play slidesjs-navigation"
-          href: "#"
-          title: "Play"
-          text: "Play"
+            class: "slidesjs-play slidesjs-navigation"
+            href: "#"
+            title: "Play"
+            text: "Play"
           ).appendTo($element)
       
           stopButton = $("<a>",
-          class: "slidesjs-stop slidesjs-navigation"
-          href: "#"
-          title: "Stop"
-          text: "Stop"
+            class: "slidesjs-stop slidesjs-navigation"
+            href: "#"
+            title: "Stop"
+            text: "Stop"
           ).appendTo($element)
       
       else
