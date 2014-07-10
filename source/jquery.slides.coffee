@@ -335,7 +335,7 @@
                 $img.css
                     height: "100%",
                     width: "auto",
-                    "margin-left": "-" + overflow + "%"
+                    margin: "0 0 0 -" + overflow + "%"
                     
             # Vice versa for the other case (taller than container)        
             else
@@ -345,12 +345,25 @@
                 $img.css
                     height: "auto",
                     width: "100%",
-                    "margin-top": "-" + overflow + "%"
+                    margin: "-" + overflow + "% 0 0 0"
             
         # If the image was already loaded by the time this code runs, trigger the "load" handler now    
         if this.complete || this.naturalWidth != 0
             $(this).trigger "load"
 
+  # @resize(width, height)
+  # Resize the slidershow to a new width and height
+  Plugin::resize = (width, height) ->
+  
+    # Set height and width in options
+    @options.width = width
+    @options.height = height
+    
+    # Refresh display
+    @update()
+    if @options.zoom
+      @_zoom()
+  
   # @update()
   # Update the slideshow size on browser resize
   Plugin::update = ->
