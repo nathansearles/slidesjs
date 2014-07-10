@@ -167,6 +167,10 @@
 
     # Update sets width/height of slideshow
     @update()
+    
+	# Zoom the image so that it fills the slider without distortion if the option is set
+    if @options.zoom
+      @_zoom()
 
     # If touch device setup next slides
     @_setuptouch() if @data.touch
@@ -366,10 +370,6 @@
     # Store new width and height
     @options.width = width
     @options.height = height
-	
-	# Zoom the image so that it fills the slider without distortion if the option is set
-    if @options.zoom
-      @_zoom()
 
     # Set new width and height
     $(".slidesjs-control, .slidesjs-container", $element).css
