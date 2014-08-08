@@ -229,8 +229,8 @@
       
       else
       # Search for user's play/stop buttons
-          playButton = $(".slidesjs-play .slidesjs-navigation")
-          stopButton = $(".slidesjs-stop .slidesjs-navigation")
+          playButton = $(".slidesjs-play.slidesjs-navigation")
+          stopButton = $(".slidesjs-stop.slidesjs-navigation")
       
 
       playButton.click (e) =>
