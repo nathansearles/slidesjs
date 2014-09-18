@@ -312,11 +312,11 @@
     
     # Register the function to zoom each image as soon as it's loaded
     img.each ->
-        $(this).one "load", ->
+        $(this).on "load", ->
             $img = $(this)
             
-            imgWidth = this.width
-            imgHeight = this.height
+            imgWidth = this.naturalWidth
+            imgHeight = this.naturalHeight
             
             # The aspect ratio of this child img
             imgRatio = imgWidth / imgHeight
