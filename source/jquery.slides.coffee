@@ -257,7 +257,6 @@
           # bind click events
           paginationLink.click (e) =>
             e.preventDefault()
-            console.log $(e.currentTarget).attr("data-slidesjs-item")
             # Stop play
             @stop(true)
             # Goto to selected slide
