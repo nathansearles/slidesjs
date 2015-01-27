@@ -393,6 +393,12 @@
     @data = $.data this
     touches = e.originalEvent.touches[0]
 
+    # Define slides container
+    slidesContainer = $(".slidesjs-container", $element)
+
+    # Trigger mouseenter (pauses if pauseOnHover is set)
+    slidesContainer.trigger "mouseenter"
+
     # Setup the next and previous slides for swiping
     @_setuptouch()
 
@@ -412,6 +418,12 @@
     $element = $(@element)
     @data = $.data this
     touches = e.originalEvent.touches[0]
+
+    # Define slides container
+    slidesContainer = $(".slidesjs-container", $element)
+
+    # Trigger mouseleave (unpauses if pauseOnHover is set)
+    slidesContainer.trigger "mouseleave"
 
     # Define slides control
     slidesControl = $(".slidesjs-control", $element)
