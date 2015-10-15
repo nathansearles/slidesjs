@@ -293,10 +293,11 @@
     @data = $.data this
 
     # Hide all slides expect current
-    $(".slidesjs-control", $element).children(":not(:eq(" + @data.current + "))").css
-      display: "none"
-      left: 0
-      zIndex: 0
+    if !@data.animating
+      $(".slidesjs-control", $element).children(":not(:eq(" + @data.current + "))").css
+        display: "none"
+        left: 0
+        zIndex: 0
 
     # Get the new width and height
     width = $element.width()
