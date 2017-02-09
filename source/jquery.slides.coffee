@@ -339,7 +339,7 @@
 
   # @goto()
   # Pagination mechanics
-  Plugin::goto = (number) ->
+  Plugin::goto = (number, effect) ->
     $element = $(@element)
     @data = $.data this
 
