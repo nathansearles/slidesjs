@@ -185,8 +185,13 @@
           });
         });
       }
+      // throttle
+      var throttleTimer = null, speed = this.options.throttle || 180
       $(window).bind("resize", function() {
-        return _this.update();
+        clearTimeout(throttleTimer)
+        throttleTimer = setTimeout(function(){
+          _this.update();
+        }, speed);
       });
       this._setActive();
       if (this.options.play.auto) {
