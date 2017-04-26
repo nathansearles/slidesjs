@@ -726,7 +726,12 @@
 			
 			this.slides.each(
 				$.proxy(function(index, element) {
-					$("<li><a href='#" + index + "' class='slidesNavigation slidesPaginationItem' data-slidesindex=" + index + "> " + ( index + 1 ) + "</a></li>").appendTo(this.pagination);
+					$li = $("<li><a href='#" + index + "' class='slidesNavigation slidesPaginationItem' data-slidesindex=" + index + "> " + ( index + 1 ) + "</a></li>");
+					var isOpposite = this.options.direction.match(/right|down/) ? true : false;
+					if (!isOpposite) 
+						$li.appendTo(this.pagination);
+					else 
+						$li.prependTo(this.pagination);
 				},this)
 			);
 			
