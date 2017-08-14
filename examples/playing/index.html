@@ -29,21 +29,61 @@
     }
 
     #slides .slidesjs-navigation {
-      margin-top:3px;
+      margin-top:5px;
     }
 
-    #slides .slidesjs-previous {
-      margin-right: 5px;
+    a.slidesjs-next,
+    a.slidesjs-previous,
+    a.slidesjs-play,
+    a.slidesjs-stop {
+      background-image: url(img/btns-next-prev.png);
+      background-repeat: no-repeat;
+      display:block;
+      width:12px;
+      height:18px;
+      overflow: hidden;
+      text-indent: -9999px;
       float: left;
+      margin-right:5px;
     }
 
-    #slides .slidesjs-next {
-      margin-right: 5px;
-      float: left;
+    a.slidesjs-next {
+      margin-right:10px;
+      background-position: -12px 0;
+    }
+
+    a:hover.slidesjs-next {
+      background-position: -12px -18px;
+    }
+
+    a.slidesjs-previous {
+      background-position: 0 0;
+    }
+
+    a:hover.slidesjs-previous {
+      background-position: 0 -18px;
+    }
+
+    a.slidesjs-play {
+      width:15px;
+      background-position: -25px 0;
+    }
+
+    a:hover.slidesjs-play {
+      background-position: -25px -18px;
+    }
+
+    a.slidesjs-stop {
+      width:18px;
+      background-position: -41px 0;
+    }
+
+    a:hover.slidesjs-stop {
+      background-position: -41px -18px;
     }
 
     .slidesjs-pagination {
-      margin: 6px 0 0;
+      margin: 7px 0 0;
       float: right;
       list-style: none;
     }
@@ -143,8 +183,6 @@
       <img src="img/example-slide-2.jpg" alt="Photo by: Daniel Parks Link: http://www.flickr.com/photos/parksdh/5227623068/">
       <img src="img/example-slide-3.jpg" alt="Photo by: Mike Ranweiler Link: http://www.flickr.com/photos/27874907@N04/4833059991/">
       <img src="img/example-slide-4.jpg" alt="Photo by: Stuart SeegerLink: http://www.flickr.com/photos/stuseeger/97577796/">
-      <a href="#" class="slidesjs-previous slidesjs-navigation"><i class="icon-chevron-left icon-large"></i></a>
-      <a href="#" class="slidesjs-next slidesjs-navigation"><i class="icon-chevron-right icon-large"></i></a>
     </div>
   </div>
   <!-- End SlidesJS Required: Start Slides -->
@@ -163,7 +201,12 @@
       $('#slides').slidesjs({
         width: 940,
         height: 528,
-        navigation: false
+        play: {
+          active: true,
+          auto: true,
+          interval: 4000,
+          swap: true
+        }
       });
     });
   </script>
