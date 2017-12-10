@@ -2,8 +2,9 @@
 * Slides, A Slideshow Plugin for jQuery
 * Intructions: http://slidesjs.com
 * By: Nathan Searles, http://nathansearles.com
-* Version: 1.2
-* Updated: February 5th, 2013
+* Version: 1.2.1
+* Updated: December 10th, 2017
+* Updated by: Igor Ostapchuk, http://github.com/antydemant
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -28,7 +29,7 @@
 
       var elem = $(this),
         control = $('.slides_control',elem),
-        total = control.children().size(),
+        total = control.children().length,
         width = control.children().outerWidth(),
         height = control.children().outerHeight(),
         start = option.start - 1,
@@ -347,11 +348,11 @@
           imageParent = control.children(':eq(0)')[0].tagName.toLowerCase();
         } else {
           // Image doesn't have parent, use image tag name
-          imageParent = control.find('img:eq(' + start + ')');
+          imageParent = control.find('img:eq(' + start + ')')[0].tagName.toLowerCase();
         }
 
         // checks if image is loaded
-        control.find('img:eq(' + start + ')').attr('src', img).load(function() {
+        control.find('img:eq(' + start + ')').attr('src', img).on('load',function() {
           // once image is fully loaded, fade in
           control.find(imageParent + ':eq(' + start + ')').fadeIn(option.fadeSpeed, option.fadeEasing, function(){
             $(this).css({
@@ -393,11 +394,11 @@
 
       // pause on mouseover
       if (option.hoverPause && option.play) {
-        control.bind('mouseover',function(){
+        control.on('mouseover',function(){
           // on mouse over stop
           stop();
         });
-        control.bind('mouseleave',function(){
+        control.on('mouseleave',function(){
           // on mouse leave start pause timeout
           pause();
         });

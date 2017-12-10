@@ -32,6 +32,10 @@ These examples are also included in the download.
 
 h2. Changelog
 
+* 1.2.1
+** New: Added support for jQuery 3.2.1.
+** Fixed: bug with deprecated methods: .bind(), .load(), .size(), and other fixes
+
 * 1.2.0
 ** New: Added support for jQuery 1.9.x. Dropped support for jQuery versions below 1.7.
 
