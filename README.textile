@@ -1,7 +1,6 @@
-h1. SlidesJS is no longer maintained
+h1. SlidesJS 
 
-As an alternative check out the awesome "Slick":http://kenwheeler.github.io/slick/ by "Ken Wheeler":http://kenwheeler.github.io/.
-
+is no longer maintained As an alternative check out the awesome "Slick":http://kenwheeler.github.io/slick/ by "Ken Wheeler":http://kenwheeler.github.io/.
 
 h2. SlidesJS 3.0
 
