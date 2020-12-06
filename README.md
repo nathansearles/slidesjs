@@ -1,9 +1,8 @@
-h1. SlidesJS is no longer maintained
+h1. SlidesJS is obsolete and no longer maintained
 
-As an alternative check out the awesome "Slick":http://kenwheeler.github.io/slick/ by "Ken Wheeler":http://kenwheeler.github.io/.
+This repo is kept around for archival purposes. ✌️
 
-
-h2. SlidesJS 3.0
+h1. SlidesJS 3.0
 
 SlidesJS is a responsive slideshow plug-in for jQuery (1.7.1+) with features like touch and CSS3 transitions.
 

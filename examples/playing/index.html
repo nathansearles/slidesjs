@@ -98,7 +98,7 @@
       width: 13px;
       height: 0;
       padding-top: 13px;
-      background-image: url(img/pagination.png);
+      background-image: url(/img/pagination.png);
       background-position: 0 0;
       float: left;
       overflow: hidden;
@@ -175,6 +175,19 @@
 </head>
 <body>
 
+  <!-- Start site navbar -->
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <ul class="nav pull-left">
+          <li><a href="/"><i class=" icon-chevron-left icon-large"></i> Back</a></li>
+        </ul>
+        <a href="/"><img src="../../img/slidesjs.png" width="130" height="26" alt="SlidesJS" class="brand pull-right"></a>
+      </div>
+    </div>
+  </div>
+  <!-- End site navbar -->
+
   <!-- SlidesJS Required: Start Slides -->
   <!-- The container is used to define the width of the slideshow -->
   <div class="container">
@@ -186,6 +199,13 @@
     </div>
   </div>
   <!-- End SlidesJS Required: Start Slides -->
+
+
+  <div id="footer" class="section">
+    <div class="container">
+      <p>SlidesJS is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache license</a>. &copy; 2013 <a href="http://nathansearles.com" target="_blank">Nathan Searles</a>. All rights reserved.</p>
+    </div>
+  </div>
 
   <!-- SlidesJS Required: Link to jQuery -->
   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
@@ -205,7 +225,9 @@
           active: true,
           auto: true,
           interval: 4000,
-          swap: true
+          swap: true,
+          pauseOnHover: true,
+          restartDelay: 2500
         }
       });
     });

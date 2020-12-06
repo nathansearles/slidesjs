@@ -210,6 +210,7 @@ body {
   line-height: 20px;
   color: #333333;
   background-color: #ffffff;
+  padding: 80px 0 0;
 }
 /*a {
   color: #0088cc;
@@ -1677,7 +1678,7 @@ body {
 
 /* Ad Packs */
 #ad_packs {
-    margin: 40px auto 20px;
+     margin: 40px auto 20px;
     width: 298px;
     overflow: hidden;
 }
@@ -1734,10 +1735,25 @@ a.btn {
 }
 
 #footer {
-  text-align: center;
   font-size: 12px;
+  text-align: center;
 }
 
 #footer .span8 {
   padding-top:20px;
+}
+
+#slides a:link,
+#slides a:visited {
+  color: #333
+}
+
+#slides a:link.active,
+#slides a:visited.active {
+  color:#d22929;
+}
+
+#slides a:hover,
+#slides a:active {
+  color: #9e2020
 }

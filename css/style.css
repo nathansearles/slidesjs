@@ -1,0 +1,462 @@
+body {
+  background: #fcfcfc;
+  font: normal 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #232525;
+}
+
+
+.nav {
+    list-style-type: none;
+    top: 8px;
+}
+
+.nav li {
+    marign: 0;
+    padding: 0;
+}
+
+.nav a {
+    font-size: 13px;
+    text-transform: uppercase;
+    line-height: 1;
+    font-weight: 500;
+    color: #afb2b6;
+    text-decoration: none;
+    display: block;
+    float: left;
+    padding: 6px 15px 2px;
+    border-radius: 10px;
+    margin: 0 5px;
+    text-shadow: 0 1px 4px rgba(0,0,0,.8);
+}
+
+.nav .active a, .nav a:hover { color: #fff }
+
+.nav a.active {
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px rgba(255,255,255,.1),inset 0 -1px 4px rgba(0,0,0,1);
+    background-color: #111;
+}
+
+.navbar .nav > li > a {
+  padding:10px;
+}
+
+.navbar-inverse .brand {
+  color:#fff;
+  position: relative;
+  top:3px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding:8px 10px;
+}
+
+.navbar-inverse .nav > li > a.donate.btn {
+  color:#fff;
+  position: relative;
+  top:-4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding:8px 10px;
+}
+
+
+/* Social Buttons */
+.social-buttons {
+    background:#f5f5f5;
+    border:1px solid #e1e1e1;
+    padding:15px;
+}
+
+.social-buttons ul {
+    list-style:none;
+    padding:0;
+}
+
+.social-buttons li {
+    float:left;
+    margin-right: 23px;
+}
+
+.social-buttons li:last-child {
+    margin:0;
+}
+
+.ctwitter {
+    width:56px;
+}
+
+.cgoogle {
+    padding-top:2px;
+    width:50px;
+}
+
+.cfacebook {
+    padding-top: 1px;
+    width:49px;
+}
+
+.cpinterest {
+    padding-top:22px;
+    width:43px;
+}
+
+.features {
+  list-style-type: none;
+  padding:0;
+  color:#111;
+  margin:0;
+}
+
+.features li:first-child {
+  margin-bottom:20px;
+}
+
+.features p {
+  margin-top: 5px;
+}
+
+.page_header {
+  padding-bottom: 9px;
+  margin: 20px 0 30px;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+/* Ad Packs */
+#ad_packs {
+    margin: 45px 0 30px 0;
+    width: auto;
+    overflow: hidden;
+}
+
+.one .bsa_it_ad {
+  background:#f5f5f5 !important;
+}
+
+#footer.small #ad_packs {
+  margin:0;
+}
+
+#bsap_aplink {
+    float: right;
+    font-size: 10px;
+}
+
+/* Expand */
+.expand {
+    margin: 0 0 9px;
+    position: relative;
+    border-bottom: 1px solid #f1f1f1;
+    margin-bottom: 0;
+    padding: 0 0 20px;
+}
+
+.expand pre { margin: 9px 0 }
+
+.expand .content {
+    display: none;
+    overflow: hidden;
+}
+
+.expand .content .inner {
+    margin: .56em 0;
+    display: none;
+}
+
+.expand p { margin: 0 }
+
+a.show {
+  white-space: nowrap;
+}
+
+/* Type styles */
+h1,h2,h3,h4,h5 {
+  color:#111;
+  font-weight: 400;
+}
+
+h1 {
+  font-size:28px;
+}
+
+h3 { margin: 0 }
+
+p,ul,ol {
+    font-weight: 400;
+    color: #777;
+}
+
+small {
+    font-weight: 400;
+    color: #666;
+}
+
+a:link, a:visited {
+    color: #d22929;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    color: #9e2020;
+    text-decoration: none;
+}
+
+.alert a {
+  color:#c09853;
+}
+
+a.btn {
+  color:#fff;
+  margin-bottom: 10px;
+}
+
+.btns {
+  margin: 30px 0;
+}
+
+.btns a {
+  margin-top:0;
+  margin-bottom:0;
+}
+
+.push-right {
+  margin-right:10px;
+}
+
+.section {
+  padding-top: 30px;
+}
+
+.alert {
+  font-size:13px;
+}
+
+#footer {
+  padding:0;
+  margin:0 0 30px;
+  font-size:13px;
+}
+
+/* Prevents the slideshow from flashing on load */
+#slides {
+  display:none;
+}
+
+#slides .slidesjs-container {
+  margin-bottom:10px;
+}
+
+#slides .slidesjs-previous {
+  margin-right: 5px;
+  float:left;
+}
+#slides .slidesjs-next {
+  margin-right: 5px;
+  float:left;
+}
+
+.slidesjs-pagination {
+    margin:6px 0 0;
+    float: right;
+    list-style: none;
+}
+
+.slidesjs-pagination li {
+    float: left;
+    margin: 0 1px;
+}
+
+.slidesjs-pagination li a {
+    display: block;
+    width: 13px;
+    height: 0;
+    padding-top: 13px;
+    background-image: url(/img/pagination.png);
+    background-position: 0 0;
+    float: left;
+    overflow: hidden;
+}
+
+.slidesjs-pagination li a.active, .slidesjs-pagination li a:hover.active { background-position: 0 -13px }
+
+.slidesjs-pagination li a:hover { background-position: 0 -26px }
+
+#slides a:link, #slides a:visited { color: #333 }
+
+#slides a:hover, #slides a:active { color: #9e2020 }
+
+/*
+  Google Code style (c) Aahan Krish <geekpanth3r@gmail.com>
+*/
+pre {
+  margin-bottom: 30px;
+}
+pre code {
+  display: block;
+  padding: 0.5em;
+  background: #f5f5f5;
+  color: black;
+  overflow: auto;
+}
+
+pre .comment,
+pre .template_comment,
+pre .javadoc,
+pre .comment * {
+  color: #800;
+}
+
+pre .keyword,
+pre .method,
+pre .list .title,
+pre .clojure .built_in,
+pre .nginx .title,
+pre .tag .title,
+pre .setting .value,
+pre .winutils,
+pre .tex .command,
+pre .http .title,
+pre .request,
+pre .status {
+  color: #008;
+}
+
+pre .envvar,
+pre .tex .special {
+  color: #660;
+}
+
+pre .string,
+pre .tag .value,
+pre .cdata,
+pre .filter .argument,
+pre .attr_selector,
+pre .apache .cbracket,
+pre .date,
+pre .regexp {
+  color: #080;
+}
+
+pre .sub .identifier,
+pre .pi,
+pre .tag,
+pre .tag .keyword,
+pre .decorator,
+pre .ini .title,
+pre .shebang,
+pre .prompt,
+pre .hexcolor,
+pre .rules .value,
+pre .css .value .number,
+pre .literal,
+pre .symbol,
+pre .ruby .symbol .string,
+pre .number,
+pre .css .function,
+pre .clojure .attribute {
+  color: #066;
+}
+
+pre .class .title,
+pre .haskell .type,
+pre .smalltalk .class,
+pre .javadoctag,
+pre .yardoctag,
+pre .phpdoc,
+pre .typename,
+pre .tag .attribute,
+pre .doctype,
+pre .class .id,
+pre .built_in,
+pre .setting,
+pre .params,
+pre .variable,
+pre .clojure .title {
+  color: #606;
+}
+
+pre .css .tag,
+pre .rules .property,
+pre .pseudo,
+pre .subst {
+  color: #000;
+}
+
+pre .css .class, pre .css .id {
+  color: #9B703F;
+}
+
+pre .value .important {
+  color: #ff7700;
+  font-weight: bold;
+}
+
+pre .rules .keyword {
+  color: #C5AF75;
+}
+
+pre .annotation,
+pre .apache .sqbracket,
+pre .nginx .built_in {
+  color: #9B859D;
+}
+
+pre .preprocessor,
+pre .preprocessor * {
+  color: #444;
+}
+
+pre .tex .formula {
+  background-color: #EEE;
+  font-style: italic;
+}
+
+pre .diff .header,
+pre .chunk {
+  color: #808080;
+  font-weight: bold;
+}
+
+pre .diff .change {
+  background-color: #BCCFF9;
+}
+
+pre .addition {
+  background-color: #BAEEBA;
+}
+
+pre .deletion {
+  background-color: #FFC8BD;
+}
+
+pre .comment .yardoctag {
+  font-weight: bold;
+}
+
+hr {
+  margin: 30px 0;
+  border: 0;
+  border-top: 1px solid #e1e1e1;
+  height: 1px;
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  #slides-section {
+    height:304px;
+  }
+}
+
+@media (min-width: 980px) {
+  #slides-section {
+    height:384px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #slides-section {
+    height:470px;
+  }
+}

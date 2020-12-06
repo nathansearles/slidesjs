@@ -1677,7 +1677,7 @@ body {
 
 /* Ad Packs */
 #ad_packs {
-    margin: 45px 0 30px 0;
+     margin: 20px auto;
     width: 298px;
     overflow: hidden;
 }
@@ -1735,6 +1735,7 @@ a.btn {
 
 #footer {
   font-size: 12px;
+  text-align: center;
 }
 
 #footer .span8 {
