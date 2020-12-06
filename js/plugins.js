@@ -483,7 +483,13 @@ hljs.LANGUAGES.javascript = (function (a) {
         c: [
           a.CLCM,
           a.CBLCLM,
-          { cN: "regexp", b: "/", e: "/[gim]*", i: "\\n", c: [{ b: "\\\\/" }] },
+          {
+            cN: "regexp",
+            b: "/slidesjs/",
+            e: "/[gim]*",
+            i: "\\n",
+            c: [{ b: "\\\\/" }],
+          },
           { b: "<", e: ">;", sL: "xml" },
         ],
         r: 0,
