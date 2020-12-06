@@ -4,7 +4,7 @@ h1. SlidesJS version 2.0 beta 1
 
 For the current production ready version of SlidesJS visit "http://slidesjs.com/":http://slidesjs.com/.
 
-Created by "Nathan Searles":mailto:nsearles@gmail.com, "http://nathansearles.com":http://nathansearles.com
+Created by "http://nathansearles.com":http://nathansearles.com
 
 Support forum "http://groups.google.com/group/slidesjs":http://groups.google.com/group/slidesjs
 
