@@ -1,1 +1,19 @@
-/.DS_Store
+# =========================
+# Operating System Files
+# =========================
+node_modules/
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+._*
+Icon
+*.cab
+*.msi
+*.msm
+*.msp
