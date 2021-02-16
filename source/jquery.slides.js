@@ -192,7 +192,7 @@
       if (this.options.play.auto) {
         this.play();
       }
-      return this.options.callback.loaded(this.options.start);
+      return this.options.callback.loaded(this.options.start, a);
     };
     Plugin.prototype._setActive = function(number) {
       var $element, current;
