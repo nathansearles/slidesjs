@@ -33,6 +33,8 @@
       # Set the default height of the slideshow.
     start: 1
       # Set the first slide in the slideshow.
+    zoom: false
+        # [boolean] Resize the images to fill the slider without distorting them
     navigation:
       # Next and previous button settings.
       active: true
@@ -165,6 +167,10 @@
 
     # Update sets width/height of slideshow
     @update()
+    
+	# Zoom the image so that it fills the slider without distortion if the option is set
+    if @options.zoom
+      @_zoom()
 
     # If touch device setup next slides
     @_setuptouch() if @data.touch
@@ -286,6 +292,78 @@
     $(".active", $element).removeClass "active"
     $(".slidesjs-pagination li:eq(" + current + ") a", $element).addClass "active"
 
+  # @_zoom()
+  # Resizes the children images of the slider so that they fill the slider without being distorted
+  Plugin::_zoom = ->
+    $element = $(@element)
+    @data = $.data this
+	
+    # The aspect ratio of the parent container
+    targetRatio = @options.width  / @options.height
+    
+    # Set any children divs to full size so that the subsequent resizing of their images works
+    $(".slidesjs-control", $element).children("div").css
+        width: "100%",
+        height: "100%"
+    
+    # The children images
+    img = $(".slidesjs-control", $element).find("img, div img:first")
+    
+    
+    # Register the function to zoom each image as soon as it's loaded
+    img.each ->
+        $(this).on "load", ->
+            $img = $(this)
+            
+            imgWidth = this.naturalWidth
+            imgHeight = this.naturalHeight
+            
+            # The aspect ratio of this child img
+            imgRatio = imgWidth / imgHeight
+            
+            # A max width / height will cause manual resizing to fail, so we remove it if present. 
+            $img.css
+                "max-width": "none",
+                "max-height": "none"
+            
+            # If the image is wider than the container, set it to fill the container's height and overflow by width
+            # Also set the margins so that the image is centered
+            if imgRatio > targetRatio
+                # Calculate half the amount by which the image is wider than the container as a percentage OF THE CONTAINER'S WIDTH
+                overflow = (imgRatio / targetRatio - 1) * 100 / 2
+                
+                $img.css
+                    height: "100%",
+                    width: "auto",
+                    margin: "0 0 0 -" + overflow + "%"
+                    
+            # Vice versa for the other case (taller than container)        
+            else
+                # Calculate half the amount by which the image is taller than the container as a percentage OF THE CONTAINER'S WIDTH
+                overflow = (1 / imgRatio - 1 / targetRatio) * 100 / 2
+                
+                $img.css
+                    height: "auto",
+                    width: "100%",
+                    margin: "-" + overflow + "% 0 0 0"
+            
+        # If the image was already loaded by the time this code runs, trigger the "load" handler now    
+        if this.complete || this.naturalWidth != 0
+            $(this).trigger "load"
+
+  # @resize(width, height)
+  # Resize the slidershow to a new width and height
+  Plugin::resize = (width, height) ->
+  
+    # Set height and width in options
+    @options.width = width
+    @options.height = height
+    
+    # Refresh display
+    @update()
+    if @options.zoom
+      @_zoom()
+  
   # @update()
   # Update the slideshow size on browser resize
   Plugin::update = ->
@@ -516,7 +594,7 @@
         # Stop/pause slideshow on mouse enter
         slidesContainer.bind "mouseenter", =>
           clearTimeout @data.restartDelay
-					$.data this, "restartDelay", null
+          $.data this, "restartDelay", null
           @stop()
 
         # Play slideshow on mouse leave
