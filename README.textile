@@ -8,7 +8,7 @@ SlidesJS is a responsive slideshow plug-in for jQuery (1.7.1+) with features lik
 
 Support forum "http://groups.google.com/group/slidesjs":http://groups.google.com/group/slidesjs
 
-(c) 2013 by Nathan Searles
+(c) 2013 - 2015 by Nathan Searles
 
 h2. Documentation
 
