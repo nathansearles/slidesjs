@@ -53,8 +53,13 @@
     play:
         # Play and stop button setting.
       active: false
-        # [boolean] Create the play and stop buttons.
-        # You cannot use your own pagination.
+        # [boolean] Enable hands-free playing of slideshow.
+      generate: true
+        # [boolean] Create play and stop button.
+        # You can set to false and use your own play/stop buttons.
+        # User defined play/stop buttons must have the following:
+        # play: class="slidesjs-play slidesjs-navigation"
+        # stop: class="slidesjs-stop slidesjs-navigation"
       effect: "slide"
         # [string] Can be either "slide" or "fade".
       interval: 5000
@@ -204,19 +209,29 @@
       @previous(@options.navigation.effect)
 
     if @options.play.active
-      playButton = $("<a>",
-        class: "slidesjs-play slidesjs-navigation"
-        href: "#"
-        title: "Play"
-        text: "Play"
-      ).appendTo($element)
-
-      stopButton = $("<a>",
-        class: "slidesjs-stop slidesjs-navigation"
-        href: "#"
-        title: "Stop"
-        text: "Stop"
-      ).appendTo($element)
+    # If slideshow active
+      
+      if @options.play.generate
+      # Generate play / stop button
+          playButton = $("<a>",
+            class: "slidesjs-play slidesjs-navigation"
+            href: "#"
+            title: "Play"
+            text: "Play"
+          ).appendTo($element)
+      
+          stopButton = $("<a>",
+            class: "slidesjs-stop slidesjs-navigation"
+            href: "#"
+            title: "Stop"
+            text: "Stop"
+          ).appendTo($element)
+      
+      else
+      # Search for user's play/stop buttons
+          playButton = $(".slidesjs-play.slidesjs-navigation", $element)
+          stopButton = $(".slidesjs-stop.slidesjs-navigation", $element)
+      
 
       playButton.click (e) =>
         e.preventDefault()
