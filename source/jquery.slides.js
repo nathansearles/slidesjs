@@ -206,11 +206,13 @@
       var $element, height, width;
       $element = $(this.element);
       this.data = $.data(this);
-      $(".slidesjs-control", $element).children(":not(:eq(" + this.data.current + "))").css({
-        display: "none",
-        left: 0,
-        zIndex: 0
-      });
+      if (!this.data.animating) {
+        $(".slidesjs-control", $element).children(":not(:eq(" + this.data.current + "))").css({
+          display: "none",
+          left: 0,
+          zIndex: 0
+        });
+      }
       width = $element.width();
       height = (this.options.height / this.options.width) * width;
       this.options.width = width;
