@@ -127,12 +127,12 @@
           text: "Next"
         }).appendTo($element);
       }
-      $(".slidesjs-next", $element).click(function(e) {
+      $($element).delegate(".slidesjs-next", "click", function(e) {
         e.preventDefault();
         _this.stop(true);
         return _this.next(_this.options.navigation.effect);
       });
-      $(".slidesjs-previous", $element).click(function(e) {
+      $($element).delegate(".slidesjs-previous", "click", function(e) {
         e.preventDefault();
         _this.stop(true);
         return _this.previous(_this.options.navigation.effect);
@@ -200,7 +200,7 @@
       this.data = $.data(this);
       current = number > -1 ? number : this.data.current;
       $(".active", $element).removeClass("active");
-      return $(".slidesjs-pagination li:eq(" + current + ") a", $element).addClass("active");
+      return $(".slidesjs-pagination li.slidesjs-pagination-item:eq(" + current + ") a", $element).addClass("active");
     };
     Plugin.prototype.update = function() {
       var $element, height, width;
