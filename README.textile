@@ -64,6 +64,8 @@ Navigation classes are ".slidesPrevious" and ".slidesNext" and are created as an
 
 Pagination uses an unordered list markup structure. The &lt;ul&gt; has a class of ".slidesPagination". This cannot be changed.
 
+If using &lt;div&gt;s for your slides you can provide an additional attribute "slidetitle" as a title for pagination items.
+
 You may define your own navigation or pagination, but they must use the same class names, sorry it saves from including extraneous code.
 
 h3. Basic CSS

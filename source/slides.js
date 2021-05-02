@@ -726,7 +726,8 @@
 			
 			this.slides.each(
 				$.proxy(function(index, element) {
-					$("<li><a href='#" + index + "' class='slidesNavigation slidesPaginationItem' data-slidesindex=" + index + "> " + ( index + 1 ) + "</a></li>").appendTo(this.pagination);
+					slidetitle = (this.slides.children().eq(index).attr("slidetitle") !== undefined) ? this.slides.children().eq(index).attr("slidetitle") : ((this.slides.eq(index).attr("alt") !== undefined) ? this.slides.eq(index).attr("alt") : index + 1);
+					$("<li><a href='#" + index + "' class='slidesNavigation slidesPaginationItem' data-slidesindex=" + index + " title='" + slidetitle + "'> " + slidetitle + "</a></li>").appendTo(this.pagination);
 				},this)
 			);
 			
