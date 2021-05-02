@@ -536,7 +536,29 @@
 			responsive: false, // [Boolean] slideshow will scale to its container
 			height: 300, // [Number] Define the slide height
 			navigation: true, // [Boolean] Auto generate the naviagation, next/previous buttons
+            navigationPrepend: false, // [Boolean] Prepend navigation instead of appending it @NIXIN
 			pagination: true, // [Boolean] Auto generate the pagination
+            paginationPrepend: false, // [Boolean] Prepend pagination instead of appending it @NIXIN
+            supportHashHistory: false, // [Boolean] Enables support for history change navigation @NIXIN
+            classNames: { // array of [String] Names for used classes (should be unique, can be many at once)
+                slidesCurrent: "slidesCurrent",
+                slidesPagination: "slidesPagination",
+                slidesNavigationContainer: "slidesNavigationContainer",
+                slidesNavigation: "slidesNavigation",
+                slidesPaginationItem: "slidesPaginationItem",
+//                slidesContainer: "slidesContainer", // TODO
+                slidesPrevious: "slidesPrevious",
+                slidesNext: "slidesNext"
+            },
+            buttonsText: { // @NIXIN
+                next: "Next",
+                previous: "Previous"
+            },
+            buttons: { // @NIXIN
+                limit: false, // [Boolean] disable buttons when at the beginning or the end
+                limitStyle: "disable", // [String] Can be either "disable", "hide" or "remove"
+                limitClass: "disabled"
+            },
 			effects: {
 				navigation: "slide",  // [String] Can be either "slide" or "fade"
 				pagination: "slide" // [String] Can be either "slide" or "fade"
@@ -544,7 +566,7 @@
 			direction: "left", // [String] Define the slide direction: "Up", "Right", "Down", "left"
 			fade: {
 				interval: 1000, // [Number] Interval of fade in milliseconds
-				crossfade: false, // [Boolean] TODO: add this feature. Crossfade the slides, great for images, bad for text
+				crossfade: true, // [Boolean] Crossfade the slides, great for images, bad for text @NIXIN
 				easing: "" // [String] Dependency: jQuery Easing plug-in <http://gsgd.co.uk/sandbox/jquery/easing/>
 			},
 			slide: {
@@ -559,7 +581,7 @@
 			startAtSlide: 1, // [Number] What should the first slide be?
 			playInterval: 5000, // [Number] Time spent on each slide in milliseconds
 			pauseInterval: 8000, // [Number] Time spent on pause, triggered on any navigation or pagination click
-			autoHeight: false, // [Boolean] TODO: add this feature. Auto sets height based on each slide
+			autoHeight: false, // [Boolean] Auto sets height based on each slide @NIXIN
 			navigateStart: function( current ){
 				// console.log( "navigateStart: ", current );
 			},
@@ -576,7 +598,16 @@
 			if (this.element.children().length < 2) {
 				return;
 			}
-			
+
+            // @NIXIN
+            if ( this.options.supportHashHistory )
+            {
+                if (window.location.hash == '' || window.location.hash.length > 2)
+                    window.location.hash = '#'+this.options.startAtSlide;
+                else
+                    this.options.startAtSlide = window.location.hash.charAt(1);
+            }
+
 			if ( this.options.slide.browserWindow ) {
 				this.element.css({
 					width: window.innerWidth,
@@ -596,10 +627,13 @@
 					});
 				},this));
 			}
-		
-			this.slidesContainer = this.element.children().not(".slidesNavigation").wrapAll( "<div class='slidesContainer'>" ).parent().css({
+
+            /* @NIXIN */
+            var initialHeight = this.options.autoHeight ? this.element.children().eq( this.options.startAtSlide - 1 ).outerHeight() : this.options.height;
+
+			this.slidesContainer = this.element.children().not(this._classUniformNaming(this.options.classNames.slidesNavigation)).wrapAll( "<div class='slidesContainer'>" ).parent().css({
 				width: this.options.responsive ? "100%" : this.options.width,
-				height: this.options.height,
+                height: initialHeight, // @NIXIN
 				overflow: this.options.slide.browserWindow ? "visible" : "hidden",
 				position: "relative",
 				left: this.options.slide.browserWindow ?  (window.innerWidth - this.options.width) / 2 : ""
@@ -616,7 +650,8 @@
 			this.slidesControl.css({
 				position: "relative",
 				width: this.options.responsive ? "100%" : this.options.width,
-				height: this.options.height,
+//				height: this.options.height,
+                height: initialHeight, // @NIXIN
 				left: 0
 			});
 
@@ -659,35 +694,71 @@
 			}
 
 			if ( this.options.navigation ) {
-				this.prevButton = $("<a>",{
-					"class": "slidesPrevious slidesNavigation",
-					href: "#",
-					title: "Previous",
-					text: "Previous"
-				}).appendTo( this.element );
-				
-				this.nextButton = $("<a>",{
-					"class": "slidesNext slidesNavigation",
-					href: "#",
-					title: "Next",
-					text: "Next"
-				}).appendTo( this.element );
+                var tempNextButton = $("<a>",{
+                        "class": this.options.classNames.slidesNext+" "+this.options.classNames.slidesNavigation,
+                        href: "#",
+                        title: this.options.buttonsText.next,
+                        text: this.options.buttonsText.next
+                    });
+                var tempPrevButton = $("<a>",{
+                        "class": this.options.classNames.slidesPrevious+" "+this.options.classNames.slidesNavigation,
+                        href: "#",
+                        title: this.options.buttonsText.previous,
+                        text: this.options.buttonsText.previous
+                    });
+
+                this.navigation = $('<div>',{"class": this.options.classNames.slidesNavigationContainer });
+                this.prevButton = tempPrevButton.clone().appendTo(this.navigation);
+                this.nextButton = tempNextButton.clone().appendTo(this.navigation);
+
+                if ( this.options.navigationPrepend ) // @NIXIN
+                {
+                    this.navigation.prependTo(this.element);
+                }
+                else
+                {
+                    this.navigation.appendTo(this.element);
+                }
 			} else {
-				this.nextButton = $(".slidesNext");
-				this.prevButton = $(".slidesPrevious");
-			}		
+				this.nextButton = $(this._classUniformNaming(this.options.classNames.slidesNext));
+				this.prevButton = $(this._classUniformNaming(this.options.classNames.slidesPrevious));
+			}
+
+            this.total = this.slides.length;
+			this.current = this.options.startAtSlide - 1;
+            
+            // @NIXIN
+            if (this.options.buttons.limit) this._limitButtons( this.options.startAtSlide - 1 );
 			
 			if (this.options.pagination) {
 				this._buildPagination();
 				// add current class to first pagination
-				this.pagination.children().eq( this.options.startAtSlide - 1 ).addClass("slidesCurrent");
+				this.pagination.children().eq( this.current ).addClass(this.options.classNames.slidesCurrent);
 			}
-			
-			this.current = this.options.startAtSlide - 1;
-			
-			this.element.delegate( ".slidesNavigation", "click", $.proxy(this, "_navigate") );
-			
-			this.total = this.slides.length;
+        
+            // @NIXIN: autoResize content on change (if something grows or shrinks inside), with https://github.com/cowboy/jquery-resize
+            if (this.options.autoHeight) {
+                this.slides.resize($.proxy(function(){
+                    console.log("resizing...");
+                    this._autoHeight(this.current);
+                }, this));
+            }
+
+            // @NIXIN: fix - using delegate doesn't get triggered when the navigation classes is manually added, using live() is better for this
+            $(this._classUniformNaming(this.options.classNames.slidesNavigation)).live('click', $.proxy(this, "_navigate"));
+
+            // @NIXIN: TODO: doesn't work for now, it will require http://github.com/cowboy/jquery-hashchange/raw/v1.3/jquery.ba-hashchange.min.js
+            // easiest way is probably to simulate a click on pagination with # number.
+            if ( this.options.supportHashHistory )
+            {
+                $(window).hashchange( function(){
+//                        $.proxy(function(){
+                        console.log("navigating... "+window.location.hash.charAt(1));
+                        //if(window.location.hash.charAt(1)-1 < this.total)
+                            //this._navigate(window.location.hash.charAt(1)-1);
+//                    }, this);
+                });
+            }
     },
 		_loaded: function() {
 			if ( this.options.responsive ) {
@@ -712,21 +783,35 @@
 			}
 		},
     _buildPagination: function() {
-			
+
 			if (this.pagination) {
 				// Remove the current paginaiton
 				this.pagination.remove();
 				// Redefine slides with new children
 				this.slides = this.slidesControl.children();
 			}
-			
-			this.pagination = $("<ul>",{
-				"class": "slidesPagination"
-			}).appendTo(this.element);
-			
+
+            if (this.options.paginationPrepend) // @NIXIN
+            {
+                this.pagination = $("<ul>",{
+                    "class": this.options.classNames.slidesPagination
+                }).prependTo(this.element);
+            }
+            else
+            {
+                this.pagination = $("<ul>",{
+                    "class": this.options.classNames.slidesPagination
+                }).appendTo(this.element);
+            }
+
+            // @NIXIN
+            var innerText;
 			this.slides.each(
 				$.proxy(function(index, element) {
-					$("<li><a href='#" + index + "' class='slidesNavigation slidesPaginationItem' data-slidesindex=" + index + "> " + ( index + 1 ) + "</a></li>").appendTo(this.pagination);
+//                    console.log(element);
+                    if($(element).attr("data-title")) innerText = $(element).attr("data-title");
+                    else innerText = index + 1;
+					$("<li><a href='#" + (index + 1) + "' class='"+this.options.classNames.slidesNavigation+" "+this.options.classNames.slidesPaginationItem+"' data-slidesindex=" + index + "> " + innerText + "</a></li>").appendTo(this.pagination);
 				},this)
 			);
 			
@@ -763,7 +848,15 @@
 		},
 		_navigate: function( event, effect ) {
 			var to, position, direction, next, prev, pagination, $target = $(event.target), currentSlide = this.slides.eq( this.current );
-			
+
+            /*
+                @NIXIN
+                If the target is disabled, don't do anything.
+            */
+            if ( $target.hasClass( this.options.buttons.limitClass ) ) {
+                return false;
+            }
+
 			/*
 				Slide to error correction
 			*/
@@ -804,42 +897,46 @@
 				Set to animated
 			*/
 			this.element.data("animated",true);
-			
-			if ( $target.hasClass( "slidesNext" ) ) {
-				// Next button clicked
-				next = true;
-				
-			} else if ( $target.hasClass("slidesPrevious") ) {
-				
-				// Previous button clicked
-				prev = true;		
-				
-			}	else if ( $target.hasClass("slidesPaginationItem") ||  event === "pagination") {
+
+            // @NIXIN (changed order so that effects.navigation is honored)
+			if ( $target.hasClass(this.options.classNames.slidesPaginationItem) ||  event === "pagination") {
 
 				// Paginaiton item clicked
 				if ( this.current > $target.data("slidesindex") || this.current > this.element.data("goto") ) {
-					prev = true;					
+					prev = true;
 				} else {
 					next = true;
 				}
-				
+
 				pagination = true;
-				
+
 				effect = effect ? effect : this.options.effects.pagination;
 			}
+            else {
+			    if ( $target.hasClass( this.options.classNames.slidesNext ) ) {
+                    // Next button clicked
+                    next = true;
+
+                } else if ( $target.hasClass(this.options.classNames.slidesPrevious) ) {
+
+                    // Previous button clicked
+                    prev = true;
+                }
+				effect = effect ? effect : this.options.effects.navigation;
+            }
 			
 			if (pagination) {
 				// Get next from data-slidesindex
 				to = this.element.data("goto") > -1 ? this.element.data("goto") : $target.data("slidesindex");
 			} else {
-				// Get next based on curent
+				// Get next based on current
 				to = next ? (this.current + 1) : (prev ? this.current - 1 : this.current);
 			}
 
 			// Pass slide from number
 			this._trigger("navigateStart", ( this.current + 1 ), this);
 			
-			// creat the loop
+			// create the loop
 			if ( to == this.slides.length && !pagination ) {
 				// last slide, loop to first
 				to = 0;
@@ -850,8 +947,8 @@
 			
 			if (this.options.pagination) {
 				// Change the pagination
-				this.pagination.children().removeClass("slidesCurrent");
-				this.pagination.children().eq( to ).addClass("slidesCurrent");
+				this.pagination.children().removeClass(this.options.classNames.slidesCurrent);
+				this.pagination.children().eq( to ).addClass(this.options.classNames.slidesCurrent);
 			}
 			
 			// Effects methods
@@ -868,7 +965,65 @@
 					currentSlide: currentSlide
 				});
 			}
+
+            // @NIXIN
+			if (this.options.autoHeight === true) {
+                this._autoHeight(to);
+            }
+
+            // @NIXIN (if first or last slide, disable buttons)
+            if (this.options.buttons.limit)
+            {
+                this._limitButtons(to);
+            }
+
+            if ( this.options.supportHashHistory )
+            {
+                window.location.hash = '#'+(to+1);
+            }
 		},
+        _limitButtons: function (to) {
+                // @NIXIN: trigger a callback function notifying which slide we are at
+                this.element.trigger('atSlide', [to+1]);
+
+                this.nextButton.removeClass(this.options.buttons.limitClass);
+                this.prevButton.removeClass(this.options.buttons.limitClass);
+                if (this.options.buttons.limitStyle === "hide")
+                {
+                    this.nextButton.animate({ opacity: 100 });
+                    this.prevButton.animate({ opacity: 100 });
+                }
+                else if (this.options.buttons.limitStyle === "remove")
+                {
+                    this.nextButton.fadeIn(this.options.fade.interval, this.options.fade.easing);
+                    this.prevButton.fadeIn(this.options.fade.interval, this.options.fade.easing);
+                }
+                switch ( to + 1 )
+                {
+                    case this.total:
+                        this.nextButton.addClass(this.options.buttons.limitClass);
+                        if (this.options.buttons.limitStyle === "hide") this.nextButton.animate({ opacity: 0 });
+                        else if (this.options.buttons.limitStyle === "remove") this.nextButton.fadeOut(this.options.fade.interval, this.options.fade.easing);
+                        break;
+                    case 1:
+                        this.prevButton.addClass(this.options.buttons.limitClass);
+                        if (this.options.buttons.limitStyle === "hide") this.prevButton.animate({ opacity: 0 });
+                        else if (this.options.buttons.limitStyle === "remove") this.prevButton.fadeOut(this.options.fade.interval, this.options.fade.easing);
+                        break;
+                }
+        },
+        _autoHeight: function (to) {
+            var newSlideHeight = this.slides.eq( to ).outerHeight();
+
+            this.slidesContainer.animate({
+                height: newSlideHeight
+            }, this.options.fade.interval, this.options.fade.easing);
+
+            //Set CSS for slidesControl
+            this.slidesControl.css({
+                height: newSlideHeight
+            });
+        },
 		_slide: function (navigateData) {
 			/*
 				Thanks to Thomas Reynolds <http://awardwinningfjords.com/>
@@ -898,7 +1053,8 @@
 				left: type === "vertical" ? 0 : position,
 				top:  type === "vertical" ? position : 0,
 				zIndex: 5,
-				display: "block"
+				display: "block",
+                width: this.options.width // @NIXIN fix for autoheight
 			});
 			
 			// animate control
@@ -927,7 +1083,7 @@
 				});
 				
 				this.current = navigateData.to;
-				
+
 				this._trigger("navigateEnd", ( this.current + 1 ), this);
 			}, this));
 		},
@@ -938,23 +1094,34 @@
 					zIndex: 10
 				// fade in next
 				}).fadeIn(this.options.fade.interval, this.options.fade.easing, $.proxy(function(){
-				
+
+                    // @NIXIN
+                    if (!this.options.fade.crossfade)
+                    {
 						// hide previous
 						navigateData.currentSlide.css({
 							display: "none",
 							zIndex: 0
-						});								
-							
+						});
+                    }
+
 						// reset zindex
 						this.slides.eq( navigateData.to ).css({
 							zIndex: 0
-						});					
-										
+						});
+
 						this.current = navigateData.to;
 
 						this._trigger("navigateEnd", ( this.current + 1 ), this);
-					
+
 				}, this));
+
+                // @NIXIN asynchronous fadeOut
+                if (this.options.fade.crossfade)
+                {
+                    // fade out previous
+                    navigateData.currentSlide.fadeOut(this.options.fade.interval, this.options.fade.easing);
+                }
 		},
 		play: function( gotoNext ) {
 			if (gotoNext !== false) {
@@ -1022,13 +1189,18 @@
       }
       $.Widget.prototype._setOption.apply(this,arguments);
     },
+      _classUniformNaming: function ( classList ) { // @NIXIN
+          // escaping dots and replacing spaces for dots
+          return '.'+classList.split(".").join("\\\\.").split(" ").join(".");
+      },
     destroy: function() {
 			
 			this.slidesContainer.contents().unwrap();
 			
 			this.slidesControl.contents().unwrap();
-			
-			this.element.unbind();
+
+            // @NIXIN: unbinding the clicks for navigation
+            $(this._classUniformNaming(this.options.classNames.slidesNavigation)).die('click');
 			
 			this.pagination.remove();
 			
