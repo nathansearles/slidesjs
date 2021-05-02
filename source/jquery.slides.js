@@ -596,3 +596,11 @@
   })(jQuery, window, document);
 
 }).call(this);
+
+// Adds a hacky way to go to a specific slide.
+// $('#slides').goto(3)
+$.fn.goto = function (num) {
+  $(this).data().plugin_slidesjs.data.current = num
+  $('.slidesjs-next').trigger('click')
+}
+
