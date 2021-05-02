@@ -94,11 +94,12 @@
 
   Plugin::init = ->
     $element = $(@element)
+    $children = $element.children().not(".slidesjs-navigation", $element);
     @data = $.data this
 
     # Set data
     $.data this, "animating", false
-    $.data this, "total", $element.children().not(".slidesjs-navigation", $element).length
+    $.data this, "total", $children.length
     $.data this, "current", @options.start - 1
     $.data this, "vendorPrefix", @_getVendorPrefix()
 
@@ -112,7 +113,7 @@
     $element.css overflow: "hidden"
 
     # Create container
-    $element.slidesContainer = $element.children().not(".slidesjs-navigation", $element).wrapAll("<div class='slidesjs-container'>", $element).parent().css
+    $element.slidesContainer = $children.wrapAll("<div class='slidesjs-container'>", $element).parent().css
       overflow: "hidden"
       position: "relative"
 
@@ -238,16 +239,33 @@
       ).appendTo($element)
 
       # Create a list item and anchor for each slide
-      $.each(new Array(@data.total), (i) =>
+      $children.each (i, element) =>
+
+        # Get optionnal data of element
+        dataId = $(element).data 'slidesjs-id'
+        if not dataId
+          dataId = "slidejs-pagination-#{( i + 1 )}"
+        dataTitle = $(element).data 'slidesjs-title'
+        if not dataTitle
+          dataTitle = i + 1
+        dataHref = $(element).data 'slidesjs-href'
+        if not dataHref
+          dataHref= "#"
+
+        # Create html
         paginationItem = $("<li>"
+          id:    dataId
           class: "slidesjs-pagination-item"
         ).appendTo(pagination)
 
         paginationLink = $("<a>"
-          href: "#"
+          href:  dataHref
           "data-slidesjs-item": i
-          html: i + 1
         ).appendTo(paginationItem)
+
+        paginationText = $("<span>"
+          html: dataTitle
+        ).appendTo(paginationLink)
 
         # bind click events
         paginationLink.click (e) =>
@@ -256,7 +274,6 @@
           @stop(true)
           # Goto to selected slide
           @goto( ($(e.currentTarget).attr("data-slidesjs-item") * 1) + 1 )
-      )
 
     # Bind update on browser resize
     $(window).bind("resize", () =>
@@ -516,7 +533,7 @@
         # Stop/pause slideshow on mouse enter
         slidesContainer.bind "mouseenter", =>
           clearTimeout @data.restartDelay
-					$.data this, "restartDelay", null
+          $.data this, "restartDelay", null
           @stop()
 
         # Play slideshow on mouse leave
@@ -609,7 +626,7 @@
         zIndex: 10
 
       # Start the slide animation
-      @options.callback.start(currentSlide + 1)
+      @options.callback.start(currentSlide + 1, next + 1)
 
       if @data.vendorPrefix
         # If supported use CSS3 for the animation
@@ -656,7 +673,7 @@
           @_setuptouch() if @data.touch
 
           # End of the animation, call complete callback
-          @options.callback.complete(next + 1)
+          @options.callback.complete(currentSlide + 1, next + 1)
       else
         # If CSS3 isn't support use JavaScript for the animation
         slidesControl.stop().animate
@@ -676,7 +693,7 @@
             $.data this, "animating", false
 
             # End of the animation, call complete callback
-            @options.callback.complete(next + 1)
+            @options.callback.complete(currentSlide + 1, next + 1)
           )
 
   # @_fade()
@@ -723,7 +740,7 @@
         zIndex: 10
 
       # Start of the animation, call the start callback
-      @options.callback.start(currentSlide + 1)
+      @options.callback.start(currentSlide + 1, next + 1)
 
       if @options.effect.fade.crossfade
         # Fade out current slide to next slide
@@ -745,7 +762,7 @@
           $.data this, "current", next
 
           # End of the animation, call complete callback
-          @options.callback.complete(next + 1)
+          @options.callback.complete(currentSlide + 1, next + 1)
         )
       else
         # Fade to next slide
@@ -767,7 +784,7 @@
           $.data this, "current", next
 
           # End of the animation, call complete callback
-          @options.callback.complete(next + 1)
+          @options.callback.complete(currentSlide + 1, next + 1)
         )
 
   # @_getVendorPrefix()
