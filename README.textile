@@ -170,7 +170,8 @@ navigation: true, // [Boolean] Auto generate the naviagation, next/previous butt
 pagination: true, // [Boolean] Auto generate the pagination
 effects: {
  navigation: "slide",  // [String] Can be either "slide" or "fade"
- pagination: "slide" // [String] Can be either "slide" or "fade"
+ pagination: "slide",  // [String] Can be either "slide" or "fade"
+ play: "slide"         // [String] Can be either "slide" or "fade"
 },
 direction: "left", // [String] Define the slide direction: "Up", "Right", "Down", "left"
 fade: {
