@@ -656,6 +656,7 @@
 				},this));
 			} else {
 				 this.slidesControl.fadeIn( this.options.fade.interval );
+				 	this._trigger( "loaded", this.options.startAtSlide, this );
 			}
 
 			if ( this.options.navigation ) {
