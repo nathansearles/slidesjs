@@ -825,7 +825,6 @@
 				
 				pagination = true;
 				
-				effect = effect ? effect : this.options.effects.pagination;
 			}
 			
 			if (pagination) {
@@ -853,6 +852,8 @@
 				this.pagination.children().removeClass("slidesCurrent");
 				this.pagination.children().eq( to ).addClass("slidesCurrent");
 			}
+
+			effect = effect ? effect : this.options.effects.pagination;
 			
 			// Effects methods
 			if (effect === "fade") {
@@ -988,6 +989,7 @@
 		},
 		stop: function() {
 			clearInterval( this.element.data("playIntervalId") );
+			clearInterval( this.element.data("pauseTimeoutId") );
 			
 			// Set status
 			this.state = "stopped";
