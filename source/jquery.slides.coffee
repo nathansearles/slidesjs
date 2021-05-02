@@ -102,6 +102,11 @@
     $.data this, "current", @options.start - 1
     $.data this, "vendorPrefix", @_getVendorPrefix()
 
+    #Check if only one element is present
+    if @data.total == 1
+      $element.show()
+      return false
+
     # Detect touch device
     if typeof TouchEvent != "undefined"
       $.data this, "touch", true
@@ -516,7 +521,7 @@
         # Stop/pause slideshow on mouse enter
         slidesContainer.bind "mouseenter", =>
           clearTimeout @data.restartDelay
-					$.data this, "restartDelay", null
+          $.data this, "restartDelay", null
           @stop()
 
         # Play slideshow on mouse leave
