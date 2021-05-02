@@ -14,7 +14,8 @@
       },
       pagination: {
         active: true,
-        effect: "slide"
+        effect: "slide",
+		appendTo: ""
       },
       play: {
         active: false,
@@ -167,7 +168,7 @@
       if (this.options.pagination.active) {
         pagination = $("<ul>", {
           "class": "slidesjs-pagination"
-        }).appendTo($element);
+        }).appendTo(this.options.pagination.appendTo != "" ? $(this.options.pagination.appendTo) : $element);
         $.each(new Array(this.data.total), function(i) {
           var paginationItem, paginationLink;
           paginationItem = $("<li>", {
@@ -181,7 +182,7 @@
           return paginationLink.click(function(e) {
             e.preventDefault();
             _this.stop(true);
-            return _this.goto(($(e.currentTarget).attr("data-slidesjs-item") * 1) + 1);
+            return _this.gotoSlide(($(e.currentTarget).attr("data-slidesjs-item") * 1) + 1);
           });
         });
       }
@@ -196,7 +197,7 @@
     };
     Plugin.prototype._setActive = function(number) {
       var $element, current;
-      $element = $(this.element);
+      $element = this.options.pagination.appendTo != "" ? $(this.options.pagination.appendTo): $(this.element);
       this.data = $.data(this);
       current = number > -1 ? number : this.data.current;
       $(".active", $element).removeClass("active");
@@ -248,7 +249,7 @@
         return this._slide();
       }
     };
-    Plugin.prototype.goto = function(number) {
+    Plugin.prototype.gotoSlide = function(number) {
       var $element, effect;
       $element = $(this.element);
       this.data = $.data(this);
